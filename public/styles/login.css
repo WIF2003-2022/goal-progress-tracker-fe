@@ -1,0 +1,24 @@
+html,
+body {
+  overflow: hidden;
+}
+
+#title {
+  font-family: "Outfit", sans-serif;
+  font-style: normal;
+  /* font-weight: 700; */
+  font-size: 32px;
+
+  color: #000000;
+}
+
+#wavy-img {
+  position: fixed;
+  bottom: 0px;
+  z-index: -9999;
+}
+
+#shared-goal {
+  height: 10rem !important;
+  width: auto;
+}
