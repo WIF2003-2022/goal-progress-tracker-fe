@@ -1,6 +1,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
 
 .sidebar {
+  position: fixed;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -8,7 +9,7 @@
   background-color: #b8e2f2;
   padding-left: 1.25em;
   padding-right: 1em;
-  transition: 0.25s ease-in-out;
+  transition: all 0.3s ease-in-out;
   white-space: nowrap;
   overflow-x: hidden;
 }
@@ -32,7 +33,6 @@
 }
 
 .sidebar .nav {
-  transition: 0.5s ease-in-out;
   margin-top: 50px;
   flex: 1;
 }
@@ -67,6 +67,7 @@
 }
 
 .sidebar.min .header .logo,
-.sidebar.min .description {
-  display: none;
+.sidebar.min span {
+  width: 0px;
+  visibility: hidden;
 }

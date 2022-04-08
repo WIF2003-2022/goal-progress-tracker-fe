@@ -14,23 +14,23 @@ class NavBar extends HTMLElement {
         <nav class="nav nav-pills flex-column">
           <a class="nav-link" href="index.html" data-bs-toggle="tooltip" title="Home">
             <i class="bi-house-door-fill"></i>
-            <span class="description">Home</span>
+            <span>Home</span>
           </a>
           <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Goals">
             <i class="bi-flag-fill"></i>
-            <span class="description">Goals</span>
+            <span>Goals</span>
           </a>
           <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Reminders">
             <i class="bi-alarm-fill"></i>
-            <span class="description">Reminders</span>
+            <span>Reminders</span>
           </a>
           <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Setting">
             <i class="bi-gear-fill"></i>
-            <span class="description">Settings</span>
+            <span>Settings</span>
           </a>
           <a class="nav-link logout" href="#" data-bs-toggle="tooltip" title="Logout">
             <i class="bi-door-open-fill"></i>
-            <span class="description">Logout</span>
+            <span>Logout</span>
           </a>
         </nav>
       </div>
@@ -46,6 +46,7 @@ class NavBar extends HTMLElement {
       this.setActiveTab();
       const tooltipList = this.getTooltip();
       this.querySelector("#toggle-btn").addEventListener("click", () => {
+        document.querySelector(".content").classList.toggle("min");
         const isClosed = this.querySelector(".sidebar").classList.toggle("min");
         tooltipList.forEach((element) => {
           if (isClosed) {

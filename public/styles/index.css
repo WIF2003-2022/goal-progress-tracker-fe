@@ -1,15 +1,10 @@
-.wrapper {
-  display: flex;
-  height: 100%;
+.content {
+  margin-left: 250px !important;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex: 1;
+.content.min {
+  margin-left: 100px !important;
 }
 
 #title {
