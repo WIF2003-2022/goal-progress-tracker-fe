@@ -1,14 +1,12 @@
 html,
 body {
-  overflow: hidden;
+  font-family: "Outfit", sans-serif;
+  font-style: normal;
 }
 
 #title {
-  font-family: "Outfit", sans-serif;
-  font-style: normal;
-  /* font-weight: 700; */
+  font-weight: 700;
   font-size: 32px;
-
   color: #000000;
 }
 
@@ -16,9 +14,21 @@ body {
   position: fixed;
   bottom: 0px;
   z-index: -9999;
+  width: 100vw;
 }
 
 #shared-goal {
-  height: 10rem !important;
+  max-height: 40rem !important;
+  min-height: 10rem;
   width: auto;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+input {
+  min-width: 200px;
+  min-height: auto;
 }
