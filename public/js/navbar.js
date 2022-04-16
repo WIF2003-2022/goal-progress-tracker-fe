@@ -89,7 +89,6 @@ class NavBar extends HTMLElement {
         const tooltip = new bootstrap.Tooltip(element, {
           placement: "right",
           delay: { show: 300, hide: 0 },
-          trigger: "hover",
         });
         tooltip.disable();
         return tooltip;
