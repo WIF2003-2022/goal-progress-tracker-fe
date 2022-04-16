@@ -22,14 +22,19 @@
   width: 100%;
   height: 80px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+.sidebar .header .logo {
+  width: 100%;
+  transition: all 0.3s ease-in-out;
 }
 
 .sidebar .header .nav-link {
   color: #000;
   border-radius: 50px;
   cursor: pointer;
+  margin-left: auto;
 }
 
 .sidebar .nav {
@@ -66,8 +71,15 @@
   width: 100px;
 }
 
-.sidebar.min .header .logo,
 .sidebar.min span {
+  display: none;
+}
+
+.sidebar.min .header .logo {
+  opacity: 0;
   width: 0px;
-  visibility: hidden;
+}
+
+.sidebar.min .header .nav-link {
+  margin-left: 0px;
 }
