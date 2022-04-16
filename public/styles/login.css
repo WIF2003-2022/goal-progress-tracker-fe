@@ -29,6 +29,6 @@ a {
 }
 
 input {
-  min-width: 200px;
+  /* min-width: 200px; */
   min-height: auto;
 }
