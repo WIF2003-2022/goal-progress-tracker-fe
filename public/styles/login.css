@@ -32,3 +32,10 @@ input {
   /* min-width: 200px; */
   min-height: auto;
 }
+
+#login-btn {
+  background-color: #f9e90f;
+  border-color: #f9e90f;
+  color: black;
+  font-size: 1.2rem;
+}
