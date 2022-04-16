@@ -1,17 +1,10 @@
-body {
-  background-color: white;
+.content {
+  margin-left: 250px !important;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-.flex-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  display: flex;
+.content.min {
+  margin-left: 100px !important;
 }
 
 #title {
