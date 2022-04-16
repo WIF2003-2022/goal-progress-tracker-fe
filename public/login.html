@@ -42,7 +42,13 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10 col-md-10">
-          <form action="" method="get">
+          <form
+            action=""
+            method="get"
+            id="login-form"
+            onsubmit="event.preventDefault();
+          window.location.href = 'index.html';"
+          >
             <input
               name="id"
               id="id"
@@ -73,13 +79,13 @@
         <div class="col">
           <div class="text-center m-3">
             <p>Or Sign Up With</p>
-            <button class="btn p-4">
+            <button class="btn p-4" onclick="window.location.href='index.html'">
               <i class="fa-brands fa-google fa-2x"></i>
             </button>
-            <button class="btn p-4">
+            <button class="btn p-4" onclick="window.location.href='index.html'">
               <i class="fa-brands fa-facebook fa-2x"></i>
             </button>
-            <button class="btn p-4">
+            <button class="btn p-4" onclick="window.location.href='index.html'">
               <i class="fa-brands fa-apple fa-2x"></i>
             </button>
           </div>
@@ -98,5 +104,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <!-- <script src="js/login.js"></script> -->
   </body>
 </html>

@@ -42,7 +42,7 @@ class NavBar extends HTMLElement {
           </a>
           <a
             class="nav-link logout"
-            href="#"
+            href="login.html"
             data-bs-toggle="tooltip"
             title="Logout"
           >
