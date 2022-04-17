@@ -4,12 +4,6 @@ body {
   font-style: normal;
 }
 
-#title {
-  font-weight: 700;
-  font-size: 32px;
-  color: #000000;
-}
-
 #wavy-img {
   position: fixed;
   bottom: 0px;
@@ -17,10 +11,17 @@ body {
   width: 100vw;
 }
 
-#shared-goal {
-  max-height: 40rem !important;
-  min-height: 10rem;
-  width: auto;
+#welcome-msg {
+  font-family: "Comforter Brush";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+}
+
+#title {
+  font-weight: 700;
+  font-size: 32px;
+  color: #000000;
 }
 
 a {
@@ -28,14 +29,15 @@ a {
   color: black;
 }
 
-input {
-  /* min-width: 200px; */
-  min-height: auto;
-}
-
-#login-btn {
+#submit-btn {
   background-color: #f9e90f;
   border-color: #f9e90f;
   color: black;
   font-size: 1.2rem;
+}
+
+#shared-goal {
+  max-height: 40rem !important;
+  min-height: 10rem;
+  width: auto;
 }

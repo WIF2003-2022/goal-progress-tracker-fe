@@ -17,10 +17,10 @@
       href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Outfit:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/register.css" />
+    <link rel="stylesheet" href="styles/auth.css" />
   </head>
   <body>
-    <div class="container vh-100 text-center align-self-center p-3">
+    <div class="container text-center pb-3">
       <div class="row">
         <div class="col pb-5" id="welcome-msg">Hello new user!</div>
       </div>
@@ -35,15 +35,9 @@
             onsubmit="event.preventDefault(); window.location.href='index.html'"
           >
             <input
-              name="name"
-              id="name"
-              placeholder="Name"
-              class="form-control mb-3 pt-4 pb-4"
-            />
-            <input
-              name="phoneNumber"
-              id="phoneNumber"
-              placeholder="Phone number"
+              name="username"
+              id="username"
+              placeholder="Username"
               class="form-control mb-3 pt-4 pb-4"
             />
             <input
@@ -60,30 +54,13 @@
               placeholder="Password"
               class="form-control mb-3 pt-4 pb-4"
             />
-            <div class="row">
-              <div class="col" style="font-size: 1.5rem">Sign Up as</div>
-            </div>
-            <div class="row">
-              <div class="col-12 mt-5">
-                <button
-                  id="mentor-btn"
-                  type="submit"
-                  value="mentor"
-                  name="role"
-                  class="btn-submit py-3 px-5"
-                >
-                  Mentor</button
-                ><button
-                  id="mentee-btn"
-                  type="submit"
-                  value="mentee"
-                  name="role"
-                  class="btn-submit py-3 px-5"
-                >
-                  Mentee
-                </button>
-              </div>
-            </div>
+            <button
+              type="submit"
+              class="btn btn-primary w-100 p-4 mt-3"
+              id="submit-btn"
+            >
+              Sign Up
+            </button>
           </form>
         </div>
       </div>

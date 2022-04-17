@@ -17,14 +17,14 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&family=Roboto+Mono&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/login.css" />
+    <link rel="stylesheet" href="styles/auth.css" />
     <script
       src="https://kit.fontawesome.com/7bbaff4086.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
-    <div class="container text-center">
+    <div class="container text-center mb-3">
       <div class="row">
         <div class="col">
           <img
@@ -52,7 +52,7 @@
             <input
               name="id"
               id="id"
-              placeholder="Username / Email / Phone Number"
+              placeholder="Username / Email"
               class="form-control mb-3 pt-4 pb-4"
             />
             <input
@@ -65,18 +65,18 @@
             <div class="text-end mt-2 mb-2">
               <a>Forgot password?</a>
             </div>
-            <input
+            <button
               type="submit"
               class="btn btn-primary w-100 p-4"
-              name="login"
-              placeholder="Login"
-              value="Login"
-              id="login-btn"
-            />
+              id="submit-btn"
+            >
+              Sign In
+            </button>
           </form>
         </div>
       </div>
-      <div class="row">
+      <!-- below is the section for third party oauth -->
+      <!-- <div class="row">
         <div class="col">
           <div class="text-center m-3">
             <p>Or Sign Up With</p>
@@ -91,8 +91,8 @@
             </button>
           </div>
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <div class="row mt-5">
         <div class="col">
           Don't have an account?
           <strong><a href="register.html">Register Now</a></strong>
@@ -105,6 +105,5 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="js/login.js"></script> -->
   </body>
 </html>
