@@ -1,13 +1,26 @@
-.content {
+.wrapper {
+  height: 100vh;
+}
+
+.content-wrapper {
+  height: 100%;
   margin-left: 250px !important;
   transition: margin-left 0.3s ease-in-out;
 }
 
-.content.min {
+.content-wrapper.min {
   margin-left: 100px !important;
 }
 
 #title {
   font-family: "Roboto Mono", monospace;
   color: black;
+}
+
+.flex-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
