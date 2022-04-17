@@ -28,11 +28,6 @@ a {
   color: black;
 }
 
-input {
-  /* min-width: 200px; */
-  min-height: auto;
-}
-
 #login-btn {
   background-color: #f9e90f;
   border-color: #f9e90f;
