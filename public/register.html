@@ -32,28 +32,39 @@
           <form
             action="#"
             method="get"
-            onsubmit="event.preventDefault(); window.location.href='index.html'"
+            novalidate
+            id="register-form"
+            class="needs-validated"
           >
             <input
               name="username"
               id="username"
               placeholder="Username"
               class="form-control mb-3 pt-4 pb-4"
+              required
             />
+            <div class="invalid-feedback" id="username-feedback"></div>
             <input
               name="email"
               id="email"
               placeholder="Email"
               type="email"
               class="form-control mb-3 pt-4 pb-4"
+              required
             />
+            <div class="invalid-feedback" id="email-feedback"></div>
             <input
               name="password"
               id="password"
               type="password"
               placeholder="Password"
               class="form-control mb-3 pt-4 pb-4"
+              required
+              pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter."
+              minlength="8"
             />
+            <div class="invalid-feedback" id="password-feedback"></div>
             <button
               type="submit"
               class="btn btn-primary w-100 p-4 mt-3"
@@ -77,5 +88,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script src="js/auth-validate.js"></script>
   </body>
 </html>
