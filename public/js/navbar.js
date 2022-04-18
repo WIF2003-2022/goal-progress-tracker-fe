@@ -34,6 +34,10 @@ template.innerHTML = `
         <i class="bi-gear-fill"></i>
         <span>Settings</span>
       </a>
+      <a class="nav-link" href="profile.html" data-bs-toggle="tooltip" title="Profile">
+        <i class="bi-people-fill"></i>
+        <span>Profile</span>
+      </a>
       <a
         class="nav-link logout"
         href="login.html"
