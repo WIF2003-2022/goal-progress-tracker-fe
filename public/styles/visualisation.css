@@ -1,3 +1,4 @@
+/* info */
 .cardBox {
   position: relative;
   width: 100%;
@@ -29,6 +30,7 @@
   color: black;
 }
 .cardBox .card .iconBx {
+  flex-direction: row;
   font-size: 3.5em;
   color: black;
 }
@@ -39,4 +41,22 @@
 .cardBox .card:hover .cardName,
 .cardBox .card:hover .iconBx {
   color: white;
+}
+
+/* charts */
+.graphBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+}
+.graphBox .box {
+  position: relative;
+  background: #ffff;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
 }
