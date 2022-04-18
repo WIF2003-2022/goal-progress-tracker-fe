@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "[javascript]": {
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.tabWidth": 2
+}
