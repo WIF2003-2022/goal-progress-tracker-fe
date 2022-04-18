@@ -39,7 +39,7 @@ template.innerHTML = `
         <span>Settings</span>
       </a>
       <a class="nav-link" href="profile.html" data-bs-toggle="tooltip" title="Profile">
-        <i class="bi-people-fill"></i>
+        <i class="bi-person-circle"></i>
         <span>Profile</span>
       </a>
       <a
