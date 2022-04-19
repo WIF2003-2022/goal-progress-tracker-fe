@@ -7,6 +7,7 @@
   height: 100%;
   position: fixed;
   z-index: 1080;
+  pointer-events: none;
 }
 
 .sidebar {
@@ -21,12 +22,14 @@
   white-space: nowrap;
   overflow-x: hidden;
   border-radius: 0 20px 20px 0;
+  pointer-events: auto;
 }
 
 .navbar {
   background-color: #ffff;
   padding: 10px;
   flex-wrap: nowrap;
+  pointer-events: auto;
 }
 
 .sidebar i {
