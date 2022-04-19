@@ -1,5 +1,7 @@
-
 /* cards */
+* {
+	box-sizing: border-box;
+}
 .cardBox {
   position: relative;
   width: 100%;
@@ -64,4 +66,58 @@
   justify-content: space-between;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
+}
+
+#details{
+  float:right;
+}
+
+/* details page */
+.goalBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+}
+.goalBox .box {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+.goalBox .box .goal {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5em;
+  color: black;
+}
+.goalBox .box .goalName {
+  position: relative;
+  margin-top: 5px;
+  font-size: 1.1em;
+  color: black;
+}
+.goalBox .box .goalName .progress {
+	background-color: #d8d8d8;
+	border-radius: 20px;
+	position: relative;
+	margin: 15px 0;
+	height: 30px;
+	width: 300px;
+}
+.goalBox .box .goalName .progress .progress-done {
+	background: linear-gradient(to left, #F2709C, #FF9472);
+	box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 200px;
+	opacity: 0;
+	transition: 1s ease 0.3s;
 }

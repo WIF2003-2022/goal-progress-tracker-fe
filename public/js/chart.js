@@ -77,3 +77,9 @@ var lineChart = new Chart(line, {
     responsive: true,
   },
 });
+
+const progress = document.querySelector('.progress-done');
+
+progress.style.width = progress.getAttribute('data-done') + '%';
+progress.style.opacity = 1;
+
