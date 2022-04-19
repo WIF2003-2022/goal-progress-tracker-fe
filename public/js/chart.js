@@ -3,11 +3,11 @@ var line = document.getElementById("lineChart").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "polarArea",
   data: {
-    labels: ["Goal 1", "Goal 2", "Goal 3", "Goal 4", "Goal 5", "Goal 6"],
+    labels: ["Goal 1", "Goal 2", "Goal 3"],
     datasets: [
       {
         label: "# of Votes",
-        data: [100, 80, 90, 50, 70, 30],
+        data: [100, 50, 70],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
