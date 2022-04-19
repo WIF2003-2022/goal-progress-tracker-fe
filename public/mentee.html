@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/recent_activity.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
@@ -22,8 +23,22 @@
     <div class="wrapper">
         <nav-bar></nav-bar>
         <div class="content-wrapper">
-            <div class="flex-container">
-                <h1 id="title">Your Mentees</h1>
+            <!-- right tab -->
+            <div class="righttab position-fixed end-0 shadow rounded">
+                <div class="col">
+                    <!-- tab content -->
+                    <div class="row">
+                        <h5 class="mt-4 text-secondary">Recent Activities</h3>
+                    </div>
+                    <hr>
+                    <div class="row">Activity 1</div>
+                    <div class="row">Activity 2</div>
+                </div>
+            </div>
+            <div class="row pt-3 ps-5">
+                <div class="col ml-5">
+                    <h1 id="title">Your Mentees</h1>
+                </div>
             </div>
         </div>
     </div>

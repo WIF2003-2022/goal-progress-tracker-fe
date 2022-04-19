@@ -1,0 +1,10 @@
+.righttab {
+  height: 100%;
+  width: 250px;
+  background-color: #9aaebb4d;
+  padding-left: 1.25em;
+  padding-right: 1em;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
