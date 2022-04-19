@@ -22,7 +22,7 @@ template.innerHTML = `
         <i class="bi-house-door-fill"></i>
         <span>Home</span>
       </a>
-      <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Goals">
+      <a class="nav-link" href="visualisation.html" data-bs-toggle="tooltip" title="Goals">
         <i class="bi-flag-fill"></i>
         <span>Goals</span>
       </a>
