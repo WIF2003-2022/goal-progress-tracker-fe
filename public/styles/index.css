@@ -3,25 +3,19 @@
 }
 
 .content-wrapper {
+  width: 100%;
   height: 100%;
-  margin-left: 250px !important;
-  transition: margin-left 0.3s ease-in-out;
+  padding-top: 100px;
+  padding-left: 250px !important;
+  transition: padding-left 0.3s ease-in-out;
+  background-color: snow;
 }
 
 .content-wrapper.min {
-  margin-left: 100px !important;
+  padding-left: 100px !important;
 }
 
 #title {
   font-family: "Roboto Mono", monospace;
   color: black;
-}
-
-.flex-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: snow;
 }
