@@ -3,11 +3,11 @@ var line = document.getElementById("lineChart").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "polarArea",
   data: {
-    labels: ["Goal 1", "Goal 2", "Goal 3"],
+    labels: ["Goal 1", "Goal 2", "Goal 3","Goal 4", "Goal 5", "Goal 6"],
     datasets: [
       {
         label: "# of Votes",
-        data: [100, 50, 70],
+        data: [100, 100, 70, 50, 30, 20],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -41,7 +41,7 @@ var lineChart = new Chart(line, {
     datasets: [
       {
         label: "Monthly Percentage",
-        data: [100, 80, 90, 50, 70, 30, 40, 90, 80, 90, 100, 50],
+        data: [100, 80, 90, 50],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -77,9 +77,3 @@ var lineChart = new Chart(line, {
     responsive: true,
   },
 });
-
-const progress = document.querySelector('.progress-done');
-
-progress.style.width = progress.getAttribute('data-done') + '%';
-progress.style.opacity = 1;
-
