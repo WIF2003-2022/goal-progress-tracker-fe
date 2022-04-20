@@ -16,7 +16,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="js/navbar.js"></script>
-    <title>Goal Progress Tracker</title>
+    <title>Mentees - Goal Progress Tracker</title>
 </head>
 
 <body>
@@ -24,20 +24,54 @@
         <nav-bar></nav-bar>
         <div class="content-wrapper">
             <!-- right tab -->
-            <div class="righttab position-fixed end-0 shadow rounded">
+            <div class="position-fixed end-0 shadow rounded" id="right-tab">
                 <div class="col">
                     <!-- tab content -->
                     <div class="row">
                         <h5 class="mt-4 text-secondary">Recent Activities</h3>
                     </div>
                     <hr>
-                    <div class="row">Activity 1</div>
-                    <div class="row">Activity 2</div>
+                    <div class="row mb-2 p-2" id="activity">
+                        <div class="col-3">
+                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
+                                id="i-size">
+                        </div>
+                        <div class="col-9 text-wrap">
+                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
+                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
+                                months.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2 p-2" id="activity">
+                        <div class="col-3">
+                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
+                                id="i-size">
+                        </div>
+                        <div class="col-9 text-wrap">
+                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
+                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
+                                months.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2 p-2" id="activity">
+                        <div class="col-3">
+                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
+                                id="i-size">
+                        </div>
+                        <div class="col-9 text-wrap">
+                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
+                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
+                                months.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row pt-3 ps-5">
                 <div class="col ml-5">
-                    <h1 id="title">Your Mentees</h1>
+                    <h1 id="title" class="">Your Mentees</h1>
                 </div>
             </div>
         </div>

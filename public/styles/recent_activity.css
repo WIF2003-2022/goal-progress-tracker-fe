@@ -1,10 +1,32 @@
-.righttab {
+#right-tab {
   height: 100%;
-  width: 250px;
+  width: 300px;
   background-color: #9aaebb4d;
-  padding-left: 1.25em;
-  padding-right: 1em;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
   white-space: nowrap;
   overflow-x: hidden;
 }
 
+#i-size{
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+#right-duration{
+  font-size: 15px;
+}
+
+#right-description{
+  font-size: 13px;
+}
+
+#activity:hover{
+  background-color: #9aaebb4d;
+}
+
+.colour{
+  background-color: black;
+  color: black;
+}
