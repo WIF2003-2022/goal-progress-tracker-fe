@@ -7,7 +7,7 @@ var myChart = new Chart(ctx, {
     datasets: [
       {
         label: "# of Votes",
-        data: [100, 100, 70, 50, 30, 20],
+        data: [100, 100, 100, 100, 68.75, 27.5],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -40,8 +40,9 @@ var lineChart = new Chart(line, {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
     datasets: [
       {
-        label: "Monthly Percentage",
-        data: [100, 80, 90, 50],
+        label: "Monthly Goals Done",
+        
+        data: [0, 2, 1, 0],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
