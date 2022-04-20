@@ -1,11 +1,13 @@
-#right-tab {
+.right-tab {
   height: 100%;
-  width: 300px;
-  background-color: #9aaebb4d;
+  width: 275px;
+  background-color: #ccd7df4d;
   padding-left: 0.7em;
   padding-right: 0.7em;
   white-space: nowrap;
   overflow-x: hidden;
+  transition: all 1.0s ease-in-out;
+  right: 0;
 }
 
 #i-size{
@@ -14,19 +16,29 @@
   object-fit: contain;
 }
 
-#right-duration{
+.right-duration{
   font-size: 15px;
 }
 
-#right-description{
+.right-description{
   font-size: 13px;
 }
 
-#activity:hover{
+.activity:hover{
   background-color: #9aaebb4d;
+}
+
+#close-tab{
+  height: 100%;
+  width: 0px;
 }
 
 .colour{
   background-color: black;
   color: black;
+}
+
+.colour2{
+  background-color: red;
+  color: red;
 }
