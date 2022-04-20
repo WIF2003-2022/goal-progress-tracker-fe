@@ -20,62 +20,51 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div>
         <nav-bar></nav-bar>
         <div class="content-wrapper">
+
             <!-- right tab -->
-            <div class="position-fixed end-0 shadow rounded" id="right-tab">
-                <div class="col">
-                    <!-- tab content -->
-                    <div class="row">
-                        <h5 class="mt-4 text-secondary">Recent Activities</h3>
+            <div class="position-absolute shadow rounded text-wrap right-tab" id="right-tab-close">
+
+                <!-- tab title -->
+                <div class="row" id="right-tab-close">
+                    <h5 class="col mt-4 text-secondary">Recent Activities</h3>
+                        <i class="col-3 bi-chevron-right pt-4" id="right-tab-arrow"></i>
+
+                </div>
+                <hr>
+                <!-- tab content -->
+                <div class="row mb-2 pe-1 py-2 activity">
+                    <div class=" col-3">
+                        <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
+                            id="i-size">
                     </div>
-                    <hr>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
+                    <div class="col-9">
+                        <div class="row text-secondary right-duration">4 hours ago</div>
+                        <div class="row right-description">username has achieved the goal: Lose weight in 2 months.
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row pt-3 ps-5">
-                <div class="col ml-5">
-                    <h1 id="title" class="">Your Mentees</h1>
-                </div>
+
+            <div class="col-9 p-3 ps-5 ">
+                <h1 id="title" class="">Your Mentees</h1>
             </div>
+
         </div>
     </div>
+    <script>
+        const arrow = document.querySelector("#right-tab-arrow")
+        const tab = document.querySelectorAll("#right-tab-close")
+        arrow.addEventListener("click", () => {
+            // tab.classList.add("close-tab")
+            for (let i = 0; i < tab.length; i++) {
+                tab[i].setAttribute("id", "close-tab")
+
+            }
+        })
+    </script>
 </body>
 
 </html>
