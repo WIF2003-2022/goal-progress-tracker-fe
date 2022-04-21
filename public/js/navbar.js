@@ -62,12 +62,12 @@ template.innerHTML = `
       </a>
         <a
           class="nav-link"
-          href="mentee.html"
+          href="social.html"
           data-bs-toggle="tooltip"
-          title="Mentees"
+          title="Social"
         >
           <i class="bi-people-fill"></i>
-          <span>Mentees</span>
+          <span>Social</span>
         </a>
       </nav>
     </div>
