@@ -13,6 +13,8 @@
   margin-top: 100px;
   padding-left: 0.7em;
   padding-right: 0.7em;
+  white-space: normal;
+  overflow: hidden;
   transition: all 0.5s ease-in-out;
   right: 0;
 }
@@ -23,6 +25,7 @@
   white-space: nowrap;
   overflow: hidden; 
 }
+
 #i-size{
   width: auto;
   height: auto;

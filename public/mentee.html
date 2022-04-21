@@ -27,42 +27,96 @@
             <div class="row position-fixed shadow rounded right-tab-header">
                 <h5 class="col-9 mt-4 text-secondary">Recent Activities</h3>
                     <i class="col-3 bi-chevron-right " id="right-tab-arrow"></i>
-
             </div>
             <!-- right tab -->
-            <div class="position-fixed shadow rounded text-wrap right-tab-open">
+            <div class="col position-fixed shadow rounded right-tab-open">
                 <!-- tab content -->
                 <div class="row mb-2 pe-1 py-2 activity">
                     <div class=" col-3">
                         <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
                             id="i-size">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 text">
                         <div class="row text-secondary right-duration">4 hours ago</div>
                         <div class="row right-description">username has achieved the goal: Lose weight in 2 months.
                         </div>
                     </div>
                 </div>
             </div>
-
+            <!-- content title-->
             <div class="col-9 p-3 ps-5 ">
-                <h1 id="title" class="">Your Mentees</h1>
-            </div>
+                <div class="row mb-3">
+                    <h1 id="title" class="">Your Mentees</h1>
+                </div>
+                <!-- main content -->
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- single card -->
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                            <div class="card-body">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">List of goals</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Total goals count maybe?</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                            <div class="card-body">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">List of goals</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Total goals count maybe?</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                            <div class="card-body">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">List of goals</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Total goals count maybe?</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                            <div class="card-body">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">List of goals</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Total goals count maybe?</small>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
         </div>
-    </div>
-    <script>
-        const arrow = document.querySelector("#right-tab-arrow")
-        const tab = document.querySelector(".right-tab-open")
-        arrow.addEventListener("click", () => {
-            tab.classList.toggle("right-tab-close")
-            if (arrow.classList.contains("bi-chevron-right")) {
-                arrow.classList.replace("bi-chevron-right", "bi-chevron-left")
-            } else {
-                arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
-            }
-        })
-    </script>
+        <script>
+            const arrow = document.querySelector("#right-tab-arrow")
+            const tab = document.querySelector(".right-tab-open")
+            const content = document.querySelector(".text")
+            arrow.addEventListener("click", () => {
+                tab.classList.toggle("right-tab-close")
+                content.classList.toggle("visually-hidden")
+                if (arrow.classList.contains("bi-chevron-right")) {
+                    arrow.classList.replace("bi-chevron-right", "bi-chevron-left")
+                } else {
+                    arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
+                }
+            })
+        </script>
 </body>
 
 </html>
