@@ -15,7 +15,7 @@ template.innerHTML = `
     <nav class="nav nav-pills flex-column">
       <a
         class="nav-link"
-        href="index.html"
+        href="home.html"
         data-bs-toggle="tooltip"
         title="Home"
       >

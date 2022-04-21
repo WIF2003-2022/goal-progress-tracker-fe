@@ -23,17 +23,14 @@
     <div>
         <nav-bar></nav-bar>
         <div class="content-wrapper">
+            <!-- tab title -->
+            <div class="row position-fixed shadow rounded right-tab-header">
+                <h5 class="col-9 mt-4 text-secondary">Recent Activities</h3>
+                    <i class="col-3 bi-chevron-right " id="right-tab-arrow"></i>
 
+            </div>
             <!-- right tab -->
-            <div class="position-absolute shadow rounded text-wrap right-tab" id="right-tab-close">
-
-                <!-- tab title -->
-                <div class="row" id="right-tab-close">
-                    <h5 class="col mt-4 text-secondary">Recent Activities</h3>
-                        <i class="col-3 bi-chevron-right pt-4" id="right-tab-arrow"></i>
-
-                </div>
-                <hr>
+            <div class="position-fixed shadow rounded text-wrap right-tab-open">
                 <!-- tab content -->
                 <div class="row mb-2 pe-1 py-2 activity">
                     <div class=" col-3">
@@ -56,12 +53,13 @@
     </div>
     <script>
         const arrow = document.querySelector("#right-tab-arrow")
-        const tab = document.querySelectorAll("#right-tab-close")
+        const tab = document.querySelector(".right-tab-open")
         arrow.addEventListener("click", () => {
-            // tab.classList.add("close-tab")
-            for (let i = 0; i < tab.length; i++) {
-                tab[i].setAttribute("id", "close-tab")
-
+            tab.classList.toggle("right-tab-close")
+            if (arrow.classList.contains("bi-chevron-right")) {
+                arrow.classList.replace("bi-chevron-right", "bi-chevron-left")
+            } else {
+                arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
             }
         })
     </script>

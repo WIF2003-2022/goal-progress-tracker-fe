@@ -20,24 +20,3 @@
   align-items: center;
   background-color: snow;
 }
-
-.blockquote {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 1;
-  height: 120px;
-  line-height: 2em;
-}
-
-.accordion .accordion-button:focus {
-  box-shadow: none;
-}
-
-.card {
-  border-radius: 1rem !important;
-}
-
-.card.stat {
-  height: 45%;
-}
