@@ -27,7 +27,7 @@
 
 .navbar {
   background-color: #ffff;
-  padding: 10px;
+  padding: 8px;
   flex-wrap: nowrap;
   pointer-events: auto;
 }
@@ -41,7 +41,7 @@
 }
 
 .navbar .logo {
-  padding: 0 10px;
+  padding: 0 8px;
 }
 
 .navbar .nav-link {

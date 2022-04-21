@@ -1,0 +1,65 @@
+.right-tab-header {
+  height: 10%;
+  width: 300px;
+  background-color: #ccd7df4d;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  right: 0;
+}
+.right-tab-open {
+  height: 100%;
+  width: 275px;
+  background-color: #ccd7df4d;
+  margin-top: 100px;
+  padding-left: 0.7em;
+  padding-right: 0.7em;
+  white-space: normal;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  right: 0;
+}
+.right-tab-close{
+  padding: 0;
+  height: 100%;
+  width: 0px;
+  white-space: nowrap;
+  overflow: hidden; 
+}
+
+#i-size{
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.right-duration{
+  font-size: 15px;
+}
+.right-description{
+  font-size: 13px;
+}
+.activity:hover{
+  background-color: #9aaebb4d;
+}
+#right-tab-arrow{
+  border-radius: 50%;
+  height: 70%;
+  width: 20%;
+  padding-top: 5%;
+  padding-left: 7%;
+  align-self: center;
+
+}
+#right-tab-arrow:hover{
+  background-color: #9aaebb4d;
+  cursor: pointer;
+}
+
+.colour{
+  background-color: black;
+  color: black;
+}
+
+.colour2{
+  background-color: red;
+  color: red;
+}

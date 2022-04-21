@@ -29,12 +29,12 @@ template.innerHTML = `
         </button>
         <ul class="dropdown-menu">
           <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="profile.html">
               Profile
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="login.html">
               Sign Out
             </a>
           </li>
@@ -45,21 +45,21 @@ template.innerHTML = `
       <nav class="nav nav-pills flex-column">
         <a
           class="nav-link"
-          href="index.html"
+          href="home.html"
           data-bs-toggle="tooltip"
           title="Home"
         >
           <i class="bi-house-door-fill"></i>
           <span>Home</span>
         </a>
-        <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Goals">
-          <i class="bi-flag-fill"></i>
-          <span>Goals</span>
-        </a>
-        <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Reminders">
-          <i class="bi-alarm-fill"></i>
-          <span>Reminders</span>
-        </a>
+        <a class="nav-link" href="goal.html" data-bs-toggle="tooltip" title="Goals">
+        <i class="bi-flag-fill"></i>
+        <span>Goals</span>
+      </a>
+      <a class="nav-link" href="visualisation.html" data-bs-toggle="tooltip" title="Report">
+      <i class="bi bi-clipboard2-data"></i>
+        <span>Report</span>
+      </a>
         <a
           class="nav-link"
           href="mentee.html"
@@ -68,28 +68,6 @@ template.innerHTML = `
         >
           <i class="bi-people-fill"></i>
           <span>Mentees</span>
-        </a>
-        <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Setting">
-          <i class="bi-gear-fill"></i>
-          <span>Settings</span>
-        </a>
-        <a
-          class="nav-link"
-          href="profile.html"
-          data-bs-toggle="tooltip"
-          title="Profile"
-        >
-          <i class="bi-person-circle"></i>
-          <span>Profile</span>
-        </a>
-        <a
-          class="nav-link logout"
-          href="login.html"
-          data-bs-toggle="tooltip"
-          title="Logout"
-        >
-          <i class="bi-door-open-fill"></i>
-          <span>Logout</span>
         </a>
       </nav>
     </div>
