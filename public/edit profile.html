@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit profile page</title>
     <link rel="stylesheet" href="styles/profile.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> <!--social media icons-->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <!--social media icons-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,133 +29,210 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/navbar.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrapper">
-        <nav-bar></nav-bar>
-        <div class="content-wrapper">
-          <div class="flex-container">
-            <div class="row d-flex flex-row justify-content-center">
-                <h4>Editing profile...</h4>
-                <!--First column contains user's avatar-->
-                <div class="col-md-4">
-                    <div class="text-center mt-3 mb-4">
-                        <img src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg" 
-                            alt="Circle Image" class="img-raised rounded-circle img-fluid shadow-sm" style="width: 150px;">
-                    </div>
-                    <div class="text-center mt-3"> 
-                        <span class="bg-secondary p-1 px-4 rounded text-white">Mentee</span>
-                        <div class="name mt-2">
-                            <h3 class="title">Christian Louboutin</h3>
-                            <h5>Fitness Enthusiast</h5>
-                            <h6>"I became not just a gym rat, but a runner."</h6>
-                        </div>
-                        <div class="social-media mt-4 mb-3">
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-instagram"><i class="fa fa-instagram"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                    </div>
+      <nav-bar></nav-bar>
+      <div class="content-wrapper">
+        <div class="flex-container">
+          <div class="row d-flex flex-row justify-content-center">
+            <h4>Editing profile...</h4>
+            <!--First column contains user's avatar-->
+            <div class="col-md-4">
+              <div class="text-center mt-3 mb-4">
+                <img
+                  src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg"
+                  alt="Circle Image"
+                  class="img-raised rounded-circle img-fluid shadow-sm"
+                  style="width: 150px"
+                />
+              </div>
+              <div class="text-center mt-3">
+                <span class="bg-secondary p-1 px-4 rounded text-white"
+                  >Mentee</span
+                >
+                <div class="name mt-2">
+                  <h3 class="title">Christian Louboutin</h3>
+                  <h5>Fitness Enthusiast</h5>
+                  <h6>"I became not just a gym rat, but a runner."</h6>
                 </div>
-                <!--Second column contains user's basic info-->
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <form action="">
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Name</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="name" class="form-control" value="Christian Louboutin" required> 
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Email</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="email" class="form-control" value="christian.l@gmail.com" required> 
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Mobile</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="mobile" class="form-control" value="+(60)123456789" required>  
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">New Password</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="password" class="form-control" value="************" required>  
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Confirm Password</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="password" class="form-control" value="************" required>  
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Address</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <input type="address" class="form-control" value="128, Jalan Junid 50603 Kuala Lumpur" required>  
-                                    </div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Bio</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <textarea name="query" id="query" style="height: 80px" class="form-control" placeholder="Fitness Enthusiast I became not just a gym rat, but a runner." required></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <label for="photo">Upload photo:</label>
-                                        <input type="file" id="file" class="form-control">
-                                    </div>
-                                    <div class="col-sm-8 mt-4">
-                                        <a href="profile.html"> <!--button suppose will link to profile page but not working i dunno whyyyyyy TT-->
-                                            <button type="submit" class="btn btn-primary" style="float: right;">Save changes</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="social-media mt-4 mb-3">
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-instagram"
+                    ><i class="fa fa-instagram"></i
+                  ></a>
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-twitter"
+                    ><i class="fa fa-twitter"></i
+                  ></a>
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-facebook"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                  <a
+                    href="#pablo"
+                    class="btn btn-just-icon btn-link btn-linkedin"
+                    ><i class="fa fa-linkedin"></i
+                  ></a>
                 </div>
-                <div class="row text-center mb-4 mt-5" id="profile"> 
-                    <div class="col-lg-4 col-md-4 m-t-20">
-                        <h3 class="m-b-0 font-light">3</h3><small>Mentor</small>
+              </div>
+            </div>
+            <!--Second column contains user's basic info-->
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <form action="">
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Name</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="name"
+                          class="form-control"
+                          value="Christian Louboutin"
+                          required
+                        />
+                      </div>
                     </div>
-                    <div class="vl col-lg-4 col-md-4 m-t-20">
-                        <h3 class="m-b-0 font-light">60%</h3><small>Your Progress</small>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Email</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="email"
+                          class="form-control"
+                          value="christian.l@gmail.com"
+                          required
+                        />
+                      </div>
                     </div>
-                    <div class="vl col-lg-4 col-md-4 m-t-20">
-                        <h3 class="m-b-0 font-light">10</h3><small>Goals Achieved</small>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Mobile</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="mobile"
+                          class="form-control"
+                          value="+(60)123456789"
+                          required
+                        />
+                      </div>
                     </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">New Password</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="password"
+                          class="form-control"
+                          value="************"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Confirm Password</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="password"
+                          class="form-control"
+                          value="************"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Address</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="address"
+                          class="form-control"
+                          value="128, Jalan Junid 50603 Kuala Lumpur"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Bio</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <textarea
+                          name="query"
+                          id="query"
+                          style="height: 80px"
+                          class="form-control"
+                          placeholder="Fitness Enthusiast I became not just a gym rat, but a runner."
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <label for="photo">Upload photo:</label>
+                        <input type="file" id="file" class="form-control" />
+                      </div>
+                      <div class="col-sm-8 mt-4">
+                        <a href="profile.html">
+                          <!--button suppose will link to profile page but not working i dunno whyyyyyy TT-->
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            style="float: right"
+                          >
+                            Save changes
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </form>
                 </div>
+              </div>
+            </div>
+            <div class="row text-center mb-4 mt-5" id="profile">
+              <div class="col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">3</h3>
+                <small>Mentor</small>
+              </div>
+              <div class="vl col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">60%</h3>
+                <small>Your Progress</small>
+              </div>
+              <div class="vl col-lg-4 col-md-4 m-t-20">
+                <h3 class="m-b-0 font-light">10</h3>
+                <small>Goals Achieved</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     <script>
-        function myFunction() {
-          window.location.href="profile.html";
-        }
+      function myFunction() {
+        window.location.href = "profile.html";
+      }
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+      integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+      integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
