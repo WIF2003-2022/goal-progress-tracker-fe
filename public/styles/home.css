@@ -1,0 +1,52 @@
+.content-wrapper {
+  padding: 10px;
+}
+
+.blockquote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 1;
+  line-height: 2em;
+  min-height: 150px;
+}
+
+.accordion .accordion-button:focus {
+  box-shadow: none;
+}
+
+.card {
+  border-radius: 1rem !important;
+  height: 100%;
+}
+
+.refresh {
+  background-color: transparent;
+  border: none;
+}
+
+.spinner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.middle-circle {
+  position: absolute;
+  border-radius: 50%;
+  height: 75%;
+  width: 75%;
+  background-color: #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  font-weight: bold;
+}

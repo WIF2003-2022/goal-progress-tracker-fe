@@ -20,62 +20,49 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div>
         <nav-bar></nav-bar>
         <div class="content-wrapper">
+            <!-- tab title -->
+            <div class="row position-fixed shadow rounded right-tab-header">
+                <h5 class="col-9 mt-4 text-secondary">Recent Activities</h3>
+                    <i class="col-3 bi-chevron-right " id="right-tab-arrow"></i>
+
+            </div>
             <!-- right tab -->
-            <div class="position-fixed end-0 shadow rounded" id="right-tab">
-                <div class="col">
-                    <!-- tab content -->
-                    <div class="row">
-                        <h5 class="mt-4 text-secondary">Recent Activities</h3>
+            <div class="position-fixed shadow rounded text-wrap right-tab-open">
+                <!-- tab content -->
+                <div class="row mb-2 pe-1 py-2 activity">
+                    <div class=" col-3">
+                        <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
+                            id="i-size">
                     </div>
-                    <hr>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-2 p-2" id="activity">
-                        <div class="col-3">
-                            <img src="./images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                                id="i-size">
-                        </div>
-                        <div class="col-9 text-wrap">
-                            <div class="row text-secondary" id="right-duration">4 hours ago</div>
-                            <div class="row " id="right-description">username has achieved the goal: Lose weight in 2
-                                months.
-                            </div>
+                    <div class="col-9">
+                        <div class="row text-secondary right-duration">4 hours ago</div>
+                        <div class="row right-description">username has achieved the goal: Lose weight in 2 months.
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row pt-3 ps-5">
-                <div class="col ml-5">
-                    <h1 id="title" class="">Your Mentees</h1>
-                </div>
+
+            <div class="col-9 p-3 ps-5 ">
+                <h1 id="title" class="">Your Mentees</h1>
             </div>
+
         </div>
     </div>
+    <script>
+        const arrow = document.querySelector("#right-tab-arrow")
+        const tab = document.querySelector(".right-tab-open")
+        arrow.addEventListener("click", () => {
+            tab.classList.toggle("right-tab-close")
+            if (arrow.classList.contains("bi-chevron-right")) {
+                arrow.classList.replace("bi-chevron-right", "bi-chevron-left")
+            } else {
+                arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
+            }
+        })
+    </script>
 </body>
 
 </html>

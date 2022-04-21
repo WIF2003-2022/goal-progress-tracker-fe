@@ -2,6 +2,30 @@
 * {
   box-sizing: border-box;
 }
+.wrapper {
+  height: 100vh;
+}
+
+.content-wrapper {
+  height: 100%;
+  margin-left: 250px !important;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.content-wrapper.min {
+  margin-left: 100px !important;
+}
+
+.flex-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: snow;
+  padding: 15px;
+  margin: 0px;
+} 
 
 .cardBox {
   position: relative;
@@ -72,11 +96,23 @@
   float: right;
 }
 
+.button {
+  background-color: #6fc0f1;
+  border-radius: 15px;
+  box-shadow: 0 2px 1px #376392;
+  color: white;
+  padding: 0.5em 1em;
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+
 /* details page */
 .goalBox {
   position: relative;
   width: 100%;
   padding: 100px;
+  margin-top: 1550px;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   grid-gap: 30px;
