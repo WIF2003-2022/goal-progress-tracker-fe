@@ -4,5 +4,6 @@
     "editor.maxTokenizationLineLength": 2500,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "liveServer.settings.port": 5501
 }
