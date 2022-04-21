@@ -39,7 +39,7 @@ for (i = 0; i < AP.length; i++) {
   }
   document.write("<div class='card-body'>");
   document.write(
-    "<a href='/public/activity.html' style='text-decoration: none;' class='card-text titleText'>" +
+    "<a href='activity.html' style='text-decoration: none;' class='card-text titleText'>" +
       AP[i].title +
       "</a>"
   );
@@ -63,7 +63,7 @@ function addHTML(newTitle, newDue, img = img_ap) {
     img +
     `"alt="Card image cap"></img>
     <div class="card-body">
-      <a href='/public/activity.html' style='text-decoration: none;' class="card-text titleText">` +
+      <a href='activity.html' style='text-decoration: none;' class="card-text titleText">` +
     newTitle +
     `</a>
       <p class="card-text dueText">Due ` +
