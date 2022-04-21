@@ -1,119 +1,109 @@
-.wrapper {
-    height: 100vh;
-}
-  
 .content-wrapper {
-    height: 100%;
-    margin-left: 250px !important;
-    transition: margin-left 0.3s ease-in-out;
+  background-color: snow;
 }
-  
-.content-wrapper.min {
-    margin-left: 100px !important;
-}
-  
+
 #title {
-    font-family: "Roboto Mono", monospace;
-    color: black;
+  font-family: "Roboto Mono", monospace;
+  color: black;
 }
-  
+
 .flex-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: snow;
-    padding: 15px;
-}  
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: snow;
+  padding: 15px;
+}
 
 .card {
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
-    border-radius: .25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
 
 .card-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1rem;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1rem;
 }
 
 .vl {
-    border-left: 2px solid gainsboro;
-    height: 80px;
-  }
+  border-left: 2px solid gainsboro;
+  height: 80px;
+}
 
 .popup {
-    width: 80%;
-    padding: 20px;
-    left: 0;
-    margin-left: 5%;
-    border: 1px solid rgb(54, 57, 63);
-    border-radius: 20px;
-    color: rgb(54, 57, 63);
-    background: snow;
-    position: absolute;
-    top: 30%;
-    box-shadow: 5px 5px 5px rgb(54, 57, 63);
-    z-index: 10001;
-    font-weight: 700;
-    text-align: center;
-    font-family: "Sofia", sans-serif;
+  width: 80%;
+  padding: 20px;
+  left: 0;
+  margin-left: 5%;
+  border: 1px solid rgb(54, 57, 63);
+  border-radius: 20px;
+  color: rgb(54, 57, 63);
+  background: snow;
+  position: absolute;
+  top: 30%;
+  box-shadow: 5px 5px 5px rgb(54, 57, 63);
+  z-index: 10001;
+  font-weight: 700;
+  text-align: center;
+  font-family: "Sofia", sans-serif;
 }
-  
+
 .overlay {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,.75);
-    z-index: 10000;
-    display :none;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  display: none;
 }
-  
+
 @media (min-width: 768px) {
-    .popup {
-      width: 66.66666666%;
-      margin-left: 16.666666%;
-    }
+  .popup {
+    width: 66.66666666%;
+    margin-left: 16.666666%;
+  }
 }
 
 @media (min-width: 992px) {
-    .popup {
-      width: 80%;
-      margin-left: 25%;
-    }
+  .popup {
+    width: 80%;
+    margin-left: 25%;
+  }
 }
 
 @media (min-width: 1200px) {
-    .popup {
-      width: 33.33333%;
-      margin-left: 33.33333%;
-    }
+  .popup {
+    width: 33.33333%;
+    margin-left: 33.33333%;
+  }
 }
-  
+
 .dialog-btn {
-    background-color:#708090;
-    color: white;
-    font-weight: 700;
-    border: 1px solid #708090;
-    border-radius: 10px;
-    height: 30px;
-    width: 30%;
-    font-family: "Sofia", sans-serif;
+  background-color: #708090;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #708090;
+  border-radius: 10px;
+  height: 30px;
+  width: 30%;
+  font-family: "Sofia", sans-serif;
 }
 
 .dialog-btn:hover {
-    background-color:#4682B4;
-    cursor: pointer;
+  background-color: #4682b4;
+  cursor: pointer;
 }

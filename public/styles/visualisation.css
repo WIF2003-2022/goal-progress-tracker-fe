@@ -2,18 +2,9 @@
 * {
   box-sizing: border-box;
 }
-.wrapper {
-  height: 100vh;
-}
 
 .content-wrapper {
-  height: 100%;
-  margin-left: 250px !important;
-  transition: margin-left 0.3s ease-in-out;
-}
-
-.content-wrapper.min {
-  margin-left: 100px !important;
+  background-color: snow;
 }
 
 .flex-container {
@@ -25,7 +16,7 @@
   background-color: snow;
   padding: 15px;
   margin: 0px;
-} 
+}
 
 .cardBox {
   position: relative;
