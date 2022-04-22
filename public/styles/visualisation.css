@@ -1,0 +1,139 @@
+/* cards */
+* {
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  background-color: snow;
+}
+
+.flex-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: snow;
+  padding: 15px;
+  margin: 0px;
+}
+
+.cardBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+.cardBox .card {
+  position: relative;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+.cardBox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5em;
+  color: #060653bf;
+}
+.cardBox .card .cardName {
+  position: relative;
+  margin-top: 5px;
+  font-size: 1.1em;
+  color: black;
+}
+.cardBox .card .iconBx {
+  flex-direction: row;
+  font-size: 2em;
+  color: grey;
+}
+.cardBox .card:hover {
+  background-color: #0099ff4d;
+}
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardName,
+.cardBox .card:hover .iconBx {
+  color: white;
+}
+
+/* charts */
+.graphBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  grid-gap: 30px;
+}
+.graphBox .box {
+  position: relative;
+  background: #ffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+#details {
+  float: right;
+}
+
+.button {
+  background-color: #6fc0f1;
+  border-radius: 15px;
+  box-shadow: 0 2px 1px #376392;
+  color: white;
+  padding: 0.5em 1em;
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* details page */
+.goalBox {
+  position: relative;
+  width: 100%;
+  padding: 100px;
+  margin-top: 1550px;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+.goalBox .box {
+  position: relative;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+.goalBox .box .goal {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5em;
+  color: black;
+}
+.goalBox .box .goalName {
+  position: relative;
+  margin-top: 30px;
+  font-size: 1.1em;
+  color: black;
+}
+.goalBox .box .goalName .progress {
+  border-radius: 20px;
+  position: relative;
+  float: right;
+  height: 20px;
+  width: 400px;
+}
