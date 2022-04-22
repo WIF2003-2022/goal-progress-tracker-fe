@@ -78,7 +78,7 @@ template.innerHTML = `
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
-              href="profile.html"
+              href="./profile.html"
             >
               <i class="bi bi-person-fill pe-3 large"></i>
               Profile
@@ -87,7 +87,7 @@ template.innerHTML = `
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
-              href="login.html"
+              href="./login.html"
             >
               <i class="bi bi-door-open-fill pe-3 large"></i>
               Sign Out
@@ -100,7 +100,7 @@ template.innerHTML = `
       <nav class="nav nav-pills flex-column">
         <a
           class="nav-link"
-          href="home.html"
+          href="./index.html"
           data-bs-toggle="tooltip"
           title="Home"
         >
@@ -109,7 +109,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="goal.html"
+          href="./goal.html"
           data-bs-toggle="tooltip"
           title="Goals"
         >
@@ -118,7 +118,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="visualisation.html"
+          href="./visualisation.html"
           data-bs-toggle="tooltip"
           title="Report"
         >
@@ -127,7 +127,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="social.html"
+          href="./social.html"
           data-bs-toggle="tooltip"
           title="Social"
         >
@@ -143,7 +143,7 @@ class NavBar extends HTMLElement {
   connectedCallback() {
     const linkElem = document.createElement("link");
     linkElem.setAttribute("rel", "stylesheet");
-    linkElem.setAttribute("href", "styles/navbar.css");
+    linkElem.setAttribute("href", "./styles/navbar.css");
     document.getElementsByTagName("head")[0].appendChild(linkElem);
     this.appendChild(template.content.cloneNode(true));
     this.setActiveTab();
