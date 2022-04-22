@@ -1,16 +1,16 @@
 .right-tab-header {
-  height: 10%;
-  width: 300px;
+  height: 8vh;
+  width: 20vw;
   background-color: #ccd7df4d;
   padding-left: 0.7em;
   padding-right: 0.7em;
   right: 0;
 }
 .right-tab-open {
-  height: 100%;
-  width: 275px;
+  height: 100vh;
+  width: 18vw;
   background-color: #ccd7df4d;
-  margin-top: 100px;
+  margin-top: 12vh;
   padding-left: 0.7em;
   padding-right: 0.7em;
   white-space: normal;
@@ -41,13 +41,8 @@
   background-color: #9aaebb4d;
 }
 #right-tab-arrow{
-  border-radius: 50%;
-  height: 70%;
-  width: 20%;
-  padding-top: 5%;
-  padding-left: 7%;
-  align-self: center;
-
+  border-radius: 45%;
+  padding: 10% 20%;
 }
 #right-tab-arrow:hover{
   background-color: #9aaebb4d;

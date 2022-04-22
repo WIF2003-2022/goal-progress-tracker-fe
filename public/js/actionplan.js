@@ -19,7 +19,7 @@ AP = [
 
 document.write("<ul>");
 document.write("<div class='row continueAdd'>");
-for (i = 0; i < AP.length; i++) {
+for (i = 0; i < 4; i++) {
   document.write("<li class='card col-3 m-3 shadow'>");
   document.write("<div class='row'>");
   document.write("<div class='col-9'></div>");
