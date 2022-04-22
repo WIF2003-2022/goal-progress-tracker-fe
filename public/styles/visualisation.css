@@ -3,10 +3,6 @@
   box-sizing: border-box;
 }
 
-.content-wrapper {
-  background-color: snow;
-}
-
 .flex-container {
   height: 100%;
   display: flex;

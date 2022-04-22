@@ -10,6 +10,13 @@
   pointer-events: none;
 }
 
+#page-title {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -30,14 +37,15 @@
   padding: 8px;
   flex-wrap: nowrap;
   pointer-events: auto;
+  box-shadow: 0px 5px 21px -5px #cdd1e1;
 }
 
 .sidebar i {
   font-size: 1.5rem;
 }
 
-.navbar i {
-  font-size: 1.2rem;
+i.large {
+  font-size: 1.3rem;
 }
 
 .navbar .logo {
@@ -102,4 +110,36 @@
 .navbar .btn:focus,
 .navbar .btn:hover {
   box-shadow: none;
+}
+
+.notification-icon {
+  width: 36px;
+  height: 36px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffff;
+}
+
+.no-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.dropdown .dropdown-menu {
+  animation-name: dropdownAnimation;
+  animation-duration: 0.25s;
+}
+
+@keyframes dropdownAnimation {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
 }

@@ -8,15 +8,61 @@ template.innerHTML = `
           Tracker System
         </h4>
       </div>
-      <i class="bi-chevron-left nav-link" id="toggle-btn" tabindex="0"></i>
       <i
-        class="bi bi-bell-fill nav-link"
+        class="bi-chevron-left nav-link large"
+        id="toggle-btn"
         tabindex="0"
-        data-bs-toggle="tooltip"
-        title="Notifications"
       ></i>
-      <span class="translate-middle badge rounded-pill bg-danger">9+</span>
-      <div class="dropdown me-1">
+      <h3 id="page-title"></h3>
+      <div class="dropdown m-2">
+        <i
+          class="bi bi-bell-fill nav-link position-relative large"
+          tabindex="0"
+          data-bs-toggle="dropdown"
+        >
+          <span
+            class="position-absolute start-100 translate-middle badge rounded-pill bg-danger no-select"
+            style="font-size: 0.75rem;"
+          >
+            2
+          </span>
+        </i>
+        <ul class="dropdown-menu dropdown-menu-end" style="width:350px">
+          <li>
+            <a href="#" class="dropdown-item">
+              <div class="d-flex w-100 align-items-center">
+                <span class="bg-info rounded-circle notification-icon">
+                  <i class="bi bi-info-circle"></i>
+                </span>
+                <div class="d-flex flex-column ms-2">
+                  <p class="text-wrap m-0">
+                    Some placeholder content in a paragraph.
+                  </p>
+                  <small class="font-weight-light text-muted">1 hour ago</small>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dropdown-item">
+              <div class="d-flex w-100 align-items-center">
+                <span class="bg-info rounded-circle notification-icon">
+                  <i class="bi bi-info-circle"></i>
+                </span>
+                <div class="d-flex flex-column ms-2">
+                  <p class="text-wrap m-0">
+                    Some placeholder content in a paragraph.
+                  </p>
+                  <small class="font-weight-light text-muted">
+                    2 hours ago
+                  </small>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="dropdown m-2">
         <button
           class="btn dropdown-toggle"
           type="button"
@@ -27,14 +73,22 @@ template.innerHTML = `
             class="avatar"
           />
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <a class="dropdown-item" href="profile.html">
+            <a
+              class="dropdown-item d-flex align-items-center"
+              href="profile.html"
+            >
+              <i class="bi bi-person-fill pe-3 large"></i>
               Profile
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="login.html">
+            <a
+              class="dropdown-item d-flex align-items-center"
+              href="login.html"
+            >
+              <i class="bi bi-door-open-fill pe-3 large"></i>
               Sign Out
             </a>
           </li>
@@ -52,14 +106,24 @@ template.innerHTML = `
           <i class="bi-house-door-fill"></i>
           <span>Home</span>
         </a>
-        <a class="nav-link" href="goal.html" data-bs-toggle="tooltip" title="Goals">
-        <i class="bi-flag-fill"></i>
-        <span>Goals</span>
-      </a>
-      <a class="nav-link" href="visualisation.html" data-bs-toggle="tooltip" title="Report">
-      <i class="bi bi-clipboard2-data"></i>
-        <span>Report</span>
-      </a>
+        <a
+          class="nav-link"
+          href="goal.html"
+          data-bs-toggle="tooltip"
+          title="Goals"
+        >
+          <i class="bi-flag-fill"></i>
+          <span>Goals</span>
+        </a>
+        <a
+          class="nav-link"
+          href="visualisation.html"
+          data-bs-toggle="tooltip"
+          title="Report"
+        >
+          <i class="bi bi-clipboard2-data"></i>
+          <span>Report</span>
+        </a>
         <a
           class="nav-link"
           href="social.html"
@@ -82,8 +146,8 @@ class NavBar extends HTMLElement {
     document.getElementsByTagName("head")[0].appendChild(linkElem);
     this.appendChild(template.content.cloneNode(true));
     this.setActiveTab();
-    this.initTooltip(".navbar i", "bottom");
-    const sidebarTooltip = this.initTooltip(".sidebar a", "right", true);
+    this.setTitle();
+    const sidebarTooltip = this.initTooltip(".sidebar", "right", true);
     document.querySelector("#toggle-btn").addEventListener("click", () => {
       document.querySelector(".content-wrapper").classList.toggle("min");
       const isClosed = document
@@ -107,7 +171,7 @@ class NavBar extends HTMLElement {
 
   initTooltip(path, placement, disable = false) {
     return [].slice
-      .call(document.querySelectorAll(`${path}[data-bs-toggle="tooltip"]`))
+      .call(document.querySelectorAll(`${path} [data-bs-toggle="tooltip"]`))
       .map((element) => {
         const tooltip = new bootstrap.Tooltip(element, {
           placement: placement,
@@ -126,6 +190,12 @@ class NavBar extends HTMLElement {
         element.classList.add("active");
       }
     });
+  }
+
+  setTitle() {
+    let title = document.title;
+    if (title === "Goal Progress Tracker") title = "Home";
+    document.querySelector("#page-title").textContent = title;
   }
 }
 
