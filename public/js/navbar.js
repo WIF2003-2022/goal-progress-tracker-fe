@@ -28,6 +28,7 @@ template.innerHTML = `
           </span>
         </i>
         <ul class="dropdown-menu dropdown-menu-end" style="width:350px">
+          <li><h6 class="dropdown-header">Notifications</h6></li>
           <li>
             <a href="#" class="dropdown-item">
               <div class="d-flex w-100 align-items-center">
@@ -73,7 +74,7 @@ template.innerHTML = `
             class="avatar"
           />
         </button>
-        <ul class="dropdown-menu dropdown-menu-end">
+        <ul class="dropdown-menu dropdown-menu-end" style="width:200px">
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
