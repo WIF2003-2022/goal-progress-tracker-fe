@@ -24,6 +24,12 @@ body {
   color: #000000;
 }
 
+#subtitle {
+  font-weight: 400;
+  font-size: 32px;
+  color: #000000;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -40,4 +46,40 @@ a {
   max-height: 40rem !important;
   min-height: 10rem;
   width: auto;
+}
+
+.invalid-feedback {
+  text-align: left;
+  margin-bottom: 2px !important;
+}
+
+#queue {
+  max-height: 30rem !important;
+  min-height: 10rem;
+  width: auto;
+}
+
+#forgotPassword {
+  max-height: 30rem !important;
+  min-height: 10rem;
+  width: auto;
+}
+
+#passwordMismatch {
+  color: rgba(255, 0, 0, 0.842);
+  display: none;
+}
+
+button:active {
+  outline: none;
+  border: none;
+}
+
+#showPassword {
+  padding: 0;
+}
+
+.input-group-text {
+  background-color: transparent !important;
+  border: 0;
 }
