@@ -212,6 +212,14 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Social");
         pageTitleElem.textContent = "Mentor/Mentee: Goal List";
         break;
+      case "social-actionplan.html":
+        this.setActiveTab("Social");
+        pageTitleElem.textContent = "Mentor/Mentee: Action Plan";
+        break;
+      case "social-activity.html":
+        this.setActiveTab("Social");
+        pageTitleElem.textContent = "Mentor/Mentee: Activity";
+        break;
       case "profile.html":
         pageTitleElem.textContent = "Profile";
         break;
