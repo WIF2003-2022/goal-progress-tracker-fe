@@ -17,15 +17,8 @@ const forgotPasswordAction = (e) => {
   }
   form.classList.add("was-validated");
   if (isValid) {
-    console.log(password.value === confirmPassword.value);
-    if (password.value === confirmPassword.value) {
-      e.preventDefault();
-      window.location.href = destinationPage;
-    } else {
-      e.preventDefault();
-      const confirmPasswordErr = document.getElementById("passwordMismatch");
-      confirmPasswordErr.style.display = "block";
-    }
+    e.preventDefault();
+    window.location.href = destinationPage;
   }
 };
 
