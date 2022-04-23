@@ -1,0 +1,140 @@
+.row .remove-hyperlink{
+  cursor: default;
+  text-decoration: none;
+  color: black;
+}
+
+.row .card{
+  background-color: white;
+  padding: 1.2rem;
+  border-radius: 2rem;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
+  margin-top: 2rem;
+  justify-content: space-between;
+  transition: all 300ms ease;
+}
+
+.row .card:hover{
+  box-shadow: none;
+  background-color: #0099ff4d;
+}
+
+.row > div span{
+  display: inline-block;
+  width: 45px;
+  background-color: #7380ec;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: white;
+  font-size: 2rem;
+}
+
+.row .card .deadline span{
+  background-color: #f9e90f;
+  color: black;
+  width: auto;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.row .card .middle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row .card .percentage{
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+}
+
+.row .card svg{
+  width: 7em;
+  height: 7em;
+}
+
+.row .card svg circle{
+  fill: none;
+  stroke: #7380ec;
+  stroke-width: 14;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+/*  stroke-dasharray="{{circle.circumference}}" 
+    stroke-dashoffset="{{circle.circumference * (1 - circle.percentage/100)}} */
+
+.row .goal1 .card svg circle{
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.6);
+  animation: dash 1s linear forwards;
+}
+
+.row .goal2 .card svg circle{
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.5);
+}
+
+.row .goal3 .card svg circle{
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.33);
+}
+
+.row .goal4 .card svg circle{
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.19);
+}
+
+.row .goal5 .card svg circle{
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226*0.8);
+}
+
+.row .card .percentage .number{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row .card .deadline > div{
+  display: inline-block;
+  justify-content: center;
+  margin-left: 0.8em;
+}
+
+.row .addGoal .card{
+  border: 2px dashed;
+  color: #7380ec;
+  align-items: center;
+  justify-content: center;
+}
+
+.row .addGoal .card span{
+  display: inline-block;
+  background: transparent;
+  color: #7380ec;
+  font-size: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
