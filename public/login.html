@@ -24,59 +24,65 @@
     ></script>
   </head>
   <body>
-    <div class="container text-center mb-3">
-      <div class="row">
-        <div class="col">
-          <img
-            src="images/undraw_shared_goals_re_jvqd 1.svg"
-            alt="shared goals"
-            class="img-fluid"
-            id="shared-goal"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h1 id="title">Goal Progress Tracker System</h1>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-sm-10 col-md-10">
-          <form
-            action=""
-            method="get"
-            id="login-form"
-            onsubmit="event.preventDefault();
-          window.location.href = 'index.html';"
-          >
-            <input
-              name="id"
-              id="id"
-              placeholder="Username / Email"
-              class="form-control mb-3 pt-4 pb-4"
+    <div class="d-flex align-items-center min-vh-100">
+      <div class="container text-center mb-3">
+        <div class="row">
+          <div class="col">
+            <img
+              src="images/undraw_shared_goals_re_jvqd 1.svg"
+              alt="shared goals"
+              class="img-fluid"
+              id="shared-goal"
             />
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              class="form-control mb-3 pt-4 pb-4"
-            />
-            <div class="text-end mt-2 mb-2">
-              <a href="forgot-password.html">Forgot password?</a>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary w-100 p-4"
-              id="submit-btn"
-            >
-              Sign In
-            </button>
-          </form>
+          </div>
         </div>
-      </div>
-      <!-- below is the section for third party oauth -->
-      <!-- <div class="row">
+        <div class="row">
+          <div class="col my-5">
+            <h1 id="title">Goal Progress Tracker System</h1>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-sm-10 col-md-10">
+            <form action="" method="get" id="login-form" novalidate>
+              <div class="form-group mb-3">
+                <input
+                  name="id"
+                  id="id"
+                  placeholder="Username / Email"
+                  class="form-control mb-3 pt-4 pb-4"
+                  required
+                />
+                <div class="invalid-feedback" id="id-feedback"></div>
+              </div>
+              <div class="form-group mb-3">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  class="form-control mb-3 pt-4 pb-4"
+                  required
+                  pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                  data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter"
+                  minlength="8"
+                />
+                <div class="invalid-feedback" id="password-feedback"></div>
+              </div>
+              <div class="text-end mt-2 mb-2">
+                <a href="forgot-password.html">Forgot password?</a>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary w-100 p-4"
+                id="submit-btn"
+              >
+                Sign In
+              </button>
+            </form>
+          </div>
+        </div>
+        <!-- below is the section for third party oauth -->
+        <!-- <div class="row">
         <div class="col">
           <div class="text-center m-3">
             <p>Or Sign Up With</p>
@@ -92,10 +98,11 @@
           </div>
         </div>
       </div> -->
-      <div class="row mt-5">
-        <div class="col">
-          Don't have an account?
-          <strong><a href="register.html">Register Now</a></strong>
+        <div class="row mt-5">
+          <div class="col">
+            Don't have an account?
+            <strong><a href="register.html">Register Now</a></strong>
+          </div>
         </div>
       </div>
     </div>
@@ -105,5 +112,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="js/loginValidate.js"></script>
   </body>
 </html>

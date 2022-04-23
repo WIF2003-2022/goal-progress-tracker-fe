@@ -47,3 +47,25 @@ a {
   min-height: 10rem;
   width: auto;
 }
+
+.invalid-feedback {
+  text-align: left;
+  margin-bottom: 2px !important;
+}
+
+#queue {
+  max-height: 30rem !important;
+  min-height: 10rem;
+  width: auto;
+}
+
+#forgotPassword {
+  max-height: 30rem !important;
+  min-height: 10rem;
+  width: auto;
+}
+
+#passwordMismatch {
+  color: rgba(255, 0, 0, 0.842);
+  display: none;
+}

@@ -22,10 +22,15 @@
   <body>
     <div class="container text-center mb-3">
       <div class="row">
-        <div class="col pb-5" id="welcome-msg">Hello new user!</div>
+        <div class="col pb-2" id="welcome-msg">Hello new user!</div>
       </div>
       <div class="row">
-        <div class="col pb-3" id="title">Goal Progress Tracker System</div>
+        <div clas="col">
+          <img src="images/queue-animate.svg" alt="" id="queue" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3" id="title">Goal Progress Tracker System</div>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10">
@@ -34,37 +39,43 @@
             method="get"
             novalidate
             id="register-form"
-            class="needs-validated"
+            class="needs-validation"
           >
-            <input
-              name="username"
-              id="username"
-              placeholder="Username"
-              class="form-control mb-3 pt-4 pb-4"
-              required
-            />
-            <div class="invalid-feedback" id="username-feedback"></div>
-            <input
-              name="email"
-              id="email"
-              placeholder="Email"
-              type="email"
-              class="form-control mb-3 pt-4 pb-4"
-              required
-            />
-            <div class="invalid-feedback" id="email-feedback"></div>
-            <input
-              name="password"
-              id="password"
-              type="password"
-              placeholder="Password"
-              class="form-control mb-3 pt-4 pb-4"
-              required
-              pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-              data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter."
-              minlength="8"
-            />
-            <div class="invalid-feedback" id="password-feedback"></div>
+            <div class="form-group mb-3">
+              <input
+                name="username"
+                id="username"
+                placeholder="Username"
+                class="form-control pt-4 pb-4"
+                required
+              />
+              <div class="invalid-feedback" id="username-feedback"></div>
+            </div>
+            <div class="form-group mb-3">
+              <input
+                name="email"
+                id="email"
+                placeholder="Email"
+                type="email"
+                class="form-control pt-4 pb-4"
+                required
+              />
+              <div class="invalid-feedback" id="email-feedback"></div>
+            </div>
+            <div class="form-group mb-3">
+              <input
+                name="password"
+                id="password"
+                type="password"
+                placeholder="Password"
+                class="form-control pt-4 pb-4"
+                required
+                pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter."
+                minlength="8"
+              />
+              <div class="invalid-feedback" id="password-feedback"></div>
+            </div>
             <button
               type="submit"
               class="btn btn-primary w-100 p-4 mt-3"
@@ -88,6 +99,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script src="js/auth-validate.js"></script>
+    <script type="module" src="js/registerValidate.js"></script>
   </body>
 </html>
