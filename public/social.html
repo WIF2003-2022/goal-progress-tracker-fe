@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/recent-activity.css" />
+    <link rel="stylesheet" href="styles/social.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
@@ -16,7 +16,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="js/navbar.js"></script>
-    <title>Mentees - Goal Progress Tracker</title>
+    <title>Social</title>
 </head>
 
 <body>
@@ -64,16 +64,18 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 card-container">
                     <!-- single card -->
                     <div class="col">
-                        <div class="card h-100">
-                            <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
-                            <div class="card-body">
-                                <h5 class="card-title">Mentee name ori</h5>
-                                <p class="card-text">List of goals</p>
+                        <a href="./social-goal.html" class="text-decoration-none cardH">
+                            <div class="card h-100 cardOnClick">
+                                <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mentee name 1</h5>
+                                    <p class="card-text">List of goals</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Total goals count maybe?</small>
+                                </div>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Total goals count maybe?</small>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <script>
@@ -91,14 +93,15 @@
                                 <div class="card h-100">
                                     <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
                                     <div class="card-body">
-                                        <h5 class="card-title">Mentee name</h5>
+                                        <h5 class="card-title">Mentee name 1</h5>
                                         <p class="card-text">List of goals</p>
                                     </div>
                                     <div class="card-footer">
                                         <small class="text-muted">Total goals count maybe?</small>
                                     </div>
                                 </div>
-                            </div>`
+                            </div>
+                            `
                     })
                     cMentor.addEventListener("click", () => {
                         while (contents.hasChildNodes()) {
@@ -109,14 +112,15 @@
                                 <div class="card h-100">
                                     <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
                                     <div class="card-body">
-                                        <h5 class="card-title">Mentor name</h5>
+                                        <h5 class="card-title">Mentor name 1</h5>
                                         <p class="card-text">List of goals</p>
                                     </div>
                                     <div class="card-footer">
                                         <small class="text-muted">Total goals count maybe?</small>
                                     </div>
                                 </div>
-                            </div>`
+                            </div>
+                            `
                     })
                 </script>
 
@@ -126,6 +130,7 @@
             const arrow = document.querySelector("#right-tab-arrow")
             const tab = document.querySelector(".right-tab-open")
             const content = document.querySelector(".text")
+            const card = document.querySelector(".cardOnClick")
             arrow.addEventListener("click", () => {
                 tab.classList.toggle("right-tab-close")
                 content.classList.toggle("visually-hidden")
@@ -135,6 +140,10 @@
                     arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
                 }
             })
+            card.addEventListener("click", () => {
+
+            })
+
         </script>
 </body>
 
