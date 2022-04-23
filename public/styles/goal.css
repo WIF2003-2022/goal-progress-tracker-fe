@@ -18,6 +18,7 @@
 .row .card:hover{
   box-shadow: none;
   background-color: #0099ff4d;
+  cursor: pointer;
 }
 
 .row > div span{
