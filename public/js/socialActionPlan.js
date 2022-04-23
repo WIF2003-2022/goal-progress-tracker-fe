@@ -18,17 +18,11 @@ AP = [
 // );
 
 document.write("<ul>");
-document.write("<div class='row continueAdd'>");
+document.write("<div class='row'>");
 for (i = 0; i < 4; i++) {
   document.write("<li class='card col-3 m-3 shadow'>");
   document.write("<div class='row'>");
   document.write("<div class='col-9'></div>");
-  document.write(
-    "<div class='col-1'><button onclick='myFunction(event)' class='changing' style='border: none; background: none;'><i class='bi-pencil'></i></button></div>"
-  );
-  document.write(
-    "<div class='col-1'><button class='close' style='border: none; background: none;'><i class='bi-trash-fill'></i></button></div>"
-  );
   document.write("</div>");
   if (AP[i].image.length > 0) {
     document.write(
@@ -50,35 +44,6 @@ for (i = 0; i < 4; i++) {
 document.write("</div>");
 document.write("</ul>");
 
-function addHTML(newTitle, newDue, img = img_ap) {
-  return (
-    `
-  <li class="card col-3 m-3 shadow">
-    <div class="row">
-      <div class="col-9"></div>
-      <div class="col-1"><button onclick="myFunction(event)" class="changing" style="border: none; background: none;"><i class="bi-pencil"></i></button></div>
-      <div class="col-1"><button class="close" style="border: none; background: none;"><i class="bi-trash-fill"></i></button></div>
-    </div>
-    <img class="card-img-top" src="` +
-    img +
-    `"alt="Card image cap"></img>
-    <div class="card-body">
-      <a href='social-activity.html' style='text-decoration: none;' class="card-text titleText">` +
-    newTitle +
-    `</a>
-      <p class="card-text dueText">Due ` +
-    newDue +
-    `</p>
-    </div>
-`
-  );
-}
-
-// add function
-$(".add").on("click", function () {
-  $(".continueAdd").append(addHTML("new Action Plan", "new DD/MM/YYYY"));
-});
-
 // edit function (under construction -- will change all text for the same tag)
 /*
 var change = document.querySelectorAll(".changing");
@@ -89,12 +54,3 @@ function myFunction(event) {
   alert(event.target.nodeValue);
 }
 */
-
-$(".changing").click(function () {
-  $(".titleText").text("Hello world!");
-});
-
-// delete function (cannot delete newly added cards)
-$(".close").on("click", function () {
-  $(this).closest("li").remove();
-});
