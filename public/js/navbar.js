@@ -21,8 +21,8 @@ template.innerHTML = `
           data-bs-toggle="dropdown"
         >
           <span
-            class="position-absolute start-100 translate-middle badge rounded-pill bg-danger no-select"
-            style="font-size: 0.75rem;"
+            class="position-absolute translate-middle badge rounded-pill bg-danger no-select"
+            style="font-size: 0.75rem; font-style:normal;left:75%;"
           >
             2
           </span>
@@ -141,13 +141,8 @@ template.innerHTML = `
 
 class NavBar extends HTMLElement {
   connectedCallback() {
-    const linkElem = document.createElement("link");
-    linkElem.setAttribute("rel", "stylesheet");
-    linkElem.setAttribute("href", "./styles/navbar.css");
-    document.getElementsByTagName("head")[0].appendChild(linkElem);
     this.appendChild(template.content.cloneNode(true));
-    this.setActiveTab();
-    this.setTitle();
+    this.initPage();
     const sidebarTooltip = this.initTooltip(".sidebar", "right", true);
     document.querySelector("#toggle-btn").addEventListener("click", () => {
       document.querySelector(".content-wrapper").classList.toggle("min");
@@ -184,19 +179,45 @@ class NavBar extends HTMLElement {
       });
   }
 
-  setActiveTab() {
+  initPage() {
     const url = window.location.href;
-    document.querySelectorAll(".sidebar .nav a").forEach((element) => {
-      if (element.href === url) {
-        element.classList.add("active");
-      }
-    });
+    const file = url.split("/").pop();
+    const pageTitleElem = document.querySelector("#page-title");
+    switch (file) {
+      case "goal.html":
+        this.setActiveTab("Goals");
+        pageTitleElem.textContent = "Goals";
+        break;
+      case "visualisation.html":
+        this.setActiveTab("Report");
+        pageTitleElem.textContent = "Report";
+        break;
+      case "visualisation-details.html":
+        this.setActiveTab("Report");
+        pageTitleElem.textContent = "Details";
+        break;
+      case "social.html":
+        this.setActiveTab("Social");
+        pageTitleElem.textContent = "Social";
+        break;
+      case "social-goal.html":
+        this.setActiveTab("Social");
+        pageTitleElem.textContent = "Mentor/Mentee: Goal List";
+        break;
+      case "profile.html":
+        pageTitleElem.textContent = "Profile";
+        break;
+      case "edit-profile.html":
+        pageTitleElem.textContent = "Edit Profile";
+        break;
+      default:
+        this.setActiveTab("Home");
+        pageTitleElem.textContent = "Home";
+    }
   }
 
-  setTitle() {
-    let title = document.title;
-    if (title === "Goal Progress Tracker") title = "Home";
-    document.querySelector("#page-title").textContent = title;
+  setActiveTab(title) {
+    document.querySelector(`a[title="${title}"]`).classList.add("active");
   }
 }
 
