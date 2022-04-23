@@ -64,11 +64,12 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 card-container">
                     <!-- single card -->
                     <div class="col">
-                        <a href="./social-goal.html" class="text-decoration-none cardH">
-                            <div class="card h-100 cardOnClick">
+                        <a href="./social-goal.html" class="text-decoration-none">
+                            <div class="card h-100" id="singleCard">
                                 <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
                                 <div class="card-body">
-                                    <h5 class="card-title">Mentee name 1</h5>
+                                    <h5 class="card-title text-uppercase text-dark">Mentee name 1
+                                    </h5>
                                     <p class="card-text">List of goals</p>
                                 </div>
                                 <div class="card-footer">
@@ -89,18 +90,21 @@
                         }
                         // add the corresponding html
                         contents.innerHTML += `           
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mentee name 1</h5>
-                                        <p class="card-text">List of goals</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Total goals count maybe?</small>
-                                    </div>
+                        <div class="col">
+                        <a href="./social-goal.html" class="text-decoration-none">
+                            <div class="card h-100" id="singleCard">
+                                <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-dark">Mentee name 1
+                                    </h5>
+                                    <p class="card-text">List of goals</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Total goals count maybe?</small>
                                 </div>
                             </div>
+                        </a>
+                    </div>
                             `
                     })
                     cMentor.addEventListener("click", () => {
@@ -108,18 +112,21 @@
                             contents.removeChild(contents.firstChild)
                         }
                         contents.innerHTML += `
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Mentor name 1</h5>
-                                        <p class="card-text">List of goals</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-muted">Total goals count maybe?</small>
-                                    </div>
+                        <div class="col">
+                        <a href="./social-goal.html" class="text-decoration-none">
+                            <div class="card h-100" id="singleCard">
+                                <img src="./images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase text-dark">Mentor name 1
+                                    </h5>
+                                    <p class="card-text">List of goals</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Total goals count maybe?</small>
                                 </div>
                             </div>
+                        </a>
+                    </div>
                             `
                     })
                 </script>
@@ -130,7 +137,6 @@
             const arrow = document.querySelector("#right-tab-arrow")
             const tab = document.querySelector(".right-tab-open")
             const content = document.querySelector(".text")
-            const card = document.querySelector(".cardOnClick")
             arrow.addEventListener("click", () => {
                 tab.classList.toggle("right-tab-close")
                 content.classList.toggle("visually-hidden")
@@ -139,9 +145,6 @@
                 } else {
                     arrow.classList.replace("bi-chevron-left", "bi-chevron-right")
                 }
-            })
-            card.addEventListener("click", () => {
-
             })
 
         </script>

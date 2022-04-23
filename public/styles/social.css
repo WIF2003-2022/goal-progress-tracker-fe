@@ -37,12 +37,15 @@
 .right-description{
   font-size: 13px;
 }
-.activity:hover{
-  background-color: #9aaebb4d;
-}
 #right-tab-arrow{
   border-radius: 45%;
   padding: 10% 20%;
+}
+#singleCard:hover{
+  box-shadow: 0 0 15px #b7bcc1;
+}
+.activity:hover{
+  background-color: #9aaebb4d;
 }
 #right-tab-arrow:hover{
   background-color: #9aaebb4d;
