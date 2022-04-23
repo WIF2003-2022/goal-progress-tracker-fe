@@ -69,3 +69,17 @@ a {
   color: rgba(255, 0, 0, 0.842);
   display: none;
 }
+
+button:active {
+  outline: none;
+  border: none;
+}
+
+#showPassword {
+  padding: 0;
+}
+
+.input-group-text {
+  background-color: transparent !important;
+  border: 0;
+}
