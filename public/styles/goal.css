@@ -1,10 +1,10 @@
-.row .remove-hyperlink{
+.row .remove-hyperlink {
   cursor: default;
   text-decoration: none;
   color: black;
 }
 
-.row .card{
+.row .card {
   background-color: white;
   padding: 1.2rem;
   border-radius: 2rem;
@@ -15,13 +15,13 @@
   transition: all 300ms ease;
 }
 
-.row .card:hover{
+.row .card:hover {
   box-shadow: none;
   background-color: #0099ff4d;
   cursor: pointer;
 }
 
-.row > div span{
+.row > div span {
   display: inline-block;
   width: 45px;
   background-color: #7380ec;
@@ -31,7 +31,7 @@
   font-size: 2rem;
 }
 
-.row .card .deadline span{
+.row .card .deadline span {
   background-color: #f9e90f;
   color: black;
   width: auto;
@@ -39,32 +39,32 @@
   font-size: 1.2rem;
 }
 
-.row .card .middle{
+.row .card .middle {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.row .card .percentage{
+.row .card .percentage {
   position: relative;
   width: 92px;
   height: 92px;
   border-radius: 50%;
 }
 
-.row .card svg{
+.row .card svg {
   width: 7em;
   height: 7em;
 }
 
-.row .card svg circle{
+.row .card svg circle {
   fill: none;
   stroke: #7380ec;
   stroke-width: 14;
   stroke-linecap: round;
   transform: translate(5px, 5px);
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.5);
+  stroke-dashoffset: calc(226 * 0.5);
   align-items: center;
   justify-content: center;
 }
@@ -72,33 +72,33 @@
 /*  stroke-dasharray="{{circle.circumference}}" 
     stroke-dashoffset="{{circle.circumference * (1 - circle.percentage/100)}} */
 
-.row .goal1 .card svg circle{
+.row .goal1 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.6);
+  stroke-dashoffset: calc(226 * 0.6);
   animation: dash 1s linear forwards;
 }
 
-.row .goal2 .card svg circle{
+.row .goal2 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.5);
+  stroke-dashoffset: calc(226 * 0.5);
 }
 
-.row .goal3 .card svg circle{
+.row .goal3 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.33);
+  stroke-dashoffset: calc(226 * 0.33);
 }
 
-.row .goal4 .card svg circle{
+.row .goal4 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.19);
+  stroke-dashoffset: calc(226 * 0.19);
 }
 
-.row .goal5 .card svg circle{
+.row .goal5 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226*0.8);
+  stroke-dashoffset: calc(226 * 0.8);
 }
 
-.row .card .percentage .number{
+.row .card .percentage .number {
   position: absolute;
   top: 0;
   left: 0;
@@ -109,33 +109,85 @@
   align-items: center;
 }
 
-.row .card .deadline > div{
+.row .card .deadline > div {
   display: inline-block;
   justify-content: center;
   margin-left: 0.8em;
 }
 
-.row .addGoal .card{
+.row .addGoal .card {
+  background: transparent;
   border: 2px dashed;
   color: #7380ec;
   align-items: center;
   justify-content: center;
 }
 
-.row .addGoal .card span{
+.row .addGoal .card span {
   display: inline-block;
   background: transparent;
   color: #7380ec;
   font-size: 3rem;
 }
 
+/* Add New Goal Page - goal-add.html */
 
+.row .leftCard {
+  background-color: white;
+  padding: 1.2rem;
+  border-radius: 2rem;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
+  margin-top: 2rem;
+  transition: all 300ms ease;
+}
 
+.row .leftCard h6 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
 
+.row .leftCard div {
+  margin-bottom: 12px;
+  justify-content: space-between;
+}
 
+.row .leftCard:hover {
+  box-shadow: none;
+  cursor: pointer;
+}
 
+.row .leftCard .folder .accomplishedGoal span {
+  background-color: #41f1b6;
+}
 
+.row .leftCard .folder .failedGoal span {
+  background-color: #ff7782;
+}
 
+.row .leftCard > div span {
+  font-size: 1.2rem;
+  width: auto;
+  padding: 0.5rem;
+  display: inline-block;
+}
 
+.row .leftCard .naming {
+  margin-left: 0.8em;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
 
-
+.row .leftCard .goalCount {
+  display: inline-flex;
+  float: right;
+  width: 26px;
+  background-color: #f9c20f;
+  padding: 2px 8.5px;
+  border-radius: 0.7rem;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+}

@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="styles/goal.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
       rel="stylesheet"
@@ -28,7 +30,73 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container-float">
+          <!-- Use 1 Row, with 3 columns(Left, Middle, Right)-->
           <div class="row m-2">
+            <!-- Left Column -->
+            <div class="col-md-3">
+              <div class="leftCard">
+                <div class="folder">
+                  <h6>Goals</h6>
+                  <a href="#" class="remove-hyperlink">
+                    <div class="activeGoal">
+                      <span class="material-icons-sharp">toggle_on</span>
+                      <div class="naming">Active</div>
+                      <div class="goalCount">6</div>
+                    </div>
+                  </a>
+                  <a href="#" class="remove-hyperlink">
+                    <div class="accomplishedGoal">
+                      <span class="material-icons-sharp">done_all</span>
+                      <div class="naming">Accomplished</div>
+                      <div class="goalCount">3</div>
+                    </div>
+                  </a>
+                  <a href="#" class="remove-hyperlink">
+                    <div class="failedGoal">
+                      <span class="material-icons-sharp">cancel</span>
+                      <div class="naming">Failed</div>
+                      <div class="goalCount">2</div>
+                    </div>
+                  </a>
+                </div>
+                <!-- End of Folder-->
+
+                <div class="category">
+                  <h6>Category</h6>
+                  <ul>
+                    <li>
+                      <div class="naming">All</div>
+                      <div class="goalCount">6</div>
+                    </li>
+                    <li>
+                      <div class="naming">Personal</div>
+                      <div class="goalCount">1</div>
+                    </li>
+                    <li>
+                      <div class="naming">Health</div>
+                      <div class="goalCount">2</div>
+                    </li>
+                    <li>
+                      <div class="naming">School</div>
+                      <div class="goalCount">1</div>
+                    </li>
+                    <li>
+                      <div class="naming">Family</div>
+                      <div class="goalCount">1</div>
+                    </li>
+                    <li>
+                      <div class="naming">Skill</div>
+                      <div class="goalCount">1</div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- End of Category -->
+              </div>
+              <!-- End of left card-->
+            </div>
+            <!-- End of Left Column-->
+
+            <!-- Middle Column -->
             <div class="col-md-4">
               <div class="goal1">
                 <a href="action-main.html" class="remove-hyperlink">
@@ -40,7 +108,7 @@
                       </div>
                       <div class="percentage">
                         <svg>
-                          <circle cx='38' cy='38' r='36'></circle>
+                          <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
                           <p>40%</p>
@@ -55,20 +123,18 @@
                 </a>
               </div>
               <!--End of Goal No.1-->
-            </div>
-             
-            <div class="col-md-4">
+
               <div class="goal2">
                 <a href="action-main.html" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
-                      <div class="left">  
+                      <div class="left">
                         <h3>Read 2 books in 5 weeks</h3>
                       </div>
                       <div class="percentage">
                         <svg>
-                          <circle cx='38' cy='38' r='36'></circle>
+                          <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
                           <p>50%</p>
@@ -81,25 +147,19 @@
                     </div>
                   </div>
                 </a>
-            </div>
-            <!--End of Goal No.2-->
-            </div>
-          </div>
-          <!-- End of Row 1 -->
-
-          <div class="row m-2">
-            <div class="col-md-4">
+              </div>
+              <!--End of Goal No.2-->
               <div class="goal3">
                 <a href="action-main.html" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
-                      <div class="left">  
+                      <div class="left">
                         <h3>Wake up at 7:00 am for 21 days</h3>
                       </div>
                       <div class="percentage">
                         <svg>
-                        <circle cx='38' cy='38' r='36'></circle>
+                          <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
                           <p>67%</p>
@@ -113,9 +173,11 @@
                   </div>
                 </a>
               </div>
-            <!--End of Goal No.3-->
+              <!--End of Goal No.3-->
             </div>
+            <!-- End of Middle Column -->
 
+            <!-- Right Column -->
             <div class="col-md-4">
               <div class="goal4">
                 <a href="action-main.html" class="remove-hyperlink">
@@ -127,7 +189,7 @@
                       </div>
                       <div class="percentage">
                         <svg>
-                          <circle cx='38' cy='38' r='36'></circle>
+                          <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
                           <p>81%</p>
@@ -142,12 +204,6 @@
                 </a>
               </div>
               <!--End of Goal No.4-->
-            </div>
-          </div>
-          <!-- End of Row 2 -->
-
-          <div class="row m-2">
-            <div class="col-md-4">
               <div class="goal5">
                 <a href="action-main.html" class="remove-hyperlink">
                   <div class="card">
@@ -158,7 +214,7 @@
                       </div>
                       <div class="percentage">
                         <svg>
-                          <circle cx='38' cy='38' r='36'></circle>
+                          <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
                           <p>20%</p>
@@ -173,9 +229,6 @@
                 </a>
               </div>
               <!--End of Goal No.5-->
-            </div>
-
-            <div class="col-md-4 order-last mb-3">
               <div class="addGoal">
                 <a href="goal-add.html" class="remove-hyperlink">
                   <div class="card">
@@ -186,10 +239,10 @@
                   </div>
                 </a>
               </div>
+              <!--End of Add New Goal Button-->
             </div>
-            <!--End of Add New Goal Button-->
           </div>
-          <!-- End of Row 3-->
+          <!-- End of Row -->
         </div>
       </div>
     </div>
