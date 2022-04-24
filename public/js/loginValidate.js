@@ -7,16 +7,16 @@ const form = document.getElementById("login-form");
 const loginAction = (e) => {
   const fields = document.getElementsByTagName("input");
   let isValid = true;
+  e.preventDefault();
   for (let field of fields) {
     if (!(isValid = isValid && field.checkValidity())) {
       showError(field.getAttribute("id"));
-      e.preventDefault();
     }
   }
   form.classList.add("was-validated");
   console.log({ isValid });
   if (isValid) {
-    e.preventDefault();
+    sessionStorage.setItem("auth", "true");
     window.location.href = destinationPage;
   }
 };
