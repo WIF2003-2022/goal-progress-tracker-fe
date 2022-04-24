@@ -165,7 +165,7 @@
             <div class="col-md-8">
               <div class="addNewGoal">
                 <div class="heading">Add Goal</div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form class="row g-3" action="action-main-add.html">
                   <div class="col-md-8">
                     <label for="goalTitle" class="form-label">Goal Title</label>
                     <input
@@ -227,6 +227,7 @@
                           class="form-check-input"
                           type="checkbox"
                           id="trackProgress1"
+                          required
                         />
                         <label class="form-check-label" for="trackProgress1">
                           Final outcome
@@ -271,7 +272,7 @@
                       aria-label="Select Category"
                       required
                     >
-                      <option selected>Category</option>
+                      <option selected value="">Category</option>
                       <option value="1">Personal</option>
                       <option value="2">Health</option>
                       <option value="3">School</option>
@@ -280,12 +281,9 @@
                     </select>
                   </div>
                   <div class="col-12">
-                    <a
-                      class="btn btn-primary"
-                      href="action-main-add.html"
-                      role="button"
-                      >Next</a
-                    >
+                    <button type="submit" class="btn btn-primary mt-3">
+                      Submit
+                    </button>
                   </div>
                 </form>
                 <!-- End of Form-->
