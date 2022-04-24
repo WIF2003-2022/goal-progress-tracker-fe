@@ -238,14 +238,14 @@ for (i = 0; i < urlRefer.contents.length; i++) {
       urlRefer.contents[i].priority +
       `; j++) {
                         document.write(
-                          "<i class='bi-star-fill' style='color: red; font-size: 1.2rem'></i>"
+                          "<i class='bi-star-fill' style='color: red; font-size: 1.2vw'></i>"
                         );
                       }
                     </script>
                   </div>
                   <a href="activity-edit.html" style="text-decoration: none">
                     <button style="border: none; background: none">
-                      <i class="bi-pencil" style="font-size: 1.5rem"></i>
+                      <i class="bi-pencil" style="font-size: 1.5vw"></i>
                     </button>
                   </a>
                   <button
@@ -254,7 +254,7 @@ for (i = 0; i < urlRefer.contents.length; i++) {
                     data-bs-target="#deleteModal"
                     style="border: none; background: none"
                   >
-                    <i class="bi-trash-fill" style="font-size: 1.5rem"></i>
+                    <i class="bi-trash-fill" style="font-size: 1.5vw"></i>
                   </button>
                   <div class="mt-3 complete">
                     <input class="form-check-input tick" type="checkbox" />
