@@ -3,11 +3,11 @@ var line = document.getElementById("lineChart").getContext("2d");
 var myChart = new Chart(ctx, {
   type: "polarArea",
   data: {
-    labels: ["Goal 1", "Goal 2", "Goal 3", "Goal 4", "Goal 5", "Goal 6"],
+    labels: ["Loss 3kg in 3 months                           ", "Read 2 books in 5 weeks                     ", "Wake up at 7am for 21 days                 ", "Manage expenses within RM1K in April", "Score 4.0 in this semester                     ", "Learn video-editing skill in 2 months      "],
     datasets: [
       {
         label: "# of Votes",
-        data: [100, 100, 100, 100, 68.75, 27.5],
+        data: [23, 50, 100, 81, 20, 60],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -29,14 +29,6 @@ var myChart = new Chart(ctx, {
     ],
   },
   options: {
-    /* title:{
-      display: true,
-      text: 'Hi'
-    },
-    */
-    legend: {
-      position: "bottom",
-    },
     responsive: true,
     plugins: {
       labels: {
@@ -56,7 +48,7 @@ var myChart = new Chart(ctx, {
         },
       },
       legend: {
-        position: "right",
+        position: "bottom",
       },
     },
   },
@@ -82,7 +74,7 @@ var lineChart = new Chart(line, {
     datasets: [
       {
         labels: "#",
-        data: [0, 2, 2, 0],
+        data: [0, 0, 0, 1],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
