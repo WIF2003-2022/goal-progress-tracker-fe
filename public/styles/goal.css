@@ -75,7 +75,6 @@
 .row .goal1 .card svg circle {
   stroke-dasharray: 226;
   stroke-dashoffset: calc(226 * 0.6);
-  animation: dash 1s linear forwards;
 }
 
 .row .goal2 .card svg circle {
@@ -192,23 +191,57 @@
 
 /* Add New Goal Page - goal-add.html */
 
-.row .addNewGoal {
+/* SMART Goal Display */
+.smart .card {
+  align-items: center;
+}
+
+.smart .card span {
+  background-color: white;
+}
+
+.smartGoal .card {
+  background-color: #7380ec;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: Bold;
+  margin-right: 0;
+  box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
+  align-items: center;
+  justify-content: center;
+}
+
+.question .card {
+  background-color: #f9e90f;
+  box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
+  margin-left: 0;
+}
+
+.smartGoal .card:hover {
+  background-color: #7380ec;
+}
+
+.question .card:hover {
+  background-color: #f9e90f;
+}
+
+/* Form to add new goal */
+.addNewGoal {
   background-color: white;
   padding: 1.2rem;
   border-radius: 2rem;
-  justify-content: space-between;
   box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
   margin-top: 2rem;
   justify-content: space-between;
   transition: all 300ms ease;
 }
 
-.row .addNewGoal:hover {
+.addNewGoal:hover {
   box-shadow: none;
   cursor: pointer;
 }
 
-.row .addNewGoal .heading {
+.addNewGoal .heading {
   font-weight: bold;
   font-size: 2.5rem;
   background-color: #7380ec;
@@ -220,7 +253,7 @@
   padding: 1rem;
 }
 
-.row .addNewGoal form {
+.addNewGoal form {
   margin-bottom: 10px;
   justify-content: space-between;
   align-items: center;

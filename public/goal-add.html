@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add New Goals</title>
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/goal.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,6 +22,8 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/goal.css" />
   </head>
 
   <body>
@@ -32,12 +33,134 @@
         <div class="container-float">
           <div class="row m-2">
             <div class="col-md-4">
-              <div class="leftCard">
-                <div class="smartGoal"></div>
+              <div class="smart">
+                <div class="card">
+                  <h2>SMART goal</h2>
+                </div>
               </div>
-              <!-- End of left card-->
+
+              <div class="row">
+                <div class="col-md-4 align-self-center">
+                  <div class="smartGoal">
+                    <div class="card">
+                      <div class="specific">Specific</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Left Column (SMART) -->
+
+                <div class="col-md-8">
+                  <div class="question">
+                    <div class="card">
+                      <div class="questionSpecific">
+                        What do I want to accomplish? <br />
+                        Why do I want to accomplish this? <br />
+                        What are the requirements? <br />
+                        What are the constrainsts?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Question Column -->
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 align-self-center">
+                  <div class="smartGoal">
+                    <div class="card">
+                      <div class="measurable">Measurable</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Left Column (SMART) -->
+
+                <div class="col-md-8">
+                  <div class="question">
+                    <div class="card">
+                      <div class="questionMeasurable>">
+                        How will I measure my progress? <br />
+                        How will I know when the goal is accomplished?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Question Column -->
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 align-self-center">
+                  <div class="smartGoal">
+                    <div class="card">
+                      <div class="achievable">Achievable</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Left Column (SMART) -->
+
+                <div class="col-md-8">
+                  <div class="question">
+                    <div class="card">
+                      <div class="questionAchievable>">
+                        How can the goal be accomplished?<br />
+                        What are the logical steps I should take?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Question Column -->
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 align-self-center">
+                  <div class="smartGoal">
+                    <div class="card">
+                      <div class="relevant">Relevant</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Left Column (SMART) -->
+
+                <div class="col-md-8">
+                  <div class="question">
+                    <div class="card">
+                      <div class="questionRelevant>">
+                        Is this a worthwhile goal?<br />
+                        Is this the right time?<br />
+                        Do I have neccessary resources to accomplish this
+                        goal?<br />
+                        Is this goal in line with my long term objectives?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Question Column -->
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="col-md-4 align-self-center">
+                  <div class="smartGoal">
+                    <div class="card">
+                      <div class="timeBound">Time-Bound</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Left Column (SMART) -->
+
+                <div class="col-md-8">
+                  <div class="question">
+                    <div class="card">
+                      <div class="questionTimeBound>">
+                        How long will it take to accomplish this goal?<br />
+                        What is the completion of this goal due? When am I going
+                        to work on this goal?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Question Column -->
+              </div>
             </div>
-            <!-- End of Left Column-->
+            <!-- End of Left Column -->
 
             <div class="col-md-8">
               <div class="addNewGoal">
@@ -157,9 +280,12 @@
                     </select>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary" type="submit">
-                      Submit
-                    </button>
+                    <a
+                      class="btn btn-primary"
+                      href="action-main-add.html"
+                      role="button"
+                      >Next</a
+                    >
                   </div>
                 </form>
                 <!-- End of Form-->
