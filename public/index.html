@@ -22,13 +22,15 @@
     <div class="wrapper">
       <nav-bar></nav-bar>
       <div class="content-wrapper">
-        <div class="container p-5">
+        <div class="container p-4">
           <div class="row g-3">
             <div class="col-12">
-              <div class="card blue-back">
+              <div class="card">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-8 border-end d-flex flex-column">
+                    <div
+                      class="col-12 col-lg-8 d-flex flex-column right-border"
+                    >
                       <blockquote class="blockquote">
                         <div class="text-area">
                           <i class="bi bi-quote"></i>
@@ -44,87 +46,39 @@
                         </div>
                       </blockquote>
                     </div>
-                    <div class="col d-flex flex-column m-2">
+                    <form class="col d-flex flex-column m-2" id="quote-form">
                       <div class="mb-3 flex-grow-1">
                         <textarea
                           class="form-control h-100"
-                          id="exampleFormControlTextarea1"
+                          id="custom-quote"
                           placeholder="Write something to motivate yourself..."
+                          required
                         ></textarea>
                       </div>
                       <div>
-                        <button class="btn btn-primary w-100" type="button">
+                        <button
+                          class="btn btn-primary w-100 post-btn"
+                          type="submit"
+                        >
                           Post
                         </button>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="card-body d-flex align-items-center">
-                  <div class="spinner m-4">
-                    <div class="middle-circle"></div>
-                  </div>
-                  <div class="goal">
-                    <h3 class="card-title">Goal 1</h3>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec porttitor ut nisl non interdum.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <div class="card goal-card"></div>
             </div>
             <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="card-body d-flex align-items-center">
-                  <div class="spinner m-4">
-                    <div class="middle-circle"></div>
-                  </div>
-                  <div class="goal">
-                    <h3 class="card-title">Goal 2</h3>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec porttitor ut nisl non interdum.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <div class="card goal-card"></div>
             </div>
             <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="card-body d-flex align-items-center">
-                  <div class="spinner m-4">
-                    <div class="middle-circle"></div>
-                  </div>
-                  <div class="goal">
-                    <h3 class="card-title">Goal 3</h3>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec porttitor ut nisl non interdum.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <div class="card goal-card"></div>
             </div>
             <div class="col-12 col-lg-6">
-              <div class="card">
-                <div class="card-body d-flex align-items-center">
-                  <div class="spinner m-4">
-                    <div class="middle-circle"></div>
-                  </div>
-                  <div class="goal">
-                    <h3 class="card-title">Goal 4</h3>
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Donec porttitor ut nisl non interdum.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <div class="card goal-card"></div>
             </div>
             <div class="col-12 col-lg-6">
               <div class="card reminder">
@@ -262,6 +216,25 @@
                     >
                       Cancel
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="chooseGoal" tabindex="-1">
+              <div
+                class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Select A Goal</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="list-group"></div>
                   </div>
                 </div>
               </div>
