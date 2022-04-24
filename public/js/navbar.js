@@ -231,15 +231,15 @@ class NavBar extends HTMLElement {
         break;
       case "social-goal.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Goal List";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Goal List";
         break;
       case "social-actionplan.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Action Plan";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Action Plan";
         break;
       case "social-activity.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Activity";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Activity";
         break;
       case "profile.html":
         pageTitleElem.textContent = "Profile";
