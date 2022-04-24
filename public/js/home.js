@@ -1,27 +1,28 @@
-const quoteNode = document.querySelector(".quote");
-const authorNode = document.querySelector(".author");
-const refreshBtn = document.querySelector(".refresh");
+const refreshBtn = document.querySelector(".refresh-btn");
+const textArea = document.querySelector(".text-area");
+const editBtn = document.querySelector(".edit-btn");
+refreshBtn.addEventListener("click", () => generateQuote());
+editBtn.addEventListener("click", () =>
+  document.querySelector(".reminder").classList.toggle("editing")
+);
 function generateQuote() {
-  const temp = refreshBtn.innerHTML;
-  quoteNode.style.visibility = "hidden";
-  authorNode.style.visibility = "hidden";
-  refreshBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>`;
-  refreshBtn.disabled = true;
+  const temp = textArea.innerHTML;
+  textArea.innerHTML = `<span class="spinner-border"></span>`;
+  refreshBtn.style.display = "none";
   fetch(
     "https://quotable.io/random?maxLength=125&tags=inspirational|life|success"
   )
     .then((res) => res.json())
     .then((result) => {
-      quoteNode.textContent = result.content;
-      authorNode.textContent = result.author;
+      textArea.innerHTML = temp;
+      document.querySelector(".quote").textContent = result.content;
+      document.querySelector(".author").textContent = result.author;
     })
     .finally(() => {
-      refreshBtn.innerHTML = temp;
-      refreshBtn.disabled = false;
-      quoteNode.style.visibility = "visible";
-      authorNode.style.visibility = "visible";
+      refreshBtn.style.display = "";
     });
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   generateQuote();
   setProgress();
@@ -40,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   calendar.render();
 });
-
-refreshBtn.addEventListener("click", () => generateQuote());
 
 function setProgress() {
   const arr = [];

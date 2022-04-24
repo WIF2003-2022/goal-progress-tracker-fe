@@ -9,18 +9,67 @@
   min-height: 150px;
 }
 
-.accordion .accordion-button:focus {
+#reminder .accordion-button:focus {
   box-shadow: none;
 }
 
+.reminder.editing .list-group-item a {
+  pointer-events: none;
+}
+
+.delete-btn {
+  display: none;
+}
+
+.bi-x-circle-fill {
+  font-size: large;
+  color: red;
+}
+
+.reminder.editing .delete-btn {
+  display: block;
+}
+
+.reminder.editing .edit-btn {
+  background-color: grey;
+  color: white;
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: #212529;
+}
+
 .card {
-  border-radius: 1rem !important;
+  border-radius: 1rem;
   height: 100%;
 }
 
-.refresh {
+.goal {
+  width: 60%;
+  flex-grow: 1;
+}
+
+.refresh-btn,
+.edit-btn,
+.delete-btn {
+  width: 40px;
+  height: 40px;
   background-color: transparent;
   border: none;
+  border-radius: 50%;
+}
+
+.refresh-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
+  background-color: #e9ecef;
+}
+
+.refresh-btn:active,
+.edit-btn:active,
+.delete-btn:active {
+  background-color: #dce0e3;
 }
 
 .spinner {
@@ -45,4 +94,18 @@
   justify-content: center;
   font-size: large;
   font-weight: bold;
+}
+
+@media (max-width: 650px) {
+  .card-body {
+    flex-direction: column;
+  }
+
+  .goal {
+    width: 100%;
+  }
+
+  .card-title {
+    text-align: center;
+  }
 }

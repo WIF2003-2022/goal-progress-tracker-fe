@@ -1,0 +1,58 @@
+body {
+  background-color: #eee;
+}
+
+.card {
+  background-color: #fff;
+  border-color: lightgray;
+}
+
+.form-color {
+  background-color: #f6f3f3;
+}
+
+.form-control {
+  height: 48px;
+  border-radius: 25px;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #35b69f;
+  outline: 0;
+  box-shadow: 0 0 5px grey;
+  text-indent: 10px;
+}
+
+.y-badge {
+  background-color: #0099ff4d;
+  color: black;
+  height: 20px;
+  font-size: 11px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+.o-badge {
+  background-color: #f9e90f;
+  color: black;
+  height: 20px;
+  font-size: 11px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.comment-text {
+  font-size: 13px;
+}
+
+.user-feed {
+  font-size: 14px;
+  margin-top: 12px;
+}

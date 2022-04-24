@@ -5,6 +5,7 @@
   padding-left: 0.7em;
   padding-right: 0.7em;
   right: 0;
+  z-index: 1;
 }
 .right-tab-open {
   height: 100vh;
@@ -17,47 +18,49 @@
   overflow: hidden;
   transition: all 0.5s ease-in-out;
   right: 0;
+  z-index: 1;
 }
-.right-tab-close{
+.right-tab-close {
   padding: 0;
   height: 100%;
   width: 0px;
   white-space: nowrap;
-  overflow: hidden; 
+  overflow: hidden;
+  z-index: 1;
 }
 
-#i-size{
+#i-size {
   width: auto;
   height: auto;
   object-fit: contain;
 }
-.right-duration{
+.right-duration {
   font-size: 15px;
 }
-.right-description{
+.right-description {
   font-size: 13px;
 }
-#right-tab-arrow{
+#right-tab-arrow {
   border-radius: 45%;
   padding: 10% 20%;
 }
-#singleCard:hover{
+#singleCard:hover {
   box-shadow: 0 0 15px #b7bcc1;
 }
-.activity:hover{
+.activity:hover {
   background-color: #9aaebb4d;
 }
-#right-tab-arrow:hover{
+#right-tab-arrow:hover {
   background-color: #9aaebb4d;
   cursor: pointer;
 }
 
-.colour{
+.colour {
   background-color: black;
   color: black;
 }
 
-.colour2{
+.colour2 {
   background-color: red;
   color: red;
 }
