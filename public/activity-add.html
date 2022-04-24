@@ -41,6 +41,7 @@
               class="form-control"
               id="activity-title"
               placeholder="Activity 1"
+              required
             />
           </div>
           <div class="mb-3">
@@ -52,39 +53,83 @@
               id="activity-description"
               placeholder="Description XXX"
               rows="3"
+              required
             ></textarea>
           </div>
           <div class="mb-3">
+            <label for="activity-start-date" class="form-label"
+              >Start Date
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="activity-start-date"
+              required
+            />
+          </div>
+          <div class="mb-5">
             <label for="activity-due-date" class="form-label"> Due Date </label>
-            <input type="date" class="form-control" id="activity-due-date" />
+            <input
+              type="date"
+              class="form-control"
+              id="activity-due-date"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="activity-frequency" class="form-label">
+              Frequency (e.g. 3 times in 1 day)
+            </label>
+            <div class="row">
+              <div class="col-1">
+                <input
+                  type="number"
+                  class="form-control activity-frequency"
+                  id="activity-frequency-number"
+                  placeholder="1"
+                  required
+                />
+              </div>
+              <div class="col-1 mt-1">time(s)</div>
+              <div class="col-1">
+                <input
+                  type="number"
+                  class="form-control activity-frequency"
+                  id="activity-frequency-day"
+                  placeholder="7"
+                  required
+                />
+              </div>
+              <div class="col-1 mt-1">day(s)</div>
+            </div>
           </div>
           <!-- https://codepen.io/neilpomerleau/pen/wzxzQM -->
           <div class="mt-5">Priority level</div>
           <div class="mb-5 rating">
             <label>
-              <input type="radio" name="stars" value="1" />
+              <input type="radio" name="stars" value="1" required />
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="2" />
-              <span class="icon">★</span>
-              <span class="icon">★</span>
-            </label>
-            <label>
-              <input type="radio" name="stars" value="3" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="2" required />
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="4" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="3" required />
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="5" />
+              <input type="radio" name="stars" value="4" required />
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+            </label>
+            <label>
+              <input type="radio" name="stars" value="5" required />
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>

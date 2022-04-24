@@ -72,6 +72,8 @@
                   <div class="col-1">
                     <button
                       class="deleteAP"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
                       style="border: none; background: none"
                     >
                       <i class="bi-trash-fill" style="font-size: 1.5rem"></i>
@@ -108,6 +110,8 @@
                   <div class="col-1">
                     <button
                       class="deleteAP"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
                       style="border: none; background: none"
                     >
                       <i class="bi-trash-fill" style="font-size: 1.5rem"></i>
@@ -144,6 +148,8 @@
                   <div class="col-1">
                     <button
                       class="deleteAP"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
                       style="border: none; background: none"
                     >
                       <i class="bi-trash-fill" style="font-size: 1.5rem"></i>
@@ -180,6 +186,8 @@
                   <div class="col-1">
                     <button
                       class="deleteAP"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
                       style="border: none; background: none"
                     >
                       <i class="bi-trash-fill" style="font-size: 1.5rem"></i>
@@ -202,6 +210,36 @@
               </li>
             </div>
           </ul>
+          <div class="modal fade" id="deleteModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete Action Plan</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <h6>Are you sure you want to delete this action plan?</h6>
+                  <p>Action plan details here</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger deleteButton">
+                    Delete
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-light cancelButton"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

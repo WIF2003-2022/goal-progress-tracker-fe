@@ -1,10 +1,13 @@
 //delete funtion
 var elem = document.querySelectorAll(".deleteAP");
+var key = document.querySelector(".deleteButton");
 for (i = 0; i < elem.length; i++) {
   elem[i].addEventListener("click", function () {
-    if (confirm("Are you sure you want to delete this action plan?")) {
-      this.closest("li").remove();
-    }
+    var x = this.closest("li");
+    key.addEventListener("click", function () {
+      x.remove();
+      this.closest("div").querySelector(".cancelButton").click();
+    });
   });
 }
 
