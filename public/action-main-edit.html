@@ -30,7 +30,7 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container"></div>
-        <form class="m-5" action="action-main.html">
+        <form class="m-5" action="action-main.html" method="post">
           <div class="mb-3">
             <label for="action-plan-title" class="form-label">
               Action Plan Title
@@ -70,5 +70,12 @@
         </form>
       </div>
     </div>
+    <script>
+      var id = window.location.search;
+      var param = new URLSearchParams(id);
+      var query = parseInt(param.get("id"));
+      urlString = "?id=" + query;
+      document.querySelector("form").action += urlString;
+    </script>
   </body>
 </html>

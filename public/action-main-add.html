@@ -79,5 +79,10 @@
         </form>
       </div>
     </div>
+    <script>
+      var id = window.location.search;
+      urlString = "?=" + id;
+      document.querySelector("form").action += urlString;
+    </script>
   </body>
 </html>
