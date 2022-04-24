@@ -31,71 +31,139 @@
       <div class="content-wrapper">
         <div class="container-float">
           <div class="row m-2">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="leftCard">
-                <div class="folder">
-                  <h6>Folder</h6>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="activeGoal">
-                      <span class="material-icons-sharp">toggle_on</span>
-                      <div class="naming">Active Goals</div>
-                      <div class="goalCount">6</div>
-                    </div>
-                  </a>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="accomplishedGoal">
-                      <span class="material-icons-sharp">done_all</span>
-                      <div class="naming">Accomplished Goals</div>
-                      <div class="goalCount">3</div>
-                    </div>
-                  </a>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="failedGoal">
-                      <span class="material-icons-sharp">cancel</span>
-                      <div class="naming">Failed Goals</div>
-                      <div class="goalCount">2</div>
-                    </div>
-                  </a>
-                </div>
-                <!-- End of Folder-->
-
-                <div class="category">
-                  <h6>Category</h6>
-                  <ul>
-                    <li>
-                      <div class="naming">All</div>
-                      <div class="goalCount">6</div>
-                    </li>
-                    <li>
-                      <div class="naming">Personal</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                    <li>
-                      <div class="naming">Health</div>
-                      <div class="goalCount">2</div>
-                    </li>
-                    <li>
-                      <div class="naming">School</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                    <li>
-                      <div class="naming">Family</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                    <li>
-                      <div class="naming">Skill</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                  </ul>
-                </div>
-                <!-- End of Category -->
+                <div class="smartGoal"></div>
               </div>
               <!-- End of left card-->
             </div>
             <!-- End of Left Column-->
 
-            <div class="col-md-9">
-              <div class="addNewGoal"></div>
+            <div class="col-md-8">
+              <div class="addNewGoal">
+                <div class="heading">Add Goal</div>
+                <form class="row g-3 needs-validation" novalidate>
+                  <div class="col-md-8">
+                    <label for="goalTitle" class="form-label">Goal Title</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="goalTitle"
+                      placeholder="Eg: Run 100km in 5 weeks"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a goal tilte
+                    </div>
+                  </div>
+
+                  <div class="col-md-8">
+                    <label for="specificTarget" class="form-label"
+                      >Specific and Measurable Target</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="specificTarget"
+                      placeholder="Eg: 100km"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="inputStartDate" class="form-label"
+                      >Start Date</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="inputStartDate"
+                      required
+                    />
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="inputEndDate" class="form-label"
+                      >End Date</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="inputEndDate"
+                      required
+                    />
+                  </div>
+
+                  <fieldset>
+                    <legend class="col-form-label col-md-8">
+                      Track Progress By
+                    </legend>
+                    <div class="col-md-8 mb-2">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="trackProgress1"
+                        />
+                        <label class="form-check-label" for="trackProgress1">
+                          Final outcome
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="trackProgress2"
+                        />
+                        <label class="form-check-label" for="trackProgress12">
+                          Total number of completed activities
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="trackProgress3"
+                        />
+                        <label class="form-check-label" for="trackProgress3">
+                          Manually updating current progress
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="col-md-8 mb-2">
+                    <label for="description" class="form-label"
+                      >Description</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="description"
+                      rows="4"
+                      placeholder="Optional"
+                    ></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <select
+                      class="form-select"
+                      aria-label="Select Category"
+                      required
+                    >
+                      <option selected>Category</option>
+                      <option value="1">Personal</option>
+                      <option value="2">Health</option>
+                      <option value="3">School</option>
+                      <option value="3">Family</option>
+                      <option value="3">Skill</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+                <!-- End of Form-->
+              </div>
             </div>
             <!-- End of Right Column -->
           </div>
