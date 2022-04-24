@@ -182,7 +182,7 @@ class NavBar extends HTMLElement {
 
   initPage() {
     const url = window.location.href;
-    const file = url.split("/").pop();
+    const file = /(?!.*\/).+\.html/.exec(url)[0];
     const pageTitleElem = document.querySelector("#page-title");
     switch (file) {
       case "goal.html":
