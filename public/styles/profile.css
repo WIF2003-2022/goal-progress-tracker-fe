@@ -3,8 +3,47 @@
   color: black;
 }
 
+.leftSection {
+  justify-content: space-between;
+}
+
+.recognition {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  font-weight: 400;
+  margin-top: 2rem;
+}
+
+.recogRow {
+  padding: 0.5rem;
+}
+
+.leftSection .recognition .title {
+  margin-left: 0.5em;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  background-color: #7380ec;
+  border-radius: 0.7rem;
+  padding: 2px 8.5px;
+  color: #fff;
+}
+
+.recognition .recogRow .content {
+  display: inline-flex;
+  padding: 2px 8.5px;
+  align-items: flex-end;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  text-align: right;
+  background-color: #f9e90f;
+}
+
 .card {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   position: relative;
   display: flex;
   flex-direction: row;
@@ -14,6 +53,7 @@
   background-clip: border-box;
   border: 0 solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
+  box-shadow: 0 7px 25px rgba(132, 139, 200, 0.18);
 }
 
 .card-body {
@@ -93,3 +133,4 @@
   background-color: #4682b4;
   cursor: pointer;
 }
+
