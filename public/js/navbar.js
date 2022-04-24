@@ -88,6 +88,7 @@ template.innerHTML = `
             <a
               class="dropdown-item d-flex align-items-center"
               href="./login.html"
+              onclick="sessionStorage.clear()"
             >
               <i class="bi bi-door-open-fill pe-3 large"></i>
               Sign Out
