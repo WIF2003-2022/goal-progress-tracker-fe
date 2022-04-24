@@ -82,7 +82,7 @@ var lineChart = new Chart(line, {
     datasets: [
       {
         labels: "#",
-        data: [0, 2, 1, 0],
+        data: [0, 2, 2, 0],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
