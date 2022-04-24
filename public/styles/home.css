@@ -50,6 +50,33 @@
   flex-grow: 1;
 }
 
+.pin-goal {
+  background-color: transparent;
+  border: 2px dashed;
+  color: #7380ec;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pin-goal:hover {
+  background-color: #ebedf9;
+  color: #7380ec;
+}
+
+.pin-goal p {
+  background-color: transparent;
+  color: #7380ec;
+}
+
+.post-btn {
+  background-color: #7380ec;
+}
+
+.post-btn:hover {
+  background-color: #626ccb;
+}
+
 .refresh-btn,
 .edit-btn,
 .delete-btn {
@@ -96,6 +123,10 @@
   font-weight: bold;
 }
 
+.right-border {
+  border-right: 1px solid #dee2e6;
+}
+
 @media (max-width: 650px) {
   .card-body {
     flex-direction: column;
@@ -107,5 +138,11 @@
 
   .card-title {
     text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .right-border {
+    border-right: none;
   }
 }

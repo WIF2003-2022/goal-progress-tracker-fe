@@ -1,6 +1,6 @@
 import { showError } from "./authValidateUtils.js";
 
-const destinationPage = "index.html";
+const destinationPage = "email-verification.html";
 
 const form = document.getElementById("register-form");
 
@@ -16,7 +16,6 @@ const registerAction = (e) => {
   form.classList.add("was-validated");
   console.log({ isValid });
   if (isValid) {
-    sessionStorage.setItem("auth", "true");
     window.location.href = destinationPage;
   }
 };
