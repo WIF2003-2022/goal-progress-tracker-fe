@@ -134,3 +134,14 @@
   cursor: pointer;
 }
 
+.delete-btn {
+  box-shadow: none;
+  background-color: #f9e90f;
+  color: white;
+  border: #f9e90f;
+}
+
+.bi-x-circle-fill {
+  font-size: medium;
+  color: red;
+}

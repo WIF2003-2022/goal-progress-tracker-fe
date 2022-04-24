@@ -56,17 +56,44 @@
                       <div class="recogRow">
                           <span class="material-icons-sharp">badge</span>
                           <div class="title">Area of expertise</div>
-                          <div class="content">Physiology</div>
+                          <div class="content">Physiology
+                            <button
+                              class="delete-btn"
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                            >
+                              <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                          </div>
                       </div>
                       <div class="recogRow">
                           <span class="material-icons-sharp">stars</span>
                           <div class="title">Achievements</div>
-                          <div class="content">Champion of Mr. Olympia 2021</div>
+                          <div class="content">Mr. Olympia 2021 Champion
+                            <button
+                              class="delete-btn"
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                            >
+                              <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                          </div>
                       </div>
                       <div class="recogRow">
                           <span class="material-icons-sharp">card_membership</span>
                           <div class="title">Certificates</div>
-                          <div class="content">NASM Certified Personal Trainer</div>
+                          <div class="content">NASM Certified Personal Trainer
+                            <button
+                              class="delete-btn"
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                            >
+                              <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                          </div>
                       </div>
                   </div>
                   <!--<div class="social-media mt-4 mb-3">
@@ -83,7 +110,7 @@
             </div>
             <!--Second column contains user's basic info-->
             <div class="col-md-8">
-              <div class="card mb-3">
+              <div class="card mb-5">
                 <div class="card-body">
                   <form action="">
                     <div class="row my-2">
@@ -179,9 +206,58 @@
                         ></textarea>
                       </div>
                     </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Area of Expertise</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <input
+                          type="name"
+                          class="form-control"
+                          value="Physiology"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Achievements</h6>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <textarea
+                          name="achievements"
+                          id="achievements"
+                          style="height: 80px"
+                          class="form-control"
+                          placeholder="State your achievements."
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="row my-2">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Certificates</h6>
+                      </div>
+                        <div class="col-sm-9 text-secondary">
+                          <textarea
+                            name="cert"
+                            id="cert"
+                            style="height: 80px"
+                            class="form-control"
+                            placeholder="State the name of certificates."
+                            required
+                          ></textarea>
+                        </div>
+                    </div>
+                    <!--<div class="row my-2">
+                      <div class="col-sm-4">
+                        <label for="cert">Upload certificate:</label>
+                        <input type="file" id="file" class="form-control" />
+                      </div>
+                    </div>-->
                     <div class="row">
                       <div class="col-sm-4">
-                        <label for="photo">Upload photo:</label>
+                        <label for="photo">Upload profile photo:</label>
                         <input type="file" id="file" class="form-control" />
                       </div>
                       <div class="col-sm-8 mt-4">
@@ -198,21 +274,6 @@
                       </div>
                     </div>
                   </form>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row text-center mb-4 mt-4">
-                        <div class="col-lg-4 col-md-4 m-t-20">
-                            <h3 class="m-b-0 font-light">1</h3><small>Mentor</small>
-                        </div>
-                        <div class="vl col-lg-4 col-md-4 m-t-20">
-                            <h3 class="m-b-0 font-light">1</h3><small>Mentee</small>
-                        </div>
-                        <div class="vl col-lg-4 col-md-4 m-t-20">
-                            <h3 class="m-b-0 font-light">4</h3><small>Goals Accomplished</small>
-                        </div>
-                    </div>
                 </div>
               </div>
             </div>
