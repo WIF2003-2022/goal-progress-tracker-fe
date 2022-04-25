@@ -64,3 +64,7 @@
   background-color: red;
   color: red;
 }
+
+.card-img-top {
+  border-radius: 2rem;
+}
