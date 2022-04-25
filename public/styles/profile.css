@@ -159,15 +159,13 @@
 
 .passwordRow {
   width: 100%;
-  display: flex;
-  position: relative;
 }
 
 .input-group-text {
   padding: 10px;
-  min-width: 40px;
+  min-width: 0px;
   position: relative;
-  right: 10px;
+  right: 40px;
 }
 
 .input-group-text i{
