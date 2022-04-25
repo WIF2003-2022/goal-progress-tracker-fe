@@ -1,7 +1,13 @@
 var elem = document.querySelectorAll(".tick");
 var percentage = document.querySelectorAll(".progress");
+var fail = document.querySelectorAll(".due");
 
 for (i = 0; i < elem.length; i++) {
+  if (fail[i].ariaValueNow >= 100) {
+    console.log(fail[i]);
+    elem[i].closest("li").querySelector(".complete").innerHTML =
+      "<strong>FAILED</strong>";
+  }
   elem[i].addEventListener("click", function () {
     if (
       this.checked &&
@@ -9,7 +15,7 @@ for (i = 0; i < elem.length; i++) {
     ) {
       var x = this.closest("li").querySelector(".finish");
       a = Number(x.ariaValueNow);
-      b = Number(25);
+      b = Number(15);
       c = a + b;
       x.ariaValueNow = c;
       x.style.width = c + "%";
