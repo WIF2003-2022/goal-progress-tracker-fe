@@ -131,6 +131,10 @@
   justify-content: center;
 }
 
+.row .addGoal .card:hover {
+  background-color: #ebedf9;
+}
+
 .row .addGoal .card span {
   display: inline-block;
   background: transparent;
