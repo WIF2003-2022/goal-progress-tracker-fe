@@ -101,7 +101,7 @@
   stroke-dashoffset: calc(226 * 0.8);
 }
 
-.row .goal5 .card svg circle {
+.row .goal6 .card svg circle {
   stroke-dasharray: 226;
   stroke-dashoffset: calc(226 * 0.4);
 }
@@ -129,6 +129,10 @@
   color: #7380ec;
   align-items: center;
   justify-content: center;
+}
+
+.row .addGoal .card:hover {
+  background-color: #ebedf9;
 }
 
 .row .addGoal .card span {

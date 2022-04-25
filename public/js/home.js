@@ -84,6 +84,7 @@ const pinnedGoals = [
     actionPlan: ["Sleep early everyday"],
     progress: "100",
   },
+  {},
 ];
 
 const goals = [
@@ -105,51 +106,32 @@ const goals = [
 ];
 
 function renderGoals() {
+  setList();
+  const modal = bootstrap.Modal.getOrCreateInstance(
+    document.querySelector("#chooseGoal")
+  );
   document.querySelectorAll(".goal-card").forEach((card, index) => {
-    if (pinnedGoals[index] !== undefined) {
-      const goal = pinnedGoals[index];
-      renderCard(card, goal.goal, goal.actionPlan, goal.progress);
+    card.setAttribute("id", index);
+    const newCard = card.cloneNode();
+    card.parentNode.replaceChild(newCard, card);
+    card = newCard;
+    if (Object.keys(pinnedGoals[index]).length !== 0) {
+      renderCard(card, index);
     } else {
-      renderPlaceholder(card);
+      renderPlaceholder(card, modal, index);
     }
   });
 }
 
-function renderPlaceholder(card) {
-  const myModal = renderModal();
-  card.classList.add("pin-goal");
-  card.innerHTML = `
-      <div class="card-body d-flex align-items-center">
-        <i class="bi bi-pin-angle-fill fs-3 card-title me-2"></i>
-        <h3 class="card-title">Pin Goal</h3>
-      </div>
-    `;
-  card.addEventListener("click", () => {
-    myModal.show();
-    document
-      .querySelectorAll("#chooseGoal .list-group-item")
-      .forEach((elem, index) => {
-        elem.addEventListener("click", () => {
-          const goal = goals[index];
-          renderCard(card, goal.goal, goal.actionPlan, goal.progress);
-          card.classList.remove("pin-goal");
-          myModal.hide();
-        });
-      });
-  });
-}
-
-let rendered = false;
-
-function renderModal() {
-  if (!rendered) {
-    const list = document.querySelector("#chooseGoal .list-group");
-    goals.forEach((goal) => {
-      let actionPlanList = "";
-      goal.actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
-      const btn = document.createElement("button");
-      btn.classList.add("list-group-item", "list-group-item-action");
-      btn.innerHTML = `
+function setList() {
+  const list = document.querySelector("#chooseGoal .list-group");
+  list.innerHTML = "";
+  goals.forEach((goal) => {
+    let actionPlanList = "";
+    goal.actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
+    const btn = document.createElement("button");
+    btn.classList.add("list-group-item", "list-group-item-action");
+    btn.innerHTML = `
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex flex-column">
         <p>
@@ -160,14 +142,37 @@ function renderModal() {
       <p>${goal.progress}%</p>
     </div>
   `;
-      list.appendChild(btn);
-    });
-    rendered = true;
-  }
-  return new bootstrap.Modal(document.querySelector("#chooseGoal"));
+    list.appendChild(btn);
+  });
 }
 
-function renderCard(card, goal, actionPlan, progress) {
+function renderPlaceholder(card, modal, cIndex) {
+  card.classList.add("pin-goal");
+  card.innerHTML = `
+      <div class="card-body d-flex align-items-center" >
+        <i class="bi bi-pin-angle-fill fs-3 card-title me-2"></i>
+        <h3 class="card-title">Pin Goal</h3>
+      </div>
+    `;
+  card.addEventListener("click", () => handlePin(card, modal, cIndex));
+}
+
+function handlePin(card, modal, cIndex) {
+  modal.show();
+  document
+    .querySelectorAll("#chooseGoal .list-group-item")
+    .forEach((elem, index) => {
+      elem.addEventListener("click", () => {
+        card.classList.remove("pin-goal");
+        pinnedGoals[cIndex] = goals.splice(index, 1)[0];
+        renderGoals();
+        modal.hide();
+      });
+    });
+}
+
+function renderCard(card, cIndex) {
+  const { goal, actionPlan, progress } = pinnedGoals[cIndex];
   let actionPlanList = "";
   actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
   card.innerHTML = `
@@ -184,15 +189,17 @@ function renderCard(card, goal, actionPlan, progress) {
       </div>
     </div>
   `;
-  const btn = document.createElement("button");
-  btn.classList.add("btn-close", "position-absolute");
-  btn.style.top = "5%";
-  btn.style.right = "2%";
-  btn.addEventListener("click", (e) => {
+  const unpinBtn = document.createElement("button");
+  unpinBtn.classList.add("btn-close", "position-absolute");
+  unpinBtn.style.top = "5%";
+  unpinBtn.style.right = "2%";
+  unpinBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    renderPlaceholder(card);
+    goals.push(pinnedGoals[cIndex]);
+    pinnedGoals[cIndex] = {};
+    renderGoals();
   });
-  card.appendChild(btn);
+  card.appendChild(unpinBtn);
 }
 
 //reminders
