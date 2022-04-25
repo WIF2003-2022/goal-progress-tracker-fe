@@ -8,6 +8,17 @@ body {
   font-style: normal;
 }
 
+.card {
+  border-radius: 2rem !important;
+}
+
+.card-header {
+  border-radius: 2rem 2rem 0 0 !important;
+}
+.card-footer {
+  border-radius: 0 0 2rem 2rem !important;
+}
+
 html {
   font-size: 15px;
 }
