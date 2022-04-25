@@ -74,7 +74,7 @@
 
 .row .goal1 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226 * 0.6);
+  stroke-dashoffset: calc(226 * 0.77);
 }
 
 .row .goal2 .card svg circle {
@@ -82,19 +82,28 @@
   stroke-dashoffset: calc(226 * 0.5);
 }
 
+/* For Front End Static Web only - Need to modify using javascript */
 .row .goal3 .card svg circle {
   stroke-dasharray: 226;
-  stroke-dashoffset: calc(226 * 0.33);
+  stroke-dashoffset: calc(226 * 0);
+  stroke: #41f1b6;
 }
 
 .row .goal4 .card svg circle {
   stroke-dasharray: 226;
   stroke-dashoffset: calc(226 * 0.19);
+  stroke: #ff7782;
 }
+/* For Front End Static Web only - Need to modify using javascript */
 
 .row .goal5 .card svg circle {
   stroke-dasharray: 226;
   stroke-dashoffset: calc(226 * 0.8);
+}
+
+.row .goal5 .card svg circle {
+  stroke-dasharray: 226;
+  stroke-dashoffset: calc(226 * 0.4);
 }
 
 .row .card .percentage .number {
@@ -196,10 +205,6 @@
   align-items: center;
 }
 
-.smart .card span {
-  background-color: white;
-}
-
 .smartGoal .card {
   background-color: #7380ec;
   color: white;
@@ -257,4 +262,20 @@
   margin-bottom: 10px;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Goal Details Page - goal-detail.html */
+.row .goalDetail .card:hover {
+  background-color: white;
+  cursor: default;
+}
+
+.row .goalDetail .card-body .middle {
+  gap: 3rem;
+}
+
+.row .goalDetail .card-body a {
+  background-color: #7380ec;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
 }
