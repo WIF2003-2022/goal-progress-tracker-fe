@@ -123,6 +123,11 @@
   font-weight: bold;
 }
 
+#calendar a {
+  text-decoration: none;
+  color: black;
+}
+
 .right-border {
   border-right: 1px solid #dee2e6;
 }
