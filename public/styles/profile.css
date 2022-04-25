@@ -145,3 +145,33 @@
   font-size: medium;
   color: red;
 }
+
+.passwordRow {
+  display: flex;
+}
+
+#showPassword {
+  padding: 0;
+  border: none;
+  background-color: transparent !important;
+  float: inline-end;
+}
+
+.passwordRow {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.input-group-text {
+  padding: 10px;
+  min-width: 40px;
+  position: relative;
+  right: 10px;
+}
+
+.input-group-text i{
+  position: absolute;
+  background-color: transparent !important;
+  border: none;
+}
