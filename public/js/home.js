@@ -106,15 +106,10 @@ const goals = [
 ];
 
 function renderGoals() {
-  setList();
   const modal = bootstrap.Modal.getOrCreateInstance(
     document.querySelector("#chooseGoal")
   );
   document.querySelectorAll(".goal-card").forEach((card, index) => {
-    card.setAttribute("id", index);
-    const newCard = card.cloneNode();
-    card.parentNode.replaceChild(newCard, card);
-    card = newCard;
     if (Object.keys(pinnedGoals[index]).length !== 0) {
       renderCard(card, index);
     } else {
@@ -123,55 +118,8 @@ function renderGoals() {
   });
 }
 
-function setList() {
-  const list = document.querySelector("#chooseGoal .list-group");
-  list.innerHTML = "";
-  goals.forEach((goal) => {
-    let actionPlanList = "";
-    goal.actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
-    const btn = document.createElement("button");
-    btn.classList.add("list-group-item", "list-group-item-action");
-    btn.innerHTML = `
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex flex-column">
-        <p>
-          <b>${goal.goal}</b>
-        </p>
-        <ul>${actionPlanList}</ul>
-      </div>
-      <p>${goal.progress}%</p>
-    </div>
-  `;
-    list.appendChild(btn);
-  });
-}
-
-function renderPlaceholder(card, modal, cIndex) {
-  card.classList.add("pin-goal");
-  card.innerHTML = `
-      <div class="card-body d-flex align-items-center" >
-        <i class="bi bi-pin-angle-fill fs-3 card-title me-2"></i>
-        <h3 class="card-title">Pin Goal</h3>
-      </div>
-    `;
-  card.addEventListener("click", () => handlePin(card, modal, cIndex));
-}
-
-function handlePin(card, modal, cIndex) {
-  modal.show();
-  document
-    .querySelectorAll("#chooseGoal .list-group-item")
-    .forEach((elem, index) => {
-      elem.addEventListener("click", () => {
-        card.classList.remove("pin-goal");
-        pinnedGoals[cIndex] = goals.splice(index, 1)[0];
-        renderGoals();
-        modal.hide();
-      });
-    });
-}
-
 function renderCard(card, cIndex) {
+  card.classList.remove("pin-goal");
   const { goal, actionPlan, progress } = pinnedGoals[cIndex];
   let actionPlanList = "";
   actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
@@ -192,14 +140,56 @@ function renderCard(card, cIndex) {
   const unpinBtn = document.createElement("button");
   unpinBtn.classList.add("btn-close", "position-absolute");
   unpinBtn.style.top = "5%";
-  unpinBtn.style.right = "2%";
+  unpinBtn.style.right = "3%";
   unpinBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     goals.push(pinnedGoals[cIndex]);
     pinnedGoals[cIndex] = {};
     renderGoals();
   });
-  card.appendChild(unpinBtn);
+  card.firstElementChild.appendChild(unpinBtn);
+}
+
+function renderPlaceholder(card, modal, cIndex) {
+  card.classList.add("pin-goal");
+  card.innerHTML = `
+      <div class="card-body d-flex align-items-center justify-content-center w-100" >
+        <i class="bi bi-pin-angle-fill fs-3 me-2"></i>
+        <h3 class="m-0">Pin Goal</h3>
+      </div>
+    `;
+  card.firstElementChild.addEventListener("click", () =>
+    showModal(modal, cIndex)
+  );
+}
+
+function showModal(modal, cIndex) {
+  const list = document.querySelector("#chooseGoal .list-group");
+  list.innerHTML = "";
+  goals.forEach((goal, index) => {
+    let actionPlanList = "";
+    goal.actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
+    const btn = document.createElement("button");
+    btn.classList.add("list-group-item", "list-group-item-action");
+    btn.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column">
+          <p>
+            <b>${goal.goal}</b>
+          </p>
+          <ul>${actionPlanList}</ul>
+        </div>
+        <p class="fs-4 m-0">${goal.progress}%</p>
+      </div>
+    `;
+    btn.addEventListener("click", () => {
+      pinnedGoals[cIndex] = goals.splice(index, 1)[0];
+      renderGoals();
+      modal.hide();
+    });
+    list.appendChild(btn);
+  });
+  modal.show();
 }
 
 //reminders

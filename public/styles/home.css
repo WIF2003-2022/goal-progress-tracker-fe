@@ -9,8 +9,12 @@
   min-height: 150px;
 }
 
-#reminder .accordion-button:focus {
+#reminders .accordion-button:focus {
   box-shadow: none;
+}
+
+#reminders .accordion-button:not(.collapsed) {
+  background-color: #ebedf9;
 }
 
 .reminder.editing .list-group-item a {
