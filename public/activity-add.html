@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,6 +22,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="styles/index.css" />
     <link rel="stylesheet" href="styles/priority.css" />
     <title>Add Activity</title>
   </head>
@@ -76,7 +76,7 @@
               required
             />
           </div>
-          <div class="mb-3">
+          <div class="mb-5">
             <label for="activity-frequency" class="form-label">
               Frequency (e.g. 3 times in 1 day)
             </label>
@@ -101,6 +101,18 @@
                 />
               </div>
               <div class="col-1 mt-1">day(s)</div>
+            </div>
+          </div>
+          <div>
+            <div class="form-check">
+              <label class="form-check-label" for="flexCheckDefault">
+                Do you want to add reminder(s) ?
+              </label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="flexCheckDefault"
+              />
             </div>
           </div>
           <!-- https://codepen.io/neilpomerleau/pen/wzxzQM -->

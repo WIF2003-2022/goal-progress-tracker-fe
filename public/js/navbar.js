@@ -182,7 +182,7 @@ class NavBar extends HTMLElement {
 
   initPage() {
     const url = window.location.href;
-    const file = url.split("/").pop();
+    const file = /(?!.*\/).+\.html/.exec(url)[0];
     const pageTitleElem = document.querySelector("#page-title");
     switch (file) {
       case "goal.html":
@@ -192,6 +192,14 @@ class NavBar extends HTMLElement {
       case "goal-add.html":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Add New Goals";
+        break;
+      case "goal-edit.html":
+        this.setActiveTab("Goals");
+        pageTitleElem.textContent = "Edit Goal";
+        break;
+      case "goal-details.html":
+        this.setActiveTab("Goals");
+        pageTitleElem.textContent = "Goal Details";
         break;
       case "action-main.html":
         this.setActiveTab("Goals");
@@ -231,15 +239,15 @@ class NavBar extends HTMLElement {
         break;
       case "social-goal.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Goal List";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Goal List";
         break;
       case "social-actionplan.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Action Plan";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Action Plan";
         break;
       case "social-activity.html":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Mentor/Mentee: Activity";
+        pageTitleElem.textContent = "Your Mentor/Mentee: Activity";
         break;
       case "profile.html":
         pageTitleElem.textContent = "Profile";

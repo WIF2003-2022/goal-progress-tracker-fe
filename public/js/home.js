@@ -12,7 +12,27 @@ document.addEventListener("DOMContentLoaded", () => {
     footerToolbar: {
       right: "dayGridMonth,timeGridDay,listWeek",
     },
-    initialView: "listWeek",
+    initialView: "dayGridMonth",
+    events: [
+      {
+        id: "a",
+        title: "Jog 3 times a week",
+        start: "2022-05-04",
+        end: "2022-05-07",
+      },
+      {
+        id: "b",
+        title: "Jog 3 times a week",
+        start: "2022-04-27",
+        end: "2022-04-30",
+      },
+      {
+        id: "c",
+        title: "Jog 3 times a week",
+        start: "2022-04-20",
+        end: "2022-04-23",
+      },
+    ],
   });
   calendar.render();
 });

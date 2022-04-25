@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goals</title>
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/goal.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,6 +21,8 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/goal.css" />
   </head>
 
   <body>
@@ -31,7 +31,7 @@
       <div class="content-wrapper">
         <div class="container-float">
           <!-- Use 1 Row, with 3 columns(Left, Middle, Right)-->
-          <div class="row m-2">
+          <div class="row m-2 justify-content-center">
             <!-- Left Column -->
             <div class="col-md-3">
               <div class="leftCard">
@@ -41,21 +41,21 @@
                     <div class="activeGoal">
                       <span class="material-icons-sharp">toggle_on</span>
                       <div class="naming">Active</div>
-                      <div class="goalCount">6</div>
+                      <div class="goalCount">4</div>
                     </div>
                   </a>
                   <a href="#" class="remove-hyperlink">
                     <div class="accomplishedGoal">
                       <span class="material-icons-sharp">done_all</span>
                       <div class="naming">Accomplished</div>
-                      <div class="goalCount">3</div>
+                      <div class="goalCount">1</div>
                     </div>
                   </a>
                   <a href="#" class="remove-hyperlink">
                     <div class="failedGoal">
                       <span class="material-icons-sharp">cancel</span>
                       <div class="naming">Failed</div>
-                      <div class="goalCount">2</div>
+                      <div class="goalCount">1</div>
                     </div>
                   </a>
                 </div>
@@ -70,7 +70,7 @@
                     </li>
                     <li>
                       <div class="naming">Personal</div>
-                      <div class="goalCount">1</div>
+                      <div class="goalCount">2</div>
                     </li>
                     <li>
                       <div class="naming">Health</div>
@@ -82,7 +82,7 @@
                     </li>
                     <li>
                       <div class="naming">Family</div>
-                      <div class="goalCount">1</div>
+                      <div class="goalCount">0</div>
                     </li>
                     <li>
                       <div class="naming">Skill</div>
@@ -99,7 +99,7 @@
             <!-- Middle Column -->
             <div class="col-md-4">
               <div class="goal1">
-                <a href="action-main.html" class="remove-hyperlink">
+                <a href="action-main.html?id=1" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -111,13 +111,13 @@
                           <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
-                          <p>40%</p>
+                          <p>23%</p>
                         </div>
                       </div>
                     </div>
                     <div class="deadline">
                       <span class="material-icons-sharp">event</span>
-                      <div class="text-muted">15 June 2022</div>
+                      <div class="text-muted">7 July 2022</div>
                     </div>
                   </div>
                 </a>
@@ -125,7 +125,7 @@
               <!--End of Goal No.1-->
 
               <div class="goal2">
-                <a href="action-main.html" class="remove-hyperlink">
+                <a href="action-main.html?id=2" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -143,16 +143,20 @@
                     </div>
                     <div class="deadline">
                       <span class="material-icons-sharp">event</span>
-                      <div class="text-muted">29 May 2022</div>
+                      <div class="text-muted">25 May 2022</div>
                     </div>
                   </div>
                 </a>
               </div>
               <!--End of Goal No.2-->
               <div class="goal3">
-                <a href="action-main.html" class="remove-hyperlink">
+                <a href="action-main.html?id=3" class="remove-hyperlink">
                   <div class="card">
-                    <span class="material-icons-sharp">outlined_flag</span>
+                    <span
+                      class="material-icons-sharp"
+                      style="background-color: #41f1b6"
+                      >done_all</span
+                    >
                     <div class="middle">
                       <div class="left">
                         <h3>Wake up at 7:00 am for 21 days</h3>
@@ -162,7 +166,7 @@
                           <circle cx="38" cy="38" r="36"></circle>
                         </svg>
                         <div class="number">
-                          <p>67%</p>
+                          <p>100%</p>
                         </div>
                       </div>
                     </div>
@@ -180,12 +184,16 @@
             <!-- Right Column -->
             <div class="col-md-4">
               <div class="goal4">
-                <a href="action-main.html" class="remove-hyperlink">
+                <a href="action-main.html?id=4" class="remove-hyperlink">
                   <div class="card">
-                    <span class="material-icons-sharp">outlined_flag</span>
+                    <span
+                      class="material-icons-sharp"
+                      style="background-color: #ff7782"
+                      >cancel</span
+                    >
                     <div class="middle">
                       <div class="left">
-                        <h3>Manange expenses within RM 1000 in May</h3>
+                        <h3>Manange expenses within RM 1000 in April</h3>
                       </div>
                       <div class="percentage">
                         <svg>
@@ -198,14 +206,14 @@
                     </div>
                     <div class="deadline">
                       <span class="material-icons-sharp">event</span>
-                      <div class="text-muted">31 May 2022</div>
+                      <div class="text-muted">30 April 2022</div>
                     </div>
                   </div>
                 </a>
               </div>
               <!--End of Goal No.4-->
               <div class="goal5">
-                <a href="action-main.html" class="remove-hyperlink">
+                <a href="action-main.html?id=5" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -223,13 +231,46 @@
                     </div>
                     <div class="deadline">
                       <span class="material-icons-sharp">event</span>
-                      <div class="text-muted">10 July 2022</div>
+                      <div class="text-muted">20 June 2022</div>
                     </div>
                   </div>
                 </a>
               </div>
               <!--End of Goal No.5-->
-              <div class="addGoal">
+              <div class="goal5">
+                <a href="#" class="remove-hyperlink">
+                  <div class="card">
+                    <span class="material-icons-sharp">outlined_flag</span>
+                    <div class="middle">
+                      <div class="left">
+                        <h3>Learn video-editing skill in 2 months</h3>
+                      </div>
+                      <div class="percentage">
+                        <svg>
+                          <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                          <p>60%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deadline">
+                      <span class="material-icons-sharp">event</span>
+                      <div class="text-muted">15 May 2022</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <!--End of Goal No.6-->
+            </div>
+            <!-- End of Right Column -->
+          </div>
+          <!-- End of Row -->
+          <!-- Row for Add Goal Button -->
+          <div class="row m-2 justify-content-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+              <div class="addGoal mb-3">
                 <a href="goal-add.html" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">add</span>
@@ -242,7 +283,6 @@
               <!--End of Add New Goal Button-->
             </div>
           </div>
-          <!-- End of Row -->
         </div>
       </div>
     </div>
