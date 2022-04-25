@@ -124,19 +124,21 @@ function renderPlaceholder(card) {
         <h3 class="card-title">Pin Goal</h3>
       </div>
     `;
-  card.addEventListener("click", () => {
+  const handlePlaceholderClick = () => {
     myModal.show();
     document
       .querySelectorAll("#chooseGoal .list-group-item")
       .forEach((elem, index) => {
-        elem.addEventListener("click", () => {
+        elem.onclick = () => {
           const goal = goals[index];
+          card.removeEventListener("click", handlePlaceholderClick);
           renderCard(card, goal.goal, goal.actionPlan, goal.progress);
           card.classList.remove("pin-goal");
           myModal.hide();
-        });
+        };
       });
-  });
+  };
+  card.addEventListener("click", handlePlaceholderClick);
 }
 
 let rendered = false;
