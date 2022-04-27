@@ -148,6 +148,7 @@
 
 .passwordRow {
   display: flex;
+  width: 100%;
 }
 
 #showPassword {
@@ -155,10 +156,6 @@
   border: none;
   background-color: transparent !important;
   float: inline-end;
-}
-
-.passwordRow {
-  width: 100%;
 }
 
 .input-group-text {
