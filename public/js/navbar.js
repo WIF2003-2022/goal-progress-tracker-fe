@@ -144,7 +144,7 @@ class NavBar extends HTMLElement {
   connectedCallback() {
     this.appendChild(template.content.cloneNode(true));
     this.initPage();
-    const mq = window.matchMedia("(max-width: 450px)");
+    const mq = window.matchMedia("(max-width: 750px)");
     function changeBarType(mq) {
       let navDiv = document.querySelector("#nav-div");
       let nav = document.querySelector("nav");

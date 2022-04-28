@@ -209,7 +209,7 @@ html {
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 750px) {
   .logo {
     display: none;
   }
