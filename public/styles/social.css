@@ -68,3 +68,13 @@
 .card-img-top {
   border-radius: 2rem;
 }
+
+@media screen and (max-width: 750px) {
+  #recent-activity {
+    display: none;
+  }
+
+  #content {
+    /* margin: 0 !important; */
+  }
+}
