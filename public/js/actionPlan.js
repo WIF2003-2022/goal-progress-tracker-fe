@@ -86,9 +86,8 @@ document.write('<ul><div class="row">');
 for (i = 0; i < urlID.content.length; i++) {
   document.write(
     `
-  <li class="card col-3 m-3 shadow" style="width: 25vw">
+  <li class="card col-3 m-3 shadow" style="width: 33%; max-width: 100%">
                 <div class="row">
-                  <div class="col-9"></div>
                   <div class="col-1">
                     <a
                       href="action-main-edit.html?id=` +
@@ -96,8 +95,8 @@ for (i = 0; i < urlID.content.length; i++) {
       `"
                       style="text-decoration: none"
                     >
-                      <button style="border: none; background: none">
-                        <i class="bi-pencil" style="font-size: 1.5vw"></i>
+                      <button style="border: none; background: none;">
+                        <i class="bi-pencil" style="font-size: 1.5vw;"></i>
                       </button>
                     </a>
                   </div>
@@ -106,32 +105,33 @@ for (i = 0; i < urlID.content.length; i++) {
                       class="deleteAP"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteModal"
-                      style="border: none; background: none"
+                      style="border: none; background: none;"
                     >
-                      <i class="bi-trash-fill" style="font-size: 1.5vw"></i>
+                      <i class="bi-trash-fill" style="font-size: 1.5vw;"></i>
                     </button>
                   </div>
                 </div>
                 <img
+                  style="width: 100%; height:auto;"
                   class="card-img-top"
                   src=` +
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" +
       `
                 />
-                <div class="card-body">
+                <div class="card-body" style="line-height: 1em;">
                   <a
                     href="activity.html?id=` +
       urlID.id +
       "&refer=" +
       urlID.content[i].refer +
       `"
-                    style="text-decoration: none"
+                    style="text-decoration: none; font-size: 1.5vw;"
                     class="card-text"
                     >` +
       urlID.content[i].actionPlan +
       `</a
                   >
-                  <p class="card-text">Due ` +
+                  <p class="card-text" style="font-size: 1vw;">Due ` +
       urlID.content[i].dueDate +
       `</p>
                 </div>
