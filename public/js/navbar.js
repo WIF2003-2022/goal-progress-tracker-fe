@@ -97,7 +97,7 @@ template.innerHTML = `
         </ul>
       </div>
     </div>
-    <div class="sidebar">
+    <div class="sidebar" id='nav-div'>
       <nav class="nav nav-pills flex-column">
         <a
           class="nav-link"
@@ -144,6 +144,24 @@ class NavBar extends HTMLElement {
   connectedCallback() {
     this.appendChild(template.content.cloneNode(true));
     this.initPage();
+    const mq = window.matchMedia("(max-width: 750px)");
+    function changeBarType(mq) {
+      let navDiv = document.querySelector("#nav-div");
+      let nav = document.querySelector("nav");
+      console.log(mq.matches);
+      if (mq.matches) {
+        navDiv.classList.remove("sidebar");
+        navDiv.classList.add("bottombar");
+        nav.classList = "nav nav-pills flex-row";
+      } else {
+        navDiv.classList.remove("bottombar");
+        navDiv.classList.add("sidebar");
+        nav.classList = "nav nav-pills flex-column";
+      }
+    }
+    changeBarType(mq);
+    // need to run once first because change event does not occur when the page first load up
+    mq.addEventListener("change", changeBarType);
     const sidebarTooltip = this.initTooltip(".sidebar", "right", true);
     document.querySelector("#toggle-btn").addEventListener("click", () => {
       document.querySelector(".content-wrapper").classList.toggle("min");

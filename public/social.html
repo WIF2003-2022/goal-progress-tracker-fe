@@ -19,37 +19,40 @@
     <div>
       <nav-bar></nav-bar>
       <div class="content-wrapper">
-        <!-- tab title -->
-        <div class="row position-fixed shadow rounded right-tab-header">
-          <div class="col-9 mt-3 text-secondary">
-            <h5>Recent Activities</h5>
-          </div>
-          <div class="col-3 align-self-center">
-            <i class="bi-chevron-right" id="right-tab-arrow"></i>
-          </div>
-        </div>
-        <!-- right tab -->
-        <div class="col position-fixed shadow rounded right-tab-open">
-          <!-- tab content -->
-          <div class="row mb-2 pe-1 py-2 activity">
-            <div class="col-3">
-              <img
-                src="./images/sampleProfilePic.jpg"
-                alt="profile_pic"
-                class="img-fluid img-thumbnail"
-                id="i-size"
-              />
+        <div id="recent-activity">
+          <!-- tab title -->
+          <div class="row position-fixed shadow rounded right-tab-header">
+            <div class="col-9 mt-3 text-secondary">
+              <h5>Recent Activities</h5>
             </div>
-            <div class="col-9 text">
-              <div class="row text-secondary right-duration">4 hours ago</div>
-              <div class="row right-description">
-                username has achieved the goal: Lose weight in 2 months.
+            <div class="col-3 align-self-center">
+              <i class="bi-chevron-right" id="right-tab-arrow"></i>
+            </div>
+          </div>
+          <!-- right tab -->
+          <div class="col position-fixed shadow rounded right-tab-open">
+            <!-- tab content -->
+            <div class="row mb-2 pe-1 py-2 activity">
+              <div class="col-3">
+                <img
+                  src="./images/sampleProfilePic.jpg"
+                  alt="profile_pic"
+                  class="img-fluid img-thumbnail"
+                  id="i-size"
+                />
+              </div>
+              <div class="col-9 text">
+                <div class="row text-secondary right-duration">4 hours ago</div>
+                <div class="row right-description">
+                  username has achieved the goal: Lose weight in 2 months.
+                </div>
               </div>
             </div>
           </div>
         </div>
         <!-- content -->
-        <div class="col-8 ms-5">
+        <div class="container" id="content">
+          <!-- <div class="col-8 ms-5" id="content"> -->
           <!-- switch tab -->
           <div class="row my-2 justify-content-center">
             <div
@@ -83,7 +86,9 @@
           </div>
 
           <!-- main content -->
-          <div class="row row-cols-1 row-cols-xl-3 g-4 mt-3 card-container">
+          <div
+            class="row row-cols-1 row-cols-xl-3 g-4 mt-3 mx-5 card-container"
+          >
             <!-- single card -->
             <div class="col">
               <a href="./social-goal.html" class="text-decoration-none">

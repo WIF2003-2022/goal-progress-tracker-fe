@@ -82,6 +82,26 @@ html {
   pointer-events: auto;
 }
 
+.bottombar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* flex-grow: 1; */
+  height: 50px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: #0099ff4d;
+  padding-top: 1.25em;
+  padding-bottom: 1em;
+  transition: width 0.3s ease-in-out;
+  white-space: nowrap;
+  /* overflow-y: hidden; */
+  border-radius: 20px 20px 0 0;
+  pointer-events: auto;
+}
+
 .navbar {
   background-color: #ffff;
   padding: 8px;
@@ -189,8 +209,42 @@ html {
   }
 }
 
-@media (max-width: 450px) {
-  #page-title {
+@media (max-width: 750px) {
+  .logo {
     display: none;
+  }
+
+  html,
+  body {
+    height: 100vh;
+    overflow: scroll;
+  }
+
+  .content-wrapper {
+    padding-left: 0px;
+    padding-bottom: 50px; /*so that the bottom navbar does not overlap with the content*/
+  }
+
+  .content-wrapper.min {
+    padding-left: 0px;
+  }
+
+  #toggle-btn {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: "row";
+    justify-content: space-around;
+    width: 100vw;
+  }
+
+  nav span {
+    display: none;
+  }
+
+  nav a {
+    font-size: larger;
   }
 }
