@@ -28,6 +28,11 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -154,9 +159,11 @@
                       </div>
                       <div class="col-sm-9 text-secondary">
                         <input
+                          id="phone"
+                          name="phone"
                           type="mobile"
                           class="form-control"
-                          value="+(60)123456789"
+                          value="+60123456789"
                           required
                         />
                       </div>
@@ -312,5 +319,27 @@
     ></script>
     <script src="js/password.js"></script>
     <script src="js/deleteRecognition.js"></script>
+    <script>
+      function getIp(callback) {
+        fetch("https://ipinfo.io/json?token=294e64ee223f60", {
+          headers: { Accept: "application/json" },
+        })
+          .then((resp) => resp.json())
+          .catch(() => {
+            return {
+              country: "us",
+            };
+          })
+          .then((resp) => callback(resp.country));
+      }
+      const phoneInputField = document.querySelector("#phone");
+      const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "auto",
+        geoIpLookup: getIp,
+        preferredCountries: ["my", "sg", "cn", "us"],
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
+    </script>
   </body>
 </html>
