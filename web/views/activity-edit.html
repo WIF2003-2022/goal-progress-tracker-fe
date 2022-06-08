@@ -21,10 +21,10 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script src="js/navbar.js"></script>
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/priority.css" />
-    <title>Add Activity</title>
+    <script src="../js/navbar.js"></script>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/priority.css" />
+    <title>Edit Activity</title>
   </head>
   <body>
     <div class="wrapper">
@@ -41,7 +41,6 @@
               class="form-control"
               id="activity-title"
               placeholder="Activity 1"
-              required
             />
           </div>
           <div class="mb-3">
@@ -53,28 +52,17 @@
               id="activity-description"
               placeholder="Description XXX"
               rows="3"
-              required
             ></textarea>
           </div>
           <div class="mb-3">
             <label for="activity-start-date" class="form-label"
               >Start Date
             </label>
-            <input
-              type="date"
-              class="form-control"
-              id="activity-start-date"
-              required
-            />
+            <input type="date" class="form-control" id="activity-start-date" />
           </div>
           <div class="mb-5">
             <label for="activity-due-date" class="form-label"> Due Date </label>
-            <input
-              type="date"
-              class="form-control"
-              id="activity-due-date"
-              required
-            />
+            <input type="date" class="form-control" id="activity-due-date" />
           </div>
           <div class="mb-5">
             <label for="activity-frequency" class="form-label">
@@ -87,7 +75,6 @@
                   class="form-control activity-frequency"
                   id="activity-frequency-number"
                   placeholder="1"
-                  required
                 />
               </div>
               <div class="col-1 m-1">time(s)</div>
@@ -98,51 +85,48 @@
                   class="form-control activity-frequency"
                   id="activity-frequency-day"
                   placeholder="7"
-                  required
                 />
               </div>
               <div class="col-1 m-1">day(s)</div>
             </div>
           </div>
-          <div>
-            <div class="form-check">
-              <label class="form-check-label" for="flexCheckDefault">
-                Do you want to add reminder(s) ?
-              </label>
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="flexCheckDefault"
-              />
-            </div>
+          <div class="form-check">
+            <label class="form-check-label" for="flexCheckDefault">
+              Do you want to add reminder(s) ?
+            </label>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="flexCheckDefault"
+            />
           </div>
           <!-- https://codepen.io/neilpomerleau/pen/wzxzQM -->
           <div class="mt-5">Priority level</div>
           <div class="mb-5 rating">
             <label>
-              <input type="radio" name="stars" value="1" required />
+              <input type="radio" name="stars" value="1" />
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="2" required />
-              <span class="icon">★</span>
-              <span class="icon">★</span>
-            </label>
-            <label>
-              <input type="radio" name="stars" value="3" required />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="2" />
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="4" required />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="3" />
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="5" required />
+              <input type="radio" name="stars" value="4" />
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+            </label>
+            <label>
+              <input type="radio" name="stars" value="5" />
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
@@ -151,13 +135,11 @@
             </label>
           </div>
           <div>
-            <button type="submit" class="btn btn-primary mt-3">
-              Add New Activity
-            </button>
+            <button type="submit" class="btn btn-primary mt-3">Confirm</button>
           </div>
         </form>
       </div>
     </div>
-    <script src="js/authListener.js"></script>
+    <script src="../js/authListener.js"></script>
   </body>
 </html>
