@@ -47,7 +47,12 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-5 col-sm-10 col-md-10">
-            <form action="" method="get" id="login-form" novalidate>
+            <form
+              action="src/handleLogin.php"
+              method="post"
+              id="login-form"
+              novalidate
+            >
               <div class="form-group mb-3">
                 <input
                   name="id"
@@ -84,6 +89,7 @@
               </div>
               <button
                 type="submit"
+                name="submit"
                 class="btn btn-primary w-100 p-4"
                 id="submit-btn"
               >
@@ -123,7 +129,7 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="./js/loginValidate.js"></script>
+    <!-- <script type="module" src="./js/loginValidate.js"></script> -->
     <script src="./js/password.js"></script>
     <script>
       window.addEventListener("load", () => {

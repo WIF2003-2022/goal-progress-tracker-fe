@@ -2,16 +2,15 @@
 
 require "../../loadEnvVar.php";
 
-$servername = $_ENV["DB_HOST"];
-$username = $_ENV["DB_USERNAME"];
-$password = $_ENV["DB_PASSWORD"];
-$database = $_ENV["DB_NAME"];
+$dbServerName = $_ENV["DB_HOST"];
+$dbUsername = $_ENV["DB_USERNAME"];
+$dbPassword = $_ENV["DB_PASSWORD"];
+$dbName = $_ENV["DB_NAME"];
 
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($dbServerName, $dbUsername, $dbPassword, $dbName);
 
 if ($conn->connect_error) {
   die("Connection failed" . $conn->connect_error);
 }
 
 echo "Connection Successful";
-?>
