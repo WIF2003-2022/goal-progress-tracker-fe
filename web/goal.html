@@ -33,72 +33,82 @@
           <!-- Use 1 Row, with 3 columns(Left, Middle, Right)-->
           <div class="row m-2 justify-content-center">
             <!-- Left Column -->
-            <div class="col-md-3">
-              <div class="leftCard">
-                <div class="folder">
-                  <h6>Goals</h6>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="activeGoal">
-                      <span class="material-icons-sharp">toggle_on</span>
-                      <div class="naming">Active</div>
-                      <div class="goalCount">4</div>
-                    </div>
-                  </a>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="accomplishedGoal">
-                      <span class="material-icons-sharp">done_all</span>
-                      <div class="naming">Accomplished</div>
-                      <div class="goalCount">1</div>
-                    </div>
-                  </a>
-                  <a href="#" class="remove-hyperlink">
-                    <div class="failedGoal">
-                      <span class="material-icons-sharp">cancel</span>
-                      <div class="naming">Failed</div>
-                      <div class="goalCount">1</div>
-                    </div>
-                  </a>
+            <div class="col-md-2">
+              <div class="leftColumn">
+                <div class="folder" id="btnFolder">
+                  <div
+                    class="btn allGoal current"
+                    onclick="filterFolder('all')"
+                  >
+                    <div class="naming">All</div>
+                    <div class="goalCount">6</div>
+                  </div>
+
+                  <hr />
+
+                  <h6>Status</h6>
+                  <div class="btn activeGoal" onclick="filterFolder('active')">
+                    <span class="material-icons-sharp">outlined_flag</span>
+                    <div class="naming">Active</div>
+                    <div class="goalCount">4</div>
+                  </div>
+                  <div
+                    class="btn accomplishedGoal"
+                    onclick="filterFolder('accomplished')"
+                  >
+                    <span class="material-icons-sharp">done_all</span>
+                    <div class="naming">Accomplished</div>
+                    <div class="goalCount">1</div>
+                  </div>
+                  <div class="btn failedGoal" onclick="filterFolder('failed')">
+                    <span class="material-icons-sharp">cancel</span>
+                    <div class="naming">Failed</div>
+                    <div class="goalCount">1</div>
+                  </div>
                 </div>
                 <!-- End of Folder-->
 
+                <hr />
+
                 <div class="category">
-                  <h6>Category</h6>
-                  <ul>
-                    <li>
-                      <div class="naming">All</div>
-                      <div class="goalCount">6</div>
-                    </li>
-                    <li>
-                      <div class="naming">Personal</div>
-                      <div class="goalCount">2</div>
-                    </li>
-                    <li>
-                      <div class="naming">Health</div>
-                      <div class="goalCount">2</div>
-                    </li>
-                    <li>
-                      <div class="naming">School</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                    <li>
-                      <div class="naming">Family</div>
-                      <div class="goalCount">0</div>
-                    </li>
-                    <li>
-                      <div class="naming">Skill</div>
-                      <div class="goalCount">1</div>
-                    </li>
-                  </ul>
+                  <h6>Categories</h6>
+                  <div
+                    class="btn personalGoal"
+                    onclick="filterFolder('personal')"
+                  >
+                    <div class="naming">Personal</div>
+                    <div class="goalCount">2</div>
+                  </div>
+
+                  <div class="btn healthGoal" onclick="filterFolder('health')">
+                    <div class="naming">Health</div>
+                    <div class="goalCount">2</div>
+                  </div>
+
+                  <div class="btn schoolGoal" onclick="filterFolder('school')">
+                    <div class="naming">School</div>
+                    <div class="goalCount">1</div>
+                  </div>
+
+                  <div class="btn familyGoal" onclick="filterFolder('family')">
+                    <div class="naming">Family</div>
+                    <div class="goalCount">0</div>
+                  </div>
+
+                  <div class="btn skillGoal" onclick="filterFolder('skill')">
+                    <div class="naming">Skill</div>
+                    <div class="goalCount">1</div>
+                  </div>
                 </div>
                 <!-- End of Category -->
+                <hr />
               </div>
-              <!-- End of left card-->
             </div>
             <!-- End of Left Column-->
 
             <!-- Middle Column -->
-            <div class="col-md-4">
-              <div class="goal1">
+            <div class="col-md-8">
+              <div class="filterDiv active health goal1">
                 <a href="action-main.html?id=1" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
@@ -124,7 +134,7 @@
               </div>
               <!--End of Goal No.1-->
 
-              <div class="goal2">
+              <div class="filterDiv active personal goal2">
                 <a href="action-main.html?id=2" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
@@ -149,7 +159,7 @@
                 </a>
               </div>
               <!--End of Goal No.2-->
-              <div class="goal3">
+              <div class="filterDiv accomplished health goal3">
                 <a href="action-main.html?id=3" class="remove-hyperlink">
                   <div class="card">
                     <span
@@ -178,12 +188,7 @@
                 </a>
               </div>
               <!--End of Goal No.3-->
-            </div>
-            <!-- End of Middle Column -->
-
-            <!-- Right Column -->
-            <div class="col-md-4">
-              <div class="goal4">
+              <div class="filterDiv failed personal goal4">
                 <a href="action-main.html?id=4" class="remove-hyperlink">
                   <div class="card">
                     <span
@@ -211,8 +216,10 @@
                   </div>
                 </a>
               </div>
+
               <!--End of Goal No.4-->
-              <div class="goal5">
+
+              <div class="filterDiv active school goal5">
                 <a href="action-main.html?id=5" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
@@ -236,8 +243,10 @@
                   </div>
                 </a>
               </div>
+
               <!--End of Goal No.5-->
-              <div class="goal6">
+
+              <div class="filterDiv active skill goal6">
                 <a href="#" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
@@ -262,15 +271,9 @@
                 </a>
               </div>
               <!--End of Goal No.6-->
-            </div>
-            <!-- End of Right Column -->
-          </div>
-          <!-- End of Row -->
-          <!-- Row for Add Goal Button -->
-          <div class="row m-2 justify-content-center">
-            <div class="col-md-3"></div>
-            <div class="col-md-4">
-              <div class="addGoal mb-3">
+
+              <!-- Add New Goal Card -->
+              <div class="addGoal mb-3 order-last">
                 <a href="goal-add.html" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">add</span>
@@ -280,13 +283,125 @@
                   </div>
                 </a>
               </div>
-              <!--End of Add New Goal Button-->
+              <!--End of Add New Goal div-->
+            </div>
+            <!-- End of Middle Column -->
+
+            <!-- Right Column -->
+            <!--  
+            <div class="col-md-4">
+              <div class="filterDiv failed personal goal4">
+                <a href="action-main.html?id=4" class="remove-hyperlink">
+                  <div class="card">
+                    <span
+                      class="material-icons-sharp"
+                      style="background-color: #ff7782"
+                      >cancel</span
+                    >
+                    <div class="middle">
+                      <div class="left">
+                        <h3>Manange expenses within RM 1000 in April</h3>
+                      </div>
+                      <div class="percentage">
+                        <svg>
+                          <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                          <p>81%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deadline">
+                      <span class="material-icons-sharp">event</span>
+                      <div class="text-muted">30 April 2022</div>
+                    </div>
+                  </div>
+                </a>
+              </div> 
+            -->
+            <!--End of Goal No.4-->
+            <!--
+              <div class="filterDiv active school goal5">
+                <a href="action-main.html?id=5" class="remove-hyperlink">
+                  <div class="card">
+                    <span class="material-icons-sharp">outlined_flag</span>
+                    <div class="middle">
+                      <div class="left">
+                        <h3>Score 4.0 in this semester</h3>
+                      </div>
+                      <div class="percentage">
+                        <svg>
+                          <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                          <p>20%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deadline">
+                      <span class="material-icons-sharp">event</span>
+                      <div class="text-muted">20 June 2022</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              -->
+            <!--End of Goal No.5-->
+            <!--
+              <div class="filterDiv active skill goal6">
+                <a href="#" class="remove-hyperlink">
+                  <div class="card">
+                    <span class="material-icons-sharp">outlined_flag</span>
+                    <div class="middle">
+                      <div class="left">
+                        <h3>Learn video-editing skill in 2 months</h3>
+                      </div>
+                      <div class="percentage">
+                        <svg>
+                          <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                          <p>60%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="deadline">
+                      <span class="material-icons-sharp">event</span>
+                      <div class="text-muted">15 May 2022</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              -->
+            <!--End of Goal No.6-->
+            <!--</div>-->
+
+            <!-- End of Right Column -->
+          </div>
+          <!-- End of Row -->
+          <!-- Row for Add Goal div -->
+          <!--
+          <div class="row m-2 justify-content-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+              <div class="addGoal mb-3 order-last">
+                <a href="goal-add.html" class="remove-hyperlink">
+                  <div class="card">
+                    <span class="material-icons-sharp">add</span>
+                    <div>
+                      <h3>Add Goal</h3>
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
+          -->
         </div>
       </div>
     </div>
     <script src="./js/authListener.js"></script>
+    <script src="./js/goal.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
