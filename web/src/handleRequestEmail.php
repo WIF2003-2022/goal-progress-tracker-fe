@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
 
   $resetPasswordURL = $protocol . $host . $resetPasswordURI;
 
-  $resetPasswordLink = generateResetPasswordLink($user['name'], $user['email'], $resetPasswordURL);
+  $resetPasswordLink = generateAndSaveResetPasswordLink($user['name'], $user['email'], $resetPasswordURL);
 
   $mailingEmail = $_ENV['MAILING_USERNAME'];
   $mailingPassword = $_ENV['MAILING_PASSWORD'];
