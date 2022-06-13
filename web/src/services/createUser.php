@@ -10,5 +10,7 @@ function createUser($conn, $username, $email, $password) {
   ");
   $password_hash = password_hash($password, PASSWORD_DEFAULT);
   $stmt->bind_param("sss", $username, $email, $password_hash);
-  $stmt->execute();
+  if (!($stmt->execute())) {
+    echo ("Database Error: " . $stmt->error );
+  }
 }

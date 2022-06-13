@@ -3,6 +3,8 @@
         "heroku/heroku-buildpack-php": "^218.0"
     },
     "require": {
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "phpmailer/phpmailer": "^6.6",
+        "firebase/php-jwt": "^6.2"
     }
 }

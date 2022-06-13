@@ -42,7 +42,12 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10">
-          <form action="#" method="get" id="forgot-password-form" novalidate>
+          <form
+            action="./src/handleForgotPassword.php?token=<?=$_GET['token']?>"
+            method="post"
+            id="forgot-password-form"
+            novalidate
+          >
             <div class="row align-items-center mb-3">
               <div class="col-11">
                 <input
@@ -82,7 +87,7 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="./js/forgotPasswordValidate.js"></script>
+    <!-- <script type="module" src="./js/forgotPasswordValidate.js"></script> -->
     <script src="./js/password.js"></script>
   </body>
 </html>
