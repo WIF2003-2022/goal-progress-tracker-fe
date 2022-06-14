@@ -10,9 +10,9 @@ var_dump($payload);
 $jwtExpiry = $payload->exp;
 
 if ($jwtExpiry - time() > 0) {
-  header("Location: " . "../login.php");
-  echo "JWT still valid";
-  verifyEmail($payload->preferred_username, $payload->email);
+  if (verifyEmail($payload->preferred_username, $payload->email)) {
+    header("Location: " . "../email-verification-success.html");
+  }
 } else {
   echo "JWT not valid";
 }
