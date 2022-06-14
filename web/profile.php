@@ -27,6 +27,18 @@
         <nav-bar></nav-bar>
         <div class="content-wrapper">
             <div class="container">
+                <?php
+                    // current user data already saved in session
+                    // so you can just retrieve them from the session
+                    session_start();
+                    $userStr = $_SESSION['auth'];
+                    // getting from session would be a string
+                    // need to decode to get the class/object
+                    $user = json_decode($userStr);
+                    if (!$user) {
+                        header("Location: ./login.php");
+                    }
+                ?>
                 <div class="row d-flex flex-row justify-content-center mt-5">
                     <!--<h3>Welcome back, Christian!</h3>-->
                     <!--First column contains user's avatar-->
@@ -39,9 +51,9 @@
                         <div class="mt-3">
                             <!--<span class="bg-secondary p-1 px-4 rounded text-white">Mentee</span>-->
                             <div class="name mt-2">
-                                <h3 class="title">Christian Louboutin</h3>
+                                <h3 class="title"><?= $user->name ?></h3>
                                 <h5>Fitness Enthusiast</h5>
-                                <h6>"I became not just a gym rat, but a runner."</h6>
+                                <h6><?= $user->bio ? "$user->bio" : "Write something about yourself." ?></h6>
                             </div>
                             <div class="recognition">
                                 <div class="recogRow">
@@ -81,7 +93,7 @@
                                         <h6 class="mb-0">Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        Christian Louboutin
+                                        <?= $user->name ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -90,7 +102,7 @@
                                         <h6 class="mb-0">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        christian.l@gmail.com
+                                        <?= $user->email ?>
                                     </div>
                                 </div>
                                 <hr>
