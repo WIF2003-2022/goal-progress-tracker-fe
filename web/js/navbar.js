@@ -127,7 +127,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="./social.html"
+          href="./social.php"
           data-bs-toggle="tooltip"
           title="Social"
         >
@@ -250,7 +250,7 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Details";
         break;
-      case "social.html":
+      case "social.php":
         this.setActiveTab("Social");
         pageTitleElem.textContent = "Social";
         break;
