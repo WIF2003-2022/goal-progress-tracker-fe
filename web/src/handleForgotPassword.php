@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password']) && isset($
   if ($jwtExpiry - time() > 0) {
     header("Location: " . "../login.php");
     echo "JWT still valid";
-    updateUserPassword($payload->preferred_username, $payload->email, $password);
+    updateUserPassword($payload->preferred_username, $payload->email, $password, $jwt);
   } else {
     echo "JWT not valid";
   }
