@@ -74,7 +74,7 @@ var lineChart = new Chart(line, {
     datasets: [
       {
         labels: "#",
-        data: [0, 0, 0, 1],
+        data: [],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
@@ -147,3 +147,28 @@ var lineChart = new Chart(line, {
     },
   },
 });
+
+$.ajax({
+  url: "src/getGoals.php?accomplished_only=true",
+  type: "GET",
+  dataType: "json",
+})
+  .done((json) => {
+    const monthlyCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    json.forEach((data) => {
+      let dateObj = new Date(data.goal_start_date);
+      monthlyCount[dateObj.getMonth()] += 1;
+    });
+    console.log(monthlyCount);
+    lineChart.data.datasets[0].data = monthlyCount;
+    lineChart.update();
+  })
+  .fail((xhr, status, errorThrown) => {
+    alert("Sorry, there was a problem!");
+    console.log("Error: " + errorThrown);
+    console.log("Status: " + status);
+    console.dir(xhr);
+  })
+  .always(function (xhr, status) {
+    console.log("The request is complete!");
+  });
