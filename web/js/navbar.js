@@ -78,7 +78,7 @@ template.innerHTML = `
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
-              href="./profile.html"
+              href="./profile.php"
             >
               <i class="bi bi-person-fill pe-3 large"></i>
               Profile
@@ -266,7 +266,7 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Social");
         pageTitleElem.textContent = "Your Mentor/Mentee: Activity";
         break;
-      case "profile.html":
+      case "profile.php":
         pageTitleElem.textContent = "Profile";
         break;
       case "edit-profile.html":
