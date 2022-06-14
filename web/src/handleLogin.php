@@ -16,5 +16,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     exit();
   }
 
-  header("Location: ../login.html");
+  header("Location: ../login.php");
 }

@@ -2,5 +2,5 @@
 session_start();
 if (isset($_SESSION['auth'])) {
   unset($_SESSION['auth']);
-  header('Location: ../login.html');
+  header('Location: ../login.php');
 }

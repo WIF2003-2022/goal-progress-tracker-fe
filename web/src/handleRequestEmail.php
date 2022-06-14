@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
 
   $requestURI = $_SERVER['REQUEST_URI'];
   $tokens = explode("/", $requestURI);
-  $tokens[count($tokens) - 2] = 'forgot-password.html';
+  $tokens[count($tokens) - 2] = 'forgot-password.php';
   unset($tokens[count($tokens) - 1]);
   $resetPasswordURI = implode("/", $tokens);
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
   $body = "You have requested to reset your password. Go to this link to proceed $resetPasswordLink";
   $altBody = "Reset your password";
 
-  header("Location: ../login.html");
+  header("Location: ../login.php");
 
   if(!$mailer(
     $subject,

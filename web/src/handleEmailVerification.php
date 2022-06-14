@@ -10,7 +10,7 @@ var_dump($payload);
 $jwtExpiry = $payload->exp;
 
 if ($jwtExpiry - time() > 0) {
-  header("Location: " . "../login.html");
+  header("Location: " . "../login.php");
   echo "JWT still valid";
   verifyEmail($payload->preferred_username, $payload->email);
 } else {
