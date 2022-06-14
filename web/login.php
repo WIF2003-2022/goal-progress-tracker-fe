@@ -28,6 +28,12 @@
     />
   </head>
   <body>
+    <?php
+      session_start();
+      if (isset($_SESSION['auth'])) {
+        header("Location: ./index.php");
+      }
+    ?>
     <div class="d-flex align-items-center min-vh-100">
       <div class="container text-center mb-3">
         <div class="row">
@@ -47,7 +53,12 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-5 col-sm-10 col-md-10">
-            <form action="" method="get" id="login-form" novalidate>
+            <form
+              action="src/handleLogin.php"
+              method="post"
+              id="login-form"
+              novalidate
+            >
               <div class="form-group mb-3">
                 <input
                   name="id"
@@ -84,6 +95,7 @@
               </div>
               <button
                 type="submit"
+                name="submit"
                 class="btn btn-primary w-100 p-4"
                 id="submit-btn"
               >
@@ -123,15 +135,15 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="./js/loginValidate.js"></script>
+    <!-- <script type="module" src="./js/loginValidate.js"></script> -->
     <script src="./js/password.js"></script>
-    <script>
+    <!-- <script>
       window.addEventListener("load", () => {
         const val = sessionStorage.getItem("auth");
         if (val === "true") {
-          window.location.href = "./index.html";
+          window.location.href = "./index.php";
         }
       });
-    </script>
+    </script> -->
   </body>
 </html>

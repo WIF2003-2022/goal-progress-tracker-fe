@@ -1,6 +1,6 @@
 import { showError } from "./authValidateUtils.js";
 
-const destinationPage = "login.html";
+const destinationPage = "login.php";
 
 const form = document.getElementById("forgot-password-form");
 const password = document.getElementById("password");

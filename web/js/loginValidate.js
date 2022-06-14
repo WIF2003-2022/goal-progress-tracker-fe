@@ -1,6 +1,6 @@
 import { showError } from "./authValidateUtils.js";
 
-const destinationPage = "index.html";
+const destinationPage = "index.php";
 
 const form = document.getElementById("login-form");
 

@@ -87,8 +87,7 @@ template.innerHTML = `
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
-              href="./login.html"
-              onclick="sessionStorage.clear()"
+              href="src/handleLogout.php"
             >
               <i class="bi bi-door-open-fill pe-3 large"></i>
               Sign Out
@@ -101,7 +100,7 @@ template.innerHTML = `
       <nav class="nav nav-pills flex-column">
         <a
           class="nav-link"
-          href="./index.html"
+          href="./index.php"
           data-bs-toggle="tooltip"
           title="Home"
         >
@@ -200,7 +199,7 @@ class NavBar extends HTMLElement {
 
   initPage() {
     const url = window.location.href;
-    const file = /(?!.*\/).+\.html/.exec(url)[0];
+    const file = /(?!.*\/).+\.(?:html|php)/.exec(url)[0];
     const pageTitleElem = document.querySelector("#page-title");
     switch (file) {
       case "goal.html":
