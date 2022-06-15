@@ -40,7 +40,7 @@
               <img class="card-img-top mt-3"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
               <div class="card-body">
-                <a href="social-activity.html" style="text-decoration: none" class="card-text">Search Web for Korean
+                <a href="social-activity.php" style="text-decoration: none" class="card-text">Search Web for Korean
                   Language Courses</a>
                 <p class="card-text">Due 31/12/2022</p>
               </div>
