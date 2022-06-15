@@ -181,6 +181,7 @@
               $htmlLine = '';
               $count = 0;
               $preID = 0;
+              $looped = false;
               $goalCount = 1;
               $trigger = false;
               $userID = json_decode($_SESSION['auth'],true)['user_id'];
@@ -196,6 +197,7 @@
               $stmt->execute();
               $result = $stmt->get_result();
               while ($row = $result->fetch_assoc()) {
+                $looped = true;
                 $count += 1;
                 $open = false;
                 $goalID = $row['goal_id'];
@@ -227,7 +229,7 @@
                 $trigger = false;  
                 $preID = $row[$field1];
               }
-              $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>';         
+              ($looped) ? $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>': null;         
               echo $htmlLine;
             }
             ?>
