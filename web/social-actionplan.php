@@ -5,7 +5,9 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Mentor/Mentee: Action Plan</title>
+  <title>
+    <?php echo (($_GET['role']=="Mentor" ) ? "Mentee: Your Mentee's Action Plan" :"Mentor: My Action Plan"); ?>
+  </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -32,37 +34,40 @@
     <div class="content-wrapper">
       <div class="container">
         <div class="row">
-          <h2>"Learn Korean Language in 6 Months" - Action Plan(s)</h2>
+          <?php
+            require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+
+            $stmt = $conn->prepare(
+              "SELECT goal_title from goal WHERE goal_id = ?"
+            );
+            $stmt->bind_param("i", $_GET['goalID']);
+            $stmt->execute();
+            $row = $stmt->get_result()->fetch_assoc();
+            echo '<h2>"'.$row['goal_title'].'" - Action Plan(s)</h2>'
+          ?>
         </div>
         <ul>
           <div class="row">
-            <li class="card col-3 m-3 shadow" style="width: 25vw">
-              <img class="card-img-top mt-3"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
-              <div class="card-body">
-                <a href="social-activity.php" style="text-decoration: none" class="card-text">Search Web for Korean
-                  Language Courses</a>
-                <p class="card-text">Due 31/12/2022</p>
-              </div>
-            </li>
-            <li class="card col-3 m-3 shadow" style="width: 25vw">
-              <img class="card-img-top mt-3"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
-              <div class="card-body">
-                <a href="social-activity.html" style="text-decoration: none" class="card-text">Practice Using
-                  Duolingo</a>
-                <p class="card-text">Due 31/12/2022</p>
-              </div>
-            </li>
-            <li class="card col-3 m-3 shadow" style="width: 25vw">
-              <img class="card-img-top mt-3"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
-              <div class="card-body">
-                <a href="social-activity.html" style="text-decoration: none" class="card-text">Learn Through the Hangeul
-                  Guidance Book</a>
-                <p class="card-text">Due 31/12/2022</p>
-              </div>
-            </li>
+            <?php
+            require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+
+            $stmt = $conn->prepare(
+              'SELECT * from `action plan` WHERE goal_id = ?'
+            );
+            $stmt->bind_param("i", $_GET['goalID']);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                echo '<li class="card col-3 m-3 shadow" style="width: 25vw">
+                <img class="card-img-top mt-3"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
+                <div class="card-body">
+                  <a href="social-activity.php?actionplanID='.$row['ap_id'].'&role='.$_GET['role'].'" style="text-decoration: none" class="card-text">'.$row['ap_title'].'</a>
+                  <p class="card-text">'.$row['ap_due_date'].'Due 31/12/2022</p>
+                </div>
+              </li>';
+            }
+          ?>
           </div>
         </ul>
       </div>

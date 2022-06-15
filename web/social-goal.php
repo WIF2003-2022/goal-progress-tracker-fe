@@ -32,8 +32,7 @@
             }else{
               generateGoalList($role,$userID,$otherID);
             }
-            
-            
+                      
             function generateGoalList($role, $menteeID, $mentorID){
               require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");   
 
@@ -55,7 +54,7 @@
                 // echo 'Goal: '.$row['goal_id'].'</br>';
                 echo '<div class="col-md-4">
                           <div class="goal1">
-                            <a href="social-actionplan.php?goalID='.$row['goal_id'].'" class="remove-hyperlink">
+                            <a href="social-actionplan.php?goalID='.$row['goal_id'].'&role='.$role.'" class="remove-hyperlink">
                               <div class="card">
                                 <span class="material-icons-sharp">outlined_flag</span>
                                 <div class="middle">
