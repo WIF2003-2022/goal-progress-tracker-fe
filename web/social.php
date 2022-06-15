@@ -52,16 +52,14 @@
         <div class="col-8 ms-5" id="content">
           <!-- switch tab -->
           <div class="row my-2 justify-content-center">
-            <form class="btn-group w-50" method="POST">
+            <form class="btn-group w-50" method="GET">
               <button type="submit"
-                class="btn btn-outline-dark <?php echo (!isset($_POST['btnradio2'])) ? 'active': ''; ?>"
-                name="btnradio1" id="btnradio1">
+                class="btn btn-outline-dark <?php echo (!isset($_GET['mentors'])) ? 'active': ''; ?>" name="mentees">
                 Your Mentee
               </button>
 
               <button type="submit"
-                class="btn btn-outline-dark <?php echo (isset($_POST['btnradio2'])) ?  'active': ''; ?>"
-                name="btnradio2" id="btnradio2">
+                class="btn btn-outline-dark <?php echo (isset($_GET['mentors'])) ?  'active': ''; ?>" name="mentors">
                 Your Mentor
               </button>
             </form>
@@ -77,9 +75,9 @@
             $goalCount = 1;
             $trigger = false;
             $userID = json_decode($_SESSION['auth'],true)['user_id']; 
-            if (!isset($_POST['btnradio2'])) {
+            if (!isset($_GET['mentors'])) {
               $role = "Mentor"; 
-              generateList($role);           
+              generateSocialList($role);           
               // $stmt = $conn->prepare(
               //   "SELECT * from goal WHERE mentor_id = ?"
               // );
@@ -128,7 +126,7 @@
               
             } else {
               $role = "Mentee";
-              generateList($role);
+              generateSocialList($role);
               // $stmt = $conn->prepare(
               //   "SELECT * from goal WHERE mentee_id = ?"
               // );
@@ -176,8 +174,8 @@
               // echo $htmlLine; 
             }
 
-            function generateList($role){
-              require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+            function generateSocialList($role){
+              require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
               $htmlLine = '';
               $count = 0;
               $preID = 0;
@@ -185,6 +183,7 @@
               $goalCount = 1;
               $trigger = false;
               $userID = json_decode($_SESSION['auth'],true)['user_id'];
+              $goalArr = array();
               $roleArr = ['mentor_id','mentee_id'];
               if($role == "Mentor"){
                 $field = $roleArr[0]; 
@@ -206,11 +205,13 @@
                   $trigger = true;
                   $goalCount += 1;
                   $preID = $row['goal_id'];
-                  $htmlLine .= '<p class="card-text text-secondary">'.$row['goal_description'].'</p>';
+                  array_push($goalArr,$row['goal_id']);
+                  $htmlLine .= '<p class="card-text text-secondary">'.$row['goal_title'].'</p>';
                   continue;
                 }   
                 if(($goalCount > 1 && $row['goal_id'] != $preID) || ($count != 1 && !$trigger)){
-                  $open = true;                  
+                  $open = true;   
+                  $goalArr = array();               
                   $htmlLine .= 
                   '</div><div class="card-footer"><small class="text-muted">Total goals: '.$goalCount.'</small></div></div></a></div>';
                   $goalCount = 1;
@@ -223,8 +224,9 @@
                   $stmt1->execute();
                   $result1 = $stmt1->get_result(); 
                   $row1 = $result1->fetch_assoc();  
+                  array_push($goalArr,$row['goal_id']); 
                   $htmlLine .= 
-                  '<div class="col"><a href="./social-goal.html?goalID='.$goalID.'" class="text-decoration-none"><div class="card h-100" id="singleCard"><img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" /><div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5><p class="card-text text-secondary">'.$row['goal_description'].'</p>';                 
+                  '<div class="col"><a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none"><div class="card h-100" id="singleCard"><img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" /><div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5><p class="card-text text-secondary">'.$row['goal_title'].'</p>';                 
                 }
                 $trigger = false;  
                 $preID = $row[$field1];
