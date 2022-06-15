@@ -19,17 +19,18 @@ function confirm() {
   overlayagain.style.display = "block";
 }
 
-// If close icon or exit button is clicked, the function exit() is executed
-document.getElementById("exit").onclick = function () {
-  exit();
-};
-function exit() {
-  window.location.href = "register.html";
-}
-
+// If close icon is clicked, the function exit() is executed
 document.getElementById("close").onclick = function () {
   exit();
 };
 function exit() {
-  window.location.href = "register.html";
+  window.location.href = "login.php";
+}
+
+// If exit button is clicked, the function exit() is executed
+document.getElementById("exit").onclick = function () {
+  exit();
+};
+function exit() {
+  window.location.href = "login.php";
 }
