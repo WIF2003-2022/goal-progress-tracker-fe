@@ -67,34 +67,10 @@
   height: 80px;
 }
 
-.popup {
-  width: 80%;
-  padding: 20px;
-  left: 0;
-  margin-left: 5%;
-  border: 1px solid rgb(54, 57, 63);
-  border-radius: 20px;
-  color: rgb(54, 57, 63);
+.modal-dialog {
+  border-radius: 5px;
   background: snow;
-  position: absolute;
   top: 30%;
-  box-shadow: 5px 5px 5px rgb(54, 57, 63);
-  z-index: 10001;
-  font-weight: 700;
-  text-align: center;
-  font-family: "Sofia", sans-serif;
-}
-
-.overlay {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 10000;
-  display: none;
 }
 
 @media (min-width: 768px) {
@@ -123,10 +99,9 @@
   color: white;
   font-weight: 700;
   border: 1px solid #708090;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 30px;
   width: 30%;
-  font-family: "Sofia", sans-serif;
 }
 
 .dialog-btn:hover {
@@ -165,7 +140,7 @@
   right: 40px;
 }
 
-.input-group-text i{
+.input-group-text i {
   position: absolute;
   background-color: transparent !important;
   border: none;

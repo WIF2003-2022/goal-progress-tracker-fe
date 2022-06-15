@@ -40,21 +40,18 @@
                     }
                 ?>
                 <div class="row d-flex flex-row justify-content-center mt-5">
-                    <!--<h3>Welcome back, Christian!</h3>-->
+                    <!--<h3>Welcome back, <?= $user->name ?>!</h3>-->
                     <!--First column contains user's avatar-->
                     <div class="leftSection col-md-4">
                         <div class="mt-3 mb-4">
-                            <!--img should replace with default profile photo-->
                             <img src="images/default-user.png"
                                 alt="Circle Image" class="img-raised rounded-circle img-fluid shadow-sm"
                                 style="width: 150px;">
                         </div>
                         <div class="mt-3">
-                            <!--<span class="bg-secondary p-1 px-4 rounded text-white">Mentee</span>-->
                             <div class="name mt-2">
-                                <h3 class="title"><?= $user->name ?><!--Christian Louboutin--></h3>
-                                <h5><?= $user->bio ? "$user->bio" : "Write something about yourself." ?><!--Fitness Enthusiast--></h5>
-                                <!--<h6>"I became not just a gym rat, but a runner."</h6>-->
+                                <h3 class="title"><?= $user->name ?></h3>
+                                <h5><?= $user->bio ? "$user->bio" : "Write something about yourself." ?></h5>
                             </div>
                             <div class="recognition">
                                 <div class="recogRow">
@@ -94,7 +91,7 @@
                                         <h6 class="mb-0">Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->name ?><!--Christian Louboutin-->
+                                        <?= $user->name ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -103,7 +100,7 @@
                                         <h6 class="mb-0">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->email ?><!--christian.l@gmail.com-->
+                                        <?= $user->email ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -112,7 +109,7 @@
                                         <h6 class="mb-0">Mobile</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->mobile_phone ? "$user->mobile_phone" : "Update your phone number with +country code." ?><!--+(60)12-345 6789-->
+                                        <?= $user->mobile_phone ? "$user->mobile_phone" : "Update your phone number with +country code." ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -130,7 +127,7 @@
                                         <h6 class="mb-0">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->address ? "$user->address" : "Update your address." ?><!--128, Jalan Junid 50603 Kuala Lumpur-->
+                                        <?= $user->address ? "$user->address" : "Update your address." ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -140,58 +137,89 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <?= $user->bio ? "$user->bio" : "Write something about yourself."?>
-                                        <!--Fitness Enthusiast "I became not just a gym rat, but a runner."-->
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-outline-primary" target="__blank"
-                                            href="edit-profile.html">Edit Profile</a>
-                                        <button type="button" class="btn btn-outline-danger" id="deletebutton">Delete
-                                            Account</button>
-                                        <div class="overlay" id="dialog-container">
-                                            <div class="popup">
+                                        <a class="btn btn-outline-primary" target="__blank" href="edit-profile.html">
+                                            Edit Profile
+                                        </a>
+                                        <!-- Trigger the delete account modal with a button -->
+                                        <button id="deleteAccount" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                            Delete Account
+                                        </button>
+                             
+                                        <!--Delete Modal -->
+                                        <div id="deleteModal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Account</h4>
+                                                <button type="button" class="btn-close" data-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
                                                 <p>Are you sure you want to delete your account?</p>
-                                                <div class="text-right">
-                                                    <button class="dialog-btn btn-cancel" id="cancel">Cancel</button>
-                                                    <button class="dialog-btn btn-primary" id="confirm">Ok</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <!--Message Modal-->
+                                        <div id="message" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete Successful</h4>
+                                                    <button id=close type="button" class="btn-close" data-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="mt-4">Please register a new account or login to another account.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="exit" type="button" class="btn btn-primary">Exit</button>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="overlay" id="message">
-                                            <div class="popup">
-                                                <button class="close-button" id="close" aria-label="Close alert"
-                                                    type="button" style="float: right;">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <p class="mt-3">Deleted successfully! Please register a new account or
-                                                    login to another account.</p>
-                                            </div>
-                                        </div>
+
+                                        <!--delete user account in database-->
+                                        <form
+                                            action="src/deleteAccount.php"
+                                            method="post"
+                                            id="delete-user-account"
+                                        >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <?php //not sure the output is correct or not
+
+                                <!--Retrieve user info : mentor, mentee, goal accomplished-->
+                                <?php 
                                     require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
 
                                     $userMentor = "SELECT COUNT(mentee_id) AS noOfMentee
                                     FROM goal
                                     INNER JOIN user
-                                    ON goal.mentor_id = user.user_id";
+                                    ON goal.mentor_id = user.user_id = $user->user_id";
 
                                     $userMentee = "SELECT COUNT(mentor_id) AS noOfMentor
                                     FROM goal
                                     INNER JOIN user
-                                    ON goal.mentee_id = user.user_id";
+                                    ON goal.mentee_id = user.user_id = $user->user_id";
 
                                     $goalAccomplished = "SELECT COUNT(goal_id) AS noOfGoalsAccomplished
                                     FROM goal
                                     INNER JOIN user
-                                    ON user.user_id = goal.mentee_id
+                                    ON user.user_id = goal.mentee_id = $user->user_id
                                     WHERE goal_status = 'Accomplished'
                                     AND goal_progress = 100";
 
@@ -209,6 +237,7 @@
 
                                     mysqli_close($conn);
                                 ?>
+                                
                                 <div class="row text-center mb-4 mt-4">
                                     <div class="col-lg-4 col-md-4 m-t-20">
                                         <h3 class="m-b-0 font-light"><?php echo $row1['noOfMentee'] ?></h3><small>Mentor</small> <!--same as $row1[0]-->
