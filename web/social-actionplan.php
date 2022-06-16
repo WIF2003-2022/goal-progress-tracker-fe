@@ -43,7 +43,7 @@
             $stmt->bind_param("i", $_GET['goalID']);
             $stmt->execute();
             $row = $stmt->get_result()->fetch_assoc();
-            echo '<h2>"'.$row['goal_title'].'" - Action Plan(s)</h2>'
+            echo '<h2>"'.$row['goal_title'].'" - Goal</h2>'
           ?>
         </div>
         <ul>
