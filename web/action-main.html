@@ -59,19 +59,5 @@
       </div>
     </div>
     <script src="./js/authListener.js"></script>
-    <script>
-      var goals = [
-        "Loss 3kg in 3 Months",
-        "Read 2 Books in 5 Weeks",
-        "Wake Up at 7am for 21 Days",
-        "Manage Expenses within RM1000",
-        "Score 2.0 in This Semester ",
-      ];
-      var id = window.location.search;
-      var param = new URLSearchParams(id);
-      var query = parseInt(param.get("id"));
-      document.querySelector("h2").innerText =
-        '"' + goals[query - 1] + '"' + " - Action Plan(s)";
-    </script>
   </body>
 </html>

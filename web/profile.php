@@ -1,3 +1,7 @@
+<?php
+require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +42,8 @@
                     if (!$user) {
                         header("Location: ./login.php"); //change location of http header to login.php
                     }
+
+                    include './src/message.php';
                 ?>
                 <div class="row d-flex flex-row justify-content-center mt-5">
                     <!--<h3>Welcome back, <?= $user->name ?>!</h3>-->
@@ -164,8 +170,10 @@
                                                 <p>Are you sure you want to delete your account?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <button id="delete" type="button" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                <form action="./src/deleteAccount.php" method="post">
+                                                    <button id="delete" type="submit" name="user_delete" value="<?=$user->user_id ?>" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                </form>
                                             </div>
                                             </div>
                                         </div>
@@ -183,18 +191,11 @@
                                                     <p class="mt-4">Please register a new account or login to another account.</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button id="exit" type="button" class="btn btn-primary">Exit</button>
+                                                    <button id="exit" name="exit" type="button" class="btn btn-primary">Exit</button>
                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!--delete user account in database-->
-                                        <form
-                                            action="src/deleteAccount.php"
-                                            method="post"
-                                            id="delete-user-account"
-                                        >
                                     </div>
                                 </div>
                             </div>
@@ -204,8 +205,6 @@
 
                                 <!--Retrieve user info : mentor, mentee, goal accomplished-->
                                 <?php 
-                                    require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-
                                     $userMentor = "SELECT COUNT(mentee_id) AS noOfMentee
                                     FROM goal
                                     INNER JOIN user

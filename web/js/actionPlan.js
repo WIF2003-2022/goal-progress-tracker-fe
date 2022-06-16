@@ -1,48 +1,74 @@
-var actionPlans = [
-  {
-    id: 1,
-    content: [
-      { refer: 1, actionPlan: "Exercise Regularly", dueDate: "7/5/2022" },
-      {
-        refer: 2,
-        actionPlan: "Maintain Clean and Healthy Diet",
-        dueDate: "7/5/2022",
-      },
-    ],
-  },
-  {
-    id: 2,
-    content: [
-      {
-        refer: 3,
-        actionPlan: "Read Book Before Bed Time",
-        dueDate: "5/25/2022",
-      },
-    ],
-  },
-  {
-    id: 3,
-    content: [
-      { refer: 4, actionPlan: "Sleep Early Everyday", dueDate: "4/21/2022" },
-    ],
-  },
-  {
-    id: 4,
-    content: [
-      { refer: 5, actionPlan: "Record Daily Expenses", dueDate: "4/30/2022" },
-    ],
-  },
-  {
-    id: 5,
-    content: [
-      {
-        refer: 6,
-        actionPlan: "Study Hard",
-        dueDate: "6/20/2022",
-      },
-    ],
-  },
-];
+var ajax = new XMLHttpRequest();
+var method = "GET";
+var url = "action-main-data.php";
+var asyn = true;
+
+ajax.open(method, url, asyn);
+ajax.send();
+html = "";
+ajax.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    var data = JSON.parse(this.responseText);
+    console.log(data);
+    for (i = 0; i < data.length; i++) {
+      document.write(
+        `
+      <li class="card col-3 m-3 shadow" style="width: 33%; max-width: 100%">
+                    <div class="row">
+                      <div class="col-1">
+                        <a
+                          href="action-main-edit.html?id=` +
+          data[i].ap_id +
+          `"
+                          style="text-decoration: none"
+                        >
+                          <button style="border: none; background: none;">
+                            <i class="bi-pencil" style="font-size: 1.5vw;"></i>
+                          </button>
+                        </a>
+                      </div>
+                      <div class="col-1">
+                        <button
+                          class="deleteAP"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteModal"
+                          style="border: none; background: none;"
+                        >
+                          <i class="bi-trash-fill" style="font-size: 1.5vw;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <img
+                      style="width: 100%; height:auto;"
+                      class="card-img-top"
+                      src=` +
+          data[i].ap_image +
+          `
+                    />
+                    <div class="card-body" style="line-height: 1em;">
+                      <a
+                        href="activity.html?id=` +
+          data[i].goal_id +
+          "&refer=" +
+          data[i].ap_id +
+          `"
+                        style="text-decoration: none; font-size: 1.5vw;"
+                        class="card-text"
+                        >` +
+          data[i].ap_title +
+          `</a
+                      >
+                      <p class="card-text" style="font-size: 1vw;">Due ` +
+          data[i].ap_due_date +
+          `</p>
+                    </div>
+                  </li>
+      `
+      );
+    }
+    document.write("</div></ul>");
+  }
+};
 
 var modalHTML = `
 <div class="modal fade" id="deleteModal" tabindex="-1">
@@ -77,69 +103,6 @@ var modalHTML = `
           </div>
 `;
 
-var url = window.location.search;
-var param = new URLSearchParams(url);
-var query = parseInt(param.get("id"));
-
-var urlID = actionPlans.find((o) => o.id === query);
-document.write('<ul><div class="row">');
-for (i = 0; i < urlID.content.length; i++) {
-  document.write(
-    `
-  <li class="card col-3 m-3 shadow" style="width: 33%; max-width: 100%">
-                <div class="row">
-                  <div class="col-1">
-                    <a
-                      href="action-main-edit.html?id=` +
-      urlID.id +
-      `"
-                      style="text-decoration: none"
-                    >
-                      <button style="border: none; background: none;">
-                        <i class="bi-pencil" style="font-size: 1.5vw;"></i>
-                      </button>
-                    </a>
-                  </div>
-                  <div class="col-1">
-                    <button
-                      class="deleteAP"
-                      data-bs-toggle="modal"
-                      data-bs-target="#deleteModal"
-                      style="border: none; background: none;"
-                    >
-                      <i class="bi-trash-fill" style="font-size: 1.5vw;"></i>
-                    </button>
-                  </div>
-                </div>
-                <img
-                  style="width: 100%; height:auto;"
-                  class="card-img-top"
-                  src=` +
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" +
-      `
-                />
-                <div class="card-body" style="line-height: 1em;">
-                  <a
-                    href="activity.html?id=` +
-      urlID.id +
-      "&refer=" +
-      urlID.content[i].refer +
-      `"
-                    style="text-decoration: none; font-size: 1.5vw;"
-                    class="card-text"
-                    >` +
-      urlID.content[i].actionPlan +
-      `</a
-                  >
-                  <p class="card-text" style="font-size: 1vw;">Due ` +
-      urlID.content[i].dueDate +
-      `</p>
-                </div>
-              </li>
-  `
-  );
-}
-document.write("</div></ul>");
 document.write(modalHTML);
 
 //delete funtion
