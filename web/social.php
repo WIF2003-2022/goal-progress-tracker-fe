@@ -73,103 +73,13 @@
               $goalCount = 1;
               $trigger = false;
               $userID = json_decode($_SESSION['auth'],true)['user_id']; 
+              
               if (!isset($_GET['mentors'])) {
                 $role = "Mentor"; 
-                generateSocialList($role);           
-                // $stmt = $conn->prepare(
-                //   "SELECT * from goal WHERE mentor_id = ?"
-                // );
-                // $stmt->bind_param("i", $userID);
-                // $stmt->execute();
-                // $result = $stmt->get_result();
-                // while ($row = $result->fetch_assoc()) {
-                //   $count += 1;
-                //   $open = false;
-                //   $goalID = $row['goal_id'];
-                //   // echo json_encode($row['mentee_id'])."</br>";
-                //   if($row['mentee_id'] == $preID){
-                //     // echo $count."a"."</br>";
-                //     $trigger = true;
-                //     $goalCount += 1;
-                //     $preID = $row['goal_id'];
-                //     $htmlLine .= '<p class="card-text text-secondary">'.$row['goal_description'].'</p>';
-                //     continue;
-                //   }   
-                //   if(($goalCount > 1 && $row['goal_id'] != $preID) || ($count != 1 && !$trigger)){
-                //     // echo $count."b"."</br>";
-                //     // echo "Goal count: ".$goalCount."</br>";
-                //     $open = true;                  
-                //     $htmlLine .= 
-                //     '</div><div class="card-footer"><small class="text-muted">Total goals: '.$goalCount.'</small></div></div></a></div>';
-                //     $goalCount = 1;
-                //   }                        
-                //   if($count == 1 || $open){  
-                //     // echo $count."c"."</br>";
-                //     $stmt1 = $conn->prepare(
-                //       "SELECT name from user WHERE user_id = ?"
-                //     );
-                //     $stmt1->bind_param("i", $row['mentee_id']);
-                //     $stmt1->execute();
-                //     $result1 = $stmt1->get_result(); 
-                //     $row1 = $result1->fetch_assoc();               
-                //     $htmlLine .= 
-                //     '<div class="col"><a href="./social-goal.html?goalID='.$goalID.'" class="text-decoration-none"><div class="card h-100" id="singleCard"><img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" /><div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5><p class="card-text text-secondary">'.$row['goal_description'].'</p>';                 
-                //   }
-                //   $trigger = false;  
-                //   $preID = $row['mentee_id'];
-                //   // echo $preID."Count: ".$count."</br>"; 
-                // }
-                // $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>';         
-                // echo $htmlLine; 
-                
+                generateSocialList($role);                           
               } else {
                 $role = "Mentee";
                 generateSocialList($role);
-                // $stmt = $conn->prepare(
-                //   "SELECT * from goal WHERE mentee_id = ?"
-                // );
-                // $stmt->bind_param("i", $userID);
-                // $stmt->execute();
-                // $result = $stmt->get_result();
-                // while ($row = $result->fetch_assoc()) {
-                //   $count += 1;
-                //   $open = false;
-                //   $goalID = $row['goal_id'];
-                //   // echo json_encode($row['mentee_id'])."</br>";
-                //   if($row['mentor_id'] == $preID){
-                //     // echo $count."a"."</br>";
-                //     $trigger = true;
-                //     $goalCount += 1;
-                //     $preID = $row['goal_id'];
-                //     $htmlLine .= '<p class="card-text text-secondary">'.$row['goal_description'].'</p>';
-                //     continue;
-                //   }   
-                //   if(($goalCount > 1 && $row['goal_id'] != $preID) || ($count != 1 && !$trigger)){
-                //     // echo $count."b"."</br>";
-                //     // echo "Goal count: ".$goalCount."</br>";
-                //     $open = true;                  
-                //     $htmlLine .= 
-                //     '</div><div class="card-footer"><small class="text-muted">Total goals: '.$goalCount.'</small></div></div></a></div>';
-                //     $goalCount = 1;
-                //   }                        
-                //   if($count == 1 || $open){  
-                //     // echo $count."c"."</br>";
-                //     $stmt1 = $conn->prepare(
-                //       "SELECT name from user WHERE user_id = ?"
-                //     );
-                //     $stmt1->bind_param("i", $row['mentor_id']);
-                //     $stmt1->execute();
-                //     $result1 = $stmt1->get_result(); 
-                //     $row1 = $result1->fetch_assoc();               
-                //     $htmlLine .= 
-                //     '<div class="col"><a href="./social-goal.html?goalID='.$goalID.'" class="text-decoration-none"><div class="card h-100" id="singleCard"><img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" /><div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5><p class="card-text text-secondary">'.$row['goal_description'].'</p>';                 
-                //   }
-                //   $trigger = false;  
-                //   $preID = $row['mentor_id'];
-                //   // echo $preID."Count: ".$count."</br>"; 
-                // }
-                // $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>';         
-                // echo $htmlLine; 
               }
 
               function generateSocialList($role){
@@ -216,7 +126,7 @@
                   }                        
                   if($count == 1 || $open){  
                     $stmt1 = $conn->prepare(
-                      "SELECT name from user WHERE user_id = ?"
+                      "SELECT name, photo from user WHERE user_id = ?"
                     );
                     $stmt1->bind_param("i", $row[$field1]);
                     $stmt1->execute();
@@ -225,10 +135,13 @@
                     array_push($goalArr,$row['goal_id']); 
                     $_SESSION['mentor_id'] = $row['mentor_id'];
                     $_SESSION['mentee_id'] = $row['mentee_id'];
+
+                    ((!empty($row1['photo'])) ? $proPic = $row1['photo'] : $proPic = 'sampleProfilePic.jpg');
+
                     $htmlLine .= 
                     '<div class="col"><a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
                     <div class="card h-100" id="singleCard">
-                    <img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" />
+                    <img src="././images/'.$proPic.'" class="card-img-top"/>
                     <div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'
                     </h5><p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';                 
                   }
