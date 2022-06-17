@@ -67,11 +67,14 @@
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
 
             if (isset($_GET['aID'])){
+              date_default_timezone_set('Asia/Kuala_Lumpur');
+              $date = strval(date('y-m-d h:i:s'));
+
               // update database
               $aID = $_GET['aID'];
               $cText = $_POST['activity'.$aID];
               $cID = $userID;
-              $time = "2022-06-10 03:37:12";
+              $time = $date;
               $stmt3 = $conn->prepare(
                 "INSERT INTO comment (a_id, comment_text, commentor_id, timestamp)VALUES (?,?,?,?)"
               );
@@ -91,11 +94,16 @@
             while ($row = $result->fetch_assoc()) {
               // echo 'ap_id: '.$row['ap_id'].'</br>';
               // echo 'a_id: '.$row['a_id'].'</br>';
+
+              //change date format
+              $startDate = date("d-m-Y", strtotime($row['a_start_date']));
+              $dueDate = date("d-m-Y", strtotime($row['a_due_date']));
+              
               $haveAct = true;
               $html = '';
               $html .= '<!-- activity -->
               <li class="card text-center">
-              <div class="card-header">'.$row['a_due_date'].'</div>
+              <div class="card-header text-start">Start Date: '.$startDate.'<span class="float-end text-danger">Due Date: '.$dueDate.'</span></div>
               <div class="card-body">
                 <h5 class="card-title">'.$row['a_title'].'</h5>
                 <p class="card-text">'.$row['a_description'].'</p>
@@ -146,7 +154,7 @@
                   </div>';
 
               $stmt1 = $conn->prepare(
-                "SELECT * from comment WHERE a_id = ?"
+                "SELECT * from comment WHERE a_id = ? ORDER BY timestamp"
               );
               $stmt1->bind_param("i", $row['a_id']);
               $stmt1->execute();
@@ -163,6 +171,34 @@
                 ($_GET['role'] == 'Mentor') ? $other = 'Mentee' : $other = 'Mentor';
                 ($userID == $row1['commentor_id']) ? $roleLabel = "You" : $roleLabel = $other;
                 // echo $row2['name'].'</br>';
+                date_default_timezone_set('Asia/Kuala_Lumpur');
+                $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+                $commentDate = date_create($row1['timestamp']);
+                $difference = date_diff($currentDate, $commentDate); 
+                $year = strval($difference->y);
+                $month = strval($difference->m);
+                $day = strval($difference->d);
+                $hour = strval($difference->h);
+                $minute = strval($difference->i);
+                $second = strval($difference->s);
+                if ($year > 0) {
+                  $unit = ($year == 1) ?  " year ago" : " years ago";
+                  $period = $year.$unit;
+                }else if($month > 0){
+                  $unit = ($month == 1) ?  " month ago" : " months ago";
+                  $period = $month.$unit;
+                }else if($day > 0){
+                  $unit = ($day == 1) ?  " day ago" : " days ago";
+                  $period = $day.$unit;
+                }else if($hour > 0){
+                  $unit = ($hour == 1) ?  " hour ago" : " hours ago";
+                  $period = $hour.$unit;
+                }else if($minute > 0){
+                  $unit = ($minute == 1) ?  " minute ago" : " minutes ago";
+                  $period = $minute.$unit;
+                }else{
+                  $period = "Just Now";
+                }
                 //display comment
                 $html .= '
                   <div class="mt-2">
@@ -177,9 +213,9 @@
                             <small class="'.(($roleLabel == "You")? 'y':'o').'-badge"><span class="px-3">'.$roleLabel.'</span></small>
                           </div>
                           <!-- time -->
-                          <small>12h ago</small>
+                          <small class="text-secondary">'.$period.'</small>
                         </div>
-                        <p class="text-justify comment-text mb-0">'.$row1["comment_text"].'</p>
+                        <p class="text-justify comment-text mb-0 fs-6">'.$row1["comment_text"].'</p>
                         <div class="d-flex flex-row user-feed">
                           <!-- <span class="wish"><i class="bi bi-pin mr-2"></i></span> -->
                         </div>

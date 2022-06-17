@@ -19,13 +19,13 @@
   <div class="wrapper">
     <nav-bar></nav-bar>
     <div class="content-wrapper">
-      <div class="container-float">
-        <div class="row m-2">
+      <div class="container">
+        <div class="row">
           <?php
           //back button
           echo '
           <form action="./social.php" method="GET">
-          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3 text-start">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
               <span class="text-secondary">
                 <<< </span> Back to Social
           </button>
