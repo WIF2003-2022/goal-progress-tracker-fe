@@ -1,5 +1,5 @@
 <?php
-require_once './services/findUser.php';
+require_once @realpath(dirname(__FILE__) .'/services/findUser.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   $id = $_POST['id'];

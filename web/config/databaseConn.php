@@ -1,6 +1,5 @@
 <?php
-
-require "../../loadEnvVar.php";
+require @realpath(dirname(__FILE__) . "/../../loadEnvVar.php");
 
 $dbServerName = $_ENV["DB_HOST"];
 $dbUsername = $_ENV["DB_USERNAME"];
@@ -13,4 +12,4 @@ if ($conn->connect_error) {
   die("Connection failed" . $conn->connect_error);
 }
 
-echo "Connection Successful";
+// echo "Connection Successful";

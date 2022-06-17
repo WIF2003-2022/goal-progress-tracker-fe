@@ -1,16 +1,16 @@
 // Call function when delete account button is clicked
-document.getElementById("deletebutton").onclick = function () {
+document.getElementById("deleteAccount").onclick = function () {
   show_dialog();
 };
-var overlayme = document.getElementById("dialog-container");
+var overlayme = document.getElementById("deleteModal");
 
 /* A function to show the dialog window */
 function show_dialog() {
   overlayme.style.display = "block";
 }
 
-// If ok btn is clicked , the function ok() is executed
-document.getElementById("confirm").onclick = function () {
+// If delete btn is clicked , the function delete() is executed
+document.getElementById("delete").onclick = function () {
   confirm();
 };
 var overlayagain = document.getElementById("message");
@@ -19,18 +19,18 @@ function confirm() {
   overlayagain.style.display = "block";
 }
 
+// If close icon is clicked, the function exit() is executed
 document.getElementById("close").onclick = function () {
-  close();
+  exit();
 };
-function close() {
-  location.replace("register.html");
+function exit() {
+  window.location.href = "login.php";
 }
 
-// If cancel btn is clicked , the function cancel() is executed
-document.getElementById("cancel").onclick = function () {
-  cancel();
+// If exit button is clicked, the function exit() is executed
+document.getElementById("exit").onclick = function () {
+  exit();
 };
-function cancel() {
-  /* code executed if cancel is clicked */
-  overlayme.style.display = "none";
+function exit() {
+  window.location.href = "login.php";
 }

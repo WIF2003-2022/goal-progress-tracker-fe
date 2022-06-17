@@ -1,3 +1,15 @@
+<?php
+include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+$sql = "SELECT * FROM `action plan` WHERE ap_id = '26'";
+$result = $conn -> query($sql);
+$row = $result -> fetch_array();
+$primary = $row["ap_id"];
+$title = $row["ap_title"];
+$start = $row["ap_start_date"];
+$due = $row["ap_due_date"];
+$image = $row["ap_image"];
+$conn -> close();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,7 +42,13 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container"></div>
-        <form class="m-5" action="action-main.html" method="post">
+        <form
+          class="m-5"
+          action="action-main-edit-process.php"
+          method="post"
+          enctype="multipart/form-data"
+        >
+        <input type="hidden" name="ap_id" <?php echo "value=$primary" ?>/>
           <div class="mb-3">
             <label for="action-plan-title" class="form-label">
               Action Plan Title
@@ -39,30 +57,46 @@
               type="text"
               class="form-control"
               id="action-plan-title"
+              name="ap_title"
+              <?php echo "value=$title" ?>
               placeholder="Action Plan 1"
             />
           </div>
           <div class="mb-3">
-            <label for="action-plan-start-date" class="form-label">
+            <label for="action-plan-start-date" class="form-label" name>
               Start Date
             </label>
             <input
               type="date"
               class="form-control"
               id="action-plan-start-date"
+              name="ap_start_date"
+              <?php echo "value=$start" ?>
             />
           </div>
           <div class="mb-3">
             <label for="action-plan-due-date" class="form-label">
               Due Date
             </label>
-            <input type="date" class="form-control" id="action-plan-due-date" />
+            <input
+              type="date"
+              class="form-control"
+              id="action-plan-due-date"
+              name="ap_due_date"
+              <?php echo "value=$due" ?>
+            />
           </div>
           <div class="mb-3">
             <label for="action-plan-image" class="form-label">
               Action Plan Image
             </label>
-            <input type="file" class="form-control" id="action-plan-image" />
+            <input
+              type="file"
+              class="form-control"
+              id="action-plan-image"
+              name="ap_image"
+              <?php echo "value=$image" ?>
+            />
           </div>
           <div>
             <button type="submit" class="btn btn-primary mt-3">Confirm</button>

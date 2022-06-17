@@ -1,7 +1,7 @@
 <?php
-require_once './services/createUser.php';
-require_once './services/sendEmail.php';
-require_once './services/generateEmailVerificationLink.php';
+require_once @realpath(dirname(__FILE__) .'/services/createUser.php');
+require_once @realpath(dirname(__FILE__) .'/services/sendEmail.php');
+require_once @realpath(dirname(__FILE__) .'/services/generateEmailVerificationLink.php');
 
 require "../../loadEnvVar.php";
 

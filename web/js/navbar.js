@@ -78,7 +78,7 @@ template.innerHTML = `
           <li>
             <a
               class="dropdown-item d-flex align-items-center"
-              href="./profile.html"
+              href="./profile.php"
             >
               <i class="bi bi-person-fill pe-3 large"></i>
               Profile
@@ -127,7 +127,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="./social.html"
+          href="./social.php"
           data-bs-toggle="tooltip"
           title="Social"
         >
@@ -250,23 +250,23 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Details";
         break;
-      case "social.html":
+      case "social.php":
         this.setActiveTab("Social");
         pageTitleElem.textContent = "Social";
         break;
-      case "social-goal.html":
+      case "social-goal.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Your Mentor/Mentee: Goal List";
+        pageTitleElem.textContent = "Goal";
         break;
-      case "social-actionplan.html":
+      case "social-actionplan.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Your Mentor/Mentee: Action Plan";
+        pageTitleElem.textContent = "Action Plan";
         break;
-      case "social-activity.html":
+      case "social-activity.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Your Mentor/Mentee: Activity";
+        pageTitleElem.textContent = "Activity";
         break;
-      case "profile.html":
+      case "profile.php":
         pageTitleElem.textContent = "Profile";
         break;
       case "edit-profile.html":
