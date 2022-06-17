@@ -1,3 +1,8 @@
+<?php
+require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+include './src/message.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,8 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit profile</title>
-    <link rel="stylesheet" href="./styles/profile.css" />
     <link rel="stylesheet" href="./styles/index.css" />
+    <link rel="stylesheet" href="./styles/profile.css" />
     <link
       href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
       rel="stylesheet"
@@ -45,70 +50,125 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container">
+
+          <!--Retrieve current user data from session-->
+          <?php
+            session_start();
+            $userstr = $_SESSION['auth']; //[] for arrays, () for functions
+            $user = json_decode($userstr);
+            if (!$user) {
+              header("Location: ./login.php");
+            }
+
+            //fetch latest user info from db
+            $userInfo = "SELECT name, email, mobile_phone, address, bio
+            FROM user
+            WHERE user_id = $user->user_id";
+            $resInfo = mysqli_query($conn, $userInfo);
+            $rowInfo = mysqli_fetch_array($resInfo); 
+          ?>
+
           <div class="row d-flex flex-row justify-content-center mt-5">
             <!--First column contains user's avatar-->
-            <div class="leftSection col-md-4">
+            <div class="leftSection col-md"><!--col-md-11-->
               <div class="mt-3 mb-4">
                 <img
-                  src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg"
+                  src="images/default-user.png"
                   alt="Circle Image"
                   class="img-raised rounded-circle img-fluid shadow-sm"
                   style="width: 150px"
                 />
               </div>
               <div class="mt-3">
-                <!--<span class="bg-secondary p-1 px-4 rounded text-white">Mentee</span>-->
                 <div class="name mt-2">
-                  <h3 class="title">Christian Louboutin</h3>
-                  <h5>Fitness Enthusiast</h5>
-                  <h6>"I became not just a gym rat, but a runner."</h6>
+                  <h3 class="title"><?php echo $rowInfo['name'] ?></h3>
+                  <h5><?php echo $rowInfo['bio'] ?? "Write something about yourself." ?></h5>
                 </div>
+
                 <div class="recognition">
+                <!--retrieve user's recognition from mysql-->
+                <?php
+                  $expertise = "SELECT e_title FROM expertise WHERE user_id = $user->user_id";
+                  $achievement = "SELECT ach_title FROM achievement WHERE user_id = $user->user_id";
+                  $cert = "SELECT c_title FROM certificate WHERE user_id = $user->user_id";
+
+                  $res1 = mysqli_query($conn, $expertise);
+                  $res2 = mysqli_query($conn, $achievement);
+                  $res3 = mysqli_query($conn, $cert);
+                ?>
                   <div class="recogRow">
-                    <span class="material-icons-sharp">badge</span>
-                    <div class="title">Area of expertise</div>
-                    <div class="content">
-                      Physiology
-                      <button
-                        class="delete-btn"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                      >
-                        <i class="bi bi-x-circle-fill"></i>
-                      </button>
+                    <form action="./src/deleteRecognition.php" method="post">
+                      <span class="material-icons-sharp">badge</span>
+                      <div class="title">Area of expertise</div>
+                      <?php
+                        while ($row1 = mysqli_fetch_array($res1))
+                        {
+                      ?>
+                          <div class="content">
+                            <?php echo $row1['e_title']; ?>
+                            <button
+                              class="delete-btn"
+                              name="delete_exp"
+                              type="submit"
+                              value="<?= $user->user_id?>"
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                            >
+                              <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                          </div>
+                      <?php
+                        }
+                      ?>
+                    <div class="recogRow">
+                      <span class="material-icons-sharp">stars</span>
+                      <div class="title">Achievements</div>
+                      <?php
+                        while ($row2 = mysqli_fetch_array($res2))
+                        {
+                      ?>
+                          <div class="content">
+                            <?php echo $row2['ach_title']?>
+                            <button
+                              class="delete-btn"
+                              name="delete_ach"
+                              type="submit"
+                              value="<?= $user->user_id?>"
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                            >
+                              <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                          </div>
+                      <?php
+                        }
+                      ?>
                     </div>
-                  </div>
-                  <div class="recogRow">
-                    <span class="material-icons-sharp">stars</span>
-                    <div class="title">Achievements</div>
-                    <div class="content">
-                      Mr. Olympia 2021 Champion
-                      <button
-                        class="delete-btn"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                      >
-                        <i class="bi bi-x-circle-fill"></i>
-                      </button>
+                    <div class="recogRow">
+                      <span class="material-icons-sharp">card_membership</span>
+                      <div class="title">Certificates</div>
+                      <?php
+                        while ($row3 = mysqli_fetch_array($res3)) 
+                        {
+                      ?>
+                        <div class="content">
+                          <?php echo $row3['c_title']?>
+                          <button
+                            class="delete-btn"
+                            name="delete_cert"
+                            type="submit"
+                            value="<?= $user->user_id?>"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                          >
+                            <i class="bi bi-x-circle-fill"></i>
+                          </button>
+                        </div>
+                      <?php
+                        }
+                      ?>
                     </div>
-                  </div>
-                  <div class="recogRow">
-                    <span class="material-icons-sharp">card_membership</span>
-                    <div class="title">Certificates</div>
-                    <div class="content">
-                      NASM Certified Personal Trainer
-                      <button
-                        class="delete-btn"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                      >
-                        <i class="bi bi-x-circle-fill"></i>
-                      </button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
                 <!--<div class="social-media mt-4 mb-3">
                       <a href="#pablo" class="btn btn-just-icon btn-link btn-instagram"><i
@@ -123,10 +183,10 @@
               </div>
             </div>
             <!--Second column contains user's basic info-->
-            <div class="col-md-8">
+            <div class="col-md-10"> <!--col-md-4-->
               <div class="card mb-5">
                 <div class="card-body">
-                  <form action="">
+                  <form action="./src/updateProfile.php" method="post">
                     <div class="row my-2">
                       <div class="col-sm-3">
                         <h6 class="mb-0">Name</h6>
@@ -134,8 +194,9 @@
                       <div class="col-sm-9 text-secondary">
                         <input
                           type="name"
+                          name="name"
                           class="form-control"
-                          value="Christian Louboutin"
+                          value="<?php echo $rowInfo['name'] ?>"
                           required
                         />
                       </div>
@@ -147,8 +208,9 @@
                       <div class="col-sm-9 text-secondary">
                         <input
                           type="email"
+                          name="email"
                           class="form-control"
-                          value="christian.l@gmail.com"
+                          value="<?php echo $rowInfo['email'] ?>"
                           required
                         />
                       </div>
@@ -163,11 +225,12 @@
                           name="phone"
                           type="mobile"
                           class="form-control"
-                          value="+60123456789"
+                          value="<?php echo $rowInfo['mobile_phone'] ?? "+xxxxxxxxxxxx" ?>"
                           required
                         />
                       </div>
                     </div>
+                    <!--password didn't save in db, later ask jb how to reset password-->
                     <div class="row my-2">
                       <div class="col-sm-3">
                         <h6 class="mb-0">New Password</h6>
@@ -204,8 +267,9 @@
                       <div class="col-sm-9 text-secondary">
                         <input
                           type="address"
+                          name="address"
                           class="form-control"
-                          value="128, Jalan Junid 50603 Kuala Lumpur"
+                          value="<?php echo $rowInfo['address'] ?? "Update your address." ?>"
                           required
                         />
                       </div>
@@ -220,7 +284,7 @@
                           id="query"
                           style="height: 80px"
                           class="form-control"
-                          placeholder="Fitness Enthusiast I became not just a gym rat, but a runner."
+                          placeholder="<?php echo $rowInfo['bio'] ?? "Write something about yourself." ?>"
                           required
                         ></textarea>
                       </div>
@@ -232,8 +296,9 @@
                       <div class="col-sm-9 text-secondary">
                         <input
                           type="name"
+                          name="expertise"
                           class="form-control"
-                          value="Physiology"
+                          placeholder="State your area of expertise."
                           required
                         />
                       </div>
@@ -280,16 +345,17 @@
                         <input type="file" id="file" class="form-control" />
                       </div>
                       <div class="col-sm-8 mt-4">
-                        <a href="profile.php">
-                          <!--button suppose will link to profile page but not working i dunno whyyyyyy TT-->
+                        <!--<a href="profile.php">--> <!--button suppose will link to profile page but not working i dunno whyyyyyy TT-->
                           <button
                             type="submit"
+                            name="save_changes"
+                            value="<?=$user->user_id ?>"
                             class="btn btn-primary"
                             style="float: right"
                           >
                             Save changes
                           </button>
-                        </a>
+                        <!--</a>-->
                       </div>
                     </div>
                   </form>

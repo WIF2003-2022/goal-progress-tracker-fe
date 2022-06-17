@@ -1,4 +1,5 @@
 <?php
+//alternative for displaying delete successful but got error TT
 if (isset($_SESSION['message'])) 
 {
 ?>
