@@ -24,6 +24,38 @@
     />
   </head>
   <body>
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Register failed</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorText">
+              We are not able to register your account at the moment. Please try
+              again later.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container text-center mb-3">
       <div class="row">
         <div class="col pb-2" id="welcome-msg">Hello new user!</div>
@@ -39,7 +71,6 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10">
           <form
-            action="src/handleRegister.php"
             method="post"
             novalidate
             id="register-form"
@@ -111,7 +142,12 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script type="module" src="./js/registerValidate.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./js/registerAction.js"></script>
     <script src="./js/password.js"></script>
   </body>
 </html>

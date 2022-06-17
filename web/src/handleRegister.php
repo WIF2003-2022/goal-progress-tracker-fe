@@ -4,8 +4,13 @@ require_once @realpath(dirname(__FILE__) .'/services/sendEmail.php');
 require_once @realpath(dirname(__FILE__) .'/services/generateEmailVerificationLink.php');
 
 require "../../loadEnvVar.php";
+require @realpath(dirname(__FILE__) . "/services/checkIsSetAndNotEmpty.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!checkIsSetAndNotEmpty($_POST, ['username', 'email', 'password'])) {
+    http_response_code(400);
+    die("Some of the fields are not provided.");
+  }
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -24,7 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   $verifyEmailURL = $protocol . $host . $verifyEmailURI;
 
   require_once "../config/databaseConn.php";
-  createUser($conn, $username, $email, $password);
+  try {
+    createUser($conn, $username, $email, $password);
+    echo json_encode('');
+  } catch (Exception $e) {
+    http_response_code(500);
+    die("Register failed. Please try again later.");
+  }
 
   $link = generateEmailVerificationLink($username, $email, $verifyEmailURL);
 
@@ -45,17 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   
   $altBody = "Copy and paste this link to the browser: $link";
 
-  header("Location: ../email-verification.html");
-
-  if($sendMail(
+  if(!$sendMail(
     $subject,
     $body,
     $altBody
   ))
   {
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
-  } else {
-      echo 'Message sent!';
+    http_response_code(500);
+    die("We are not able to send you the verification email. Please contact the administrator for assistance.");
   }
 
 }
