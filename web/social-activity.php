@@ -14,14 +14,15 @@
   <title>
     <?php echo (($_GET['role']=="Mentor" ) ? "Mentee: Your Mentee's Activity" :"Mentor: My Activity"); ?>
   </title>
+  <link rel="stylesheet" href="./styles/scroll-top.css" />
 </head>
 
 <body>
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
   <div class="wrapper">
     <nav-bar></nav-bar>
     <div class="content-wrapper">
       <div class="container">
-
         <div class="row">
           <?php
           //back button
@@ -98,7 +99,26 @@
               //change date format
               $startDate = date("d-m-Y", strtotime($row['a_start_date']));
               $dueDate = date("d-m-Y", strtotime($row['a_due_date']));
+
+              //find due progress
+              date_default_timezone_set('Asia/Kuala_Lumpur');
+              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+              $sDate = date_create($row['a_start_date']); 
+              $dDate = date_create($row['a_due_date']); 
+
+              $difference1 = date_diff($sDate, $dDate); 
+              $difference2 = date_diff($sDate, $currentDate); 
+
+              $totalDay = $difference1->d;
+              $passedDay = $difference2->d;
+
+              $duePercentage = $passedDay * 100 / $totalDay;
               
+              //prevent percentage over 100
+              if($duePercentage > 100){
+                $duePercentage = 100;
+              }
+
               $haveAct = true;
               $html = '';
               $html .= '<!-- activity -->
@@ -129,8 +149,8 @@
                   <div class="col-6">
                     <div class="progress">
                       <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                        75%
+                        aria-valuenow="'.$duePercentage.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$duePercentage.'%">
+                        '.$duePercentage.'%
                       </div>
                     </div>
                   </div>

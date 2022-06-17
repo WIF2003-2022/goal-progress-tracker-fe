@@ -69,12 +69,13 @@
             $stmt->execute();
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
+                $dueDate = date("d-m-Y", strtotime($row['ap_due_date']));
                 echo '<li class="card col-3 m-3 shadow" style="width: 25vw">
                 <img class="card-img-top mt-3"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
                 <div class="card-body">
                   <a href="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$row['ap_id'].'&role='.$_GET['role'].'" style="text-decoration: none" class="card-text">'.$row['ap_title'].'</a>
-                  <p class="card-text">'.$row['ap_due_date'].'Due 31/12/2022</p>
+                  <p class="card-text">Due: '.$dueDate.'</p>
                 </div>
               </li>';
             }

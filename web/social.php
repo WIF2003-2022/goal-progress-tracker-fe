@@ -204,7 +204,7 @@
                     $goalCount += 1;
                     $preID = $row['goal_id'];
                     array_push($goalArr,$row['goal_id']);
-                    $htmlLine .= '<p class="card-text text-secondary">'.$row['goal_title'].'</p>';
+                    $htmlLine .= '<p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';
                     continue;
                   }   
                   if(($goalCount > 1 && $row['goal_id'] != $preID) || ($count != 1 && !$trigger)){
@@ -226,7 +226,11 @@
                     $_SESSION['mentor_id'] = $row['mentor_id'];
                     $_SESSION['mentee_id'] = $row['mentee_id'];
                     $htmlLine .= 
-                    '<div class="col"><a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none"><div class="card h-100" id="singleCard"><img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" /><div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5><p class="card-text text-secondary">'.$row['goal_title'].'</p>';                 
+                    '<div class="col"><a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
+                    <div class="card h-100" id="singleCard">
+                    <img src="././images/sampleProfilePic.jpg" class="card-img-top" alt="profile_pic" />
+                    <div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'
+                    </h5><p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';                 
                   }
                   $trigger = false;  
                   $preID = $row[$field1];
