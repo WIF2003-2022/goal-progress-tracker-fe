@@ -188,7 +188,7 @@
                   </div>';
               }
                 $html .= '<!-- comment box -->
-                        <form action="social-activity.php?actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
+                        <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
                           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
                             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
                             <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
