@@ -1,5 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+include './src/message.php';
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,8 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
         <nav-bar></nav-bar>
         <div class="content-wrapper">
             <div class="container">
+
+                <!--Retrieve current user data from session-->
                 <?php
                     // current user data already saved in session
                     // so you can just retrieve them from the session
@@ -43,10 +46,16 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                         header("Location: ./login.php"); //change location of http header to login.php
                     }
 
-                    include './src/message.php';
+                    //fetch latest user info from db
+                    $userInfo = "SELECT name, email, mobile_phone, address, bio
+                                 FROM user
+                                 WHERE user_id = $user->user_id";
+                    $resInfo = mysqli_query($conn, $userInfo);
+                    $rowInfo = mysqli_fetch_array($resInfo); 
                 ?>
+
                 <div class="row d-flex flex-row justify-content-center mt-5">
-                    <!--<h3>Welcome back, <?= $user->name ?>!</h3>-->
+                    <!--<h3>Welcome back, <?php echo $rowInfo['name'] ?>!</h3>-->
                     <!--First column contains user's avatar-->
                     <div class="leftSection col-md-4">
                         <div class="mt-3 mb-4">
@@ -56,24 +65,54 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                         </div>
                         <div class="mt-3">
                             <div class="name mt-2">
-                                <h3 class="title"><?= $user->name ?></h3>
-                                <h5><?= $user->bio ? "$user->bio" : "Write something about yourself." ?></h5>
+                                <h3 class="title"><?php echo $rowInfo['name'] ?></h3>
+                                <h5><?php echo $rowInfo['bio'] ?? "Write something about yourself." ?></h5> <!--double check ??-->
                             </div>
                             <div class="recognition">
+                            <?php
+                                $expertise = "SELECT e_title FROM expertise WHERE user_id = $user->user_id";
+                                $achievement = "SELECT ach_title FROM achievement WHERE user_id = $user->user_id";
+                                $cert = "SELECT c_title FROM certificate WHERE user_id = $user->user_id";
+
+                                $res1 = mysqli_query($conn, $expertise);
+                                $res2 = mysqli_query($conn, $achievement);
+                                $res3 = mysqli_query($conn, $cert);
+                            ?>
                                 <div class="recogRow">
                                     <span class="material-icons-sharp">badge</span>
                                     <div class="title">Area of expertise</div> 
-                                    <!--<div class="content btn-instagram">Physiology</div>-->
+                                    <?php
+                                        while ($row1 = mysqli_fetch_array($res1))
+                                        {
+                                    ?>
+                                            <div class="content btn-instagram"><?php echo $row1['e_title']; ?></div>
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                                 <div class="recogRow">
                                     <span class="material-icons-sharp">stars</span>
                                     <div class="title">Achievements</div> 
-                                    <!--<div class="content btn-instagram">Mr. Olympia 2021 Champion</div>-->
+                                    <?php
+                                        while ($row2 = mysqli_fetch_array($res2))
+                                        {
+                                    ?>
+                                            <div class="content btn-instagram"><?php echo $row2['ach_title']?></div>
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                                 <div class="recogRow">
                                     <span class="material-icons-sharp">card_membership</span>
                                     <div class="title">Certificates</div> 
-                                    <!--<div class="content btn-instagram">NASM Certified Personal Trainer</div>-->
+                                    <?php
+                                        while ($row3 = mysqli_fetch_array($res3))
+                                        {
+                                    ?>
+                                            <div class="content btn-instagram"><?php echo $row3['c_title']?></div>
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <!--<div class="social-media mt-4 mb-3">
@@ -97,7 +136,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                         <h6 class="mb-0">Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->name ?>
+                                        <?php echo $rowInfo['name'] ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -106,7 +145,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                         <h6 class="mb-0">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->email ?>
+                                        <?php echo $rowInfo['email'] ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -115,7 +154,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                         <h6 class="mb-0">Mobile</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->mobile_phone ? "$user->mobile_phone" : "Update your phone number with +country code." ?>
+                                        <?php echo $rowInfo['mobile_phone'] ?? "Update your phone number with +country code." ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -133,7 +172,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                         <h6 class="mb-0">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->address ? "$user->address" : "Update your address." ?>
+                                        <?php echo $rowInfo['address'] ?? "Update your address." ?>
                                     </div>
                                 </div>
                                 <hr>
@@ -142,13 +181,13 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                         <h6 class="mb-0">Bio</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <?= $user->bio ? "$user->bio" : "Write something about yourself."?>
+                                        <?php echo $rowInfo['bio'] ?? "Write something about yourself."?>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a class="btn btn-outline-primary" target="__blank" href="edit-profile.html">
+                                        <a class="btn btn-outline-primary" target="__blank" href="edit-profile.php">
                                             Edit Profile
                                         </a>
                                         <!-- Trigger the delete account modal with a button -->
@@ -222,30 +261,30 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                                     WHERE goal_status = 'Accomplished'
                                     AND goal_progress = 100";
 
-                                    $res1 = mysqli_query($conn, $userMentor); //return mysqli_result object
-                                    $res2 = mysqli_query($conn, $userMentee);
-                                    $res3 = mysqli_query($conn, $goalAccomplished);
+                                    $res4 = mysqli_query($conn, $userMentor); //return mysqli_result object
+                                    $res5 = mysqli_query($conn, $userMentee);
+                                    $res6 = mysqli_query($conn, $goalAccomplished);
 
-                                    $row1 = mysqli_fetch_array($res1);
-                                    $row2 = mysqli_fetch_array($res2);
-                                    $row3 = mysqli_fetch_array($res3);
+                                    $row4 = mysqli_fetch_array($res4);
+                                    $row5 = mysqli_fetch_array($res5);
+                                    $row6 = mysqli_fetch_array($res6);
 
-                                    mysqli_free_result($res1);
-                                    mysqli_free_result($res2);
-                                    mysqli_free_result($res3);
+                                    mysqli_free_result($res4);
+                                    mysqli_free_result($res5);
+                                    mysqli_free_result($res6);
 
                                     mysqli_close($conn);
                                 ?>
                                 
                                 <div class="row text-center mb-4 mt-4">
                                     <div class="col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row1['noOfMentee'] ?></h3><small>Mentor</small> <!--same as $row1[0]-->
+                                        <h3 class="m-b-0 font-light"><?php echo $row4['noOfMentee'] ?></h3><small>Mentor</small> <!--same as $row4[0]-->
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row2['noOfMentor'] ?></h3><small>Mentee</small>
+                                        <h3 class="m-b-0 font-light"><?php echo $row5['noOfMentor'] ?></h3><small>Mentee</small>
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row3['noOfGoalsAccomplished'] ?></h3><small>Goals Accomplished</small>
+                                        <h3 class="m-b-0 font-light"><?php echo $row6['noOfGoalsAccomplished'] ?></h3><small>Goals Accomplished</small>
                                     </div>
                                 </div>
                             </div>
