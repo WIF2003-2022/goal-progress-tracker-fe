@@ -1,6 +1,9 @@
 var ajax = new XMLHttpRequest();
 var method = "GET";
-var url = "action-main-data.php";
+var urlString = window.location.search;
+var param = new URLSearchParams(urlString);
+var queryID = parseInt(param.get("id"));
+var url = "action-main-data.php?id=" + queryID;
 var asyn = true;
 var modal;
 var modalHTML = `
@@ -42,6 +45,8 @@ ajax.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     var data = JSON.parse(this.responseText);
     console.log(data);
+    var urlPath = document.querySelector(".add");
+    urlPath.parentNode.href = "action-main-add.html?id=" + queryID;
     var html = document.querySelector("#starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
@@ -80,11 +85,7 @@ ajax.onreadystatechange = function () {
                     />
                     <div class="card-body" style="line-height: 1em;">
                       <a
-                        href="activity.html?id=` +
-        data[i].goal_id +
-        "&refer=" +
-        data[i].ap_id +
-        `"
+                        href="activity.html?name=${data[i].ap_title}&id=${data[i].ap_id}" 
                         style="text-decoration: none; font-size: 1.5vw;"
                         class="card-text"
                         >` +

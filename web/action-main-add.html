@@ -94,9 +94,11 @@
     </div>
     <script src="./js/authListener.js"></script>
     <script>
-      var id = window.location.search;
-      urlString = "?=" + id;
-      document.querySelector("form").action += urlString;
+      var urlString = window.location.search;
+      var param = new URLSearchParams(urlString);
+      var query = parseInt(param.get("id"));
+      var targetURL = document.querySelector("form");
+      targetURL.action = "action-main-add-process.php?id=" + query;
     </script>
   </body>
 </html>

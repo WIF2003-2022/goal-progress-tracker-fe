@@ -1,6 +1,7 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-  $sql = "SELECT * FROM activity WHERE ap_id = '23'";
+  $ap_id = $_GET["id"];
+  $sql = "SELECT * FROM activity WHERE ap_id = $ap_id";
   $data = array();
   $result = $conn -> query($sql);
   $i=0;

@@ -1,9 +1,12 @@
 var ajax = new XMLHttpRequest();
 var method = "GET";
-var url = "activity-data.php";
+var urlString = window.location.search;
+var param = new URLSearchParams(urlString);
+var queryID = parseInt(param.get("id"));
+var queryName = param.get("name");
+var url = "activity-data.php?id=" + queryID;
 var asyn = true;
 var modal;
-
 var modalHTML = `
 <div class="modal fade" id="deleteModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -43,7 +46,11 @@ ajax.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     var data = JSON.parse(this.responseText);
     console.log(data);
-    var html = document.querySelector("#starting");
+    var title = document.querySelector(".title");
+    title.innerHTML = queryName;
+    var urlPath = document.querySelector(".add");
+    urlPath.parentNode.href = "activity-add.html?id=" + queryID;
+    var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
       html.innerHTML +=
@@ -176,11 +183,7 @@ ajax.onreadystatechange = function () {
   }
 };
 
-// var url = window.location.search;
-// var param = new URLSearchParams(url);
-// var query = parseInt(param.get("refer"));
-
-// var urlRefer = activities.find((o) => o.refer === query);
+// var urlRefer = activities.find((o) => o.refer === queryID);
 // for (i = 0; i < urlRefer.contents.length; i++) {}
 
 //Jquery

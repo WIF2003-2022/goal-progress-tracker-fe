@@ -165,6 +165,13 @@
         </form>
       </div>
     </div>
+    <script>
+      var urlString = window.location.search;
+      var param = new URLSearchParams(urlString);
+      var query = parseInt(param.get("id"));
+      var targetURL = document.querySelector("form");
+      targetURL.action = "activity-add-process.php?id=" + query;
+    </script>
     <script src="./js/authListener.js"></script>
   </body>
 </html>
