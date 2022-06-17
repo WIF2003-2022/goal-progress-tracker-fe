@@ -14,7 +14,6 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>
   <link rel="stylesheet" href="./styles/index.css" />
-  <script src="./js/navbar.js"></script>
   <style>
   a:hover {
     color: red;
@@ -34,6 +33,18 @@
     <div class="content-wrapper">
       <div class="container">
         <div class="row">
+          <?php
+          //back button
+          echo '
+          <form action="./social-goal.php" method="GET">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
+              <span class="text-secondary">
+                <<< </span> Back to Goal
+          </button>
+          <input type="hidden" name="userID" value="'.$_GET['userID'].'"/>
+          <input type="hidden" name="role" value="'.$_GET['role'].'"/>
+          </form>'
+          ?>
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
 
@@ -62,7 +73,7 @@
                 <img class="card-img-top mt-3"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINomLSaFLHVYYfShk5a8DZ8SkubojQhUeLQ&usqp=CAU" />
                 <div class="card-body">
-                  <a href="social-activity.php?actionplanID='.$row['ap_id'].'&role='.$_GET['role'].'" style="text-decoration: none" class="card-text">'.$row['ap_title'].'</a>
+                  <a href="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$row['ap_id'].'&role='.$_GET['role'].'" style="text-decoration: none" class="card-text">'.$row['ap_title'].'</a>
                   <p class="card-text">'.$row['ap_due_date'].'Due 31/12/2022</p>
                 </div>
               </li>';
@@ -73,8 +84,8 @@
       </div>
     </div>
   </div>
+  <script src="./js/navbar.js"></script>
   <script src="./js/authListener.js"></script>
-  <script src="./js/actionPlan.js"></script>
 </body>
 
 </html>

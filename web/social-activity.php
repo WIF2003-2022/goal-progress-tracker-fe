@@ -24,6 +24,29 @@
 
         <div class="row">
           <?php
+          //back button
+          require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+           
+          
+          $stmt = $conn->prepare(
+            "SELECT goal_id from `action plan` WHERE ap_id = ?"
+          );
+          $stmt->bind_param("i", $_GET['actionplanID']);
+          $stmt->execute();
+          $row = $stmt->get_result()->fetch_assoc();
+
+          echo '
+          <form action="./social-actionplan.php" method="GET">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
+              <span class="text-secondary">
+                <<< </span> Back to Action Plan
+          </button>
+          <input type="hidden" name="userID" value="'.$_GET['userID'].'"/>
+          <input type="hidden" name="goalID" value="'.$row['goal_id'].'"/>
+          <input type="hidden" name="role" value="'.$_GET['role'].'"/>
+          </form>'
+          ?>
+          <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
 
             $stmt = $conn->prepare(
@@ -43,12 +66,18 @@
             
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
 
-            if (isset($_POST['commentText'])){
+            if (isset($_GET['aID'])){
               // update database
-              echo $_POST['commentText'];
-            }else{
-              echo "hi";
-            }        
+              $aID = $_GET['aID'];
+              $cText = $_POST['activity'.$aID];
+              $cID = $userID;
+              $time = "2022-06-10 03:37:12";
+              $stmt3 = $conn->prepare(
+                "INSERT INTO comment (a_id, comment_text, commentor_id, timestamp)VALUES (?,?,?,?)"
+              );
+              $stmt3->bind_param("isis", $aID, $cText, $cID, $time);
+              $stmt3->execute();
+            }       
 
             $haveAct = false;
             $stmt = $conn->prepare(
@@ -123,8 +152,7 @@
               $stmt1->execute();
               $result1 = $stmt1->get_result();
               while ($row1 = $result1->fetch_assoc()) {
-                // echo 'c_id:'.$row1['comment_id'].'</br>';
-                //display comment
+                // echo 'c_id:'.$row1['comment_id'].'</br>';              
                 $stmt2 = $conn->prepare(
                   "SELECT name from user WHERE user_id = ?"
                 );
@@ -135,6 +163,7 @@
                 ($_GET['role'] == 'Mentor') ? $other = 'Mentee' : $other = 'Mentor';
                 ($userID == $row1['commentor_id']) ? $roleLabel = "You" : $roleLabel = $other;
                 // echo $row2['name'].'</br>';
+                //display comment
                 $html .= '
                   <div class="mt-2">
                     <div class="d-flex flex-row p-3">
@@ -159,16 +188,18 @@
                   </div>';
               }
                 $html .= '<!-- comment box -->
+                        <form action="social-activity.php?actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
                           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
                             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
-                            <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." />
+                            <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
                           </div>
-                        </div>
+
                         <!-- button -->
-                        <form class="text-end mt-3">
-                          <button type="button" class="btn btn-success">
+                        <div class="text-end mt-3">
+                          <button type="submit" class="btn btn-success">
                             Post Comment
                           </button>
+                        </div>
                         </form>
                       </div>
                       <!-- end comment -->
@@ -184,77 +215,7 @@
   </div>
   <script src="./js/authListener.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script>
-  const commentButton = document.querySelectorAll(".btn-success");
-  const beforeComment = document.querySelectorAll(".before-comment");
-  const parentComment = document.querySelectorAll(".parent-comment");
-  const commentTyped = document.querySelectorAll(".comment-typed");
-  var commentNumber = '';
-  var commentText = '';
-
-  for (let i = 0; i < commentButton.length; i++) {
-    commentButton[i].addEventListener("click", (e) => {
-      // e.preventDefault();
-      commentNumber = i;
-      commentText = commentTyped[i].value;
-      // const newComment = document.createElement("comment");
-      // newComment.innerHTML = `
-      //     <div class="mt-2">
-      //       <div class="d-flex flex-row p-3">
-      //         <img
-      //           src="././images/sampleProfilePic.jpg"
-      //           width="40"
-      //           height="40"
-      //           class="rounded-circle mr-3"
-      //         />
-      //         <div class="w-100">
-      //           <div
-      //             class="d-flex justify-content-between align-items-center"
-      //           >
-      //             <div class="d-flex flex-row align-items-center">
-      //               <span class="mr-2">Christian Louboutin</span>
-      //               <small class="y-badge"
-      //                 ><span class="px-3">You</span></small
-      //               >
-      //             </div>
-      //             <small>Just now</small>
-      //           </div>
-      //           <p class="text-justify comment-text mb-0">
-      //             ${commentTyped[i].value}
-      //           </p>
-      //           <div class="d-flex flex-row user-feed">
-      //             <span class="wish"
-      //               ><i class="bi bi-pin mr-2"></i
-      //             ></span>
-      //             <span class="ml-3"
-      //               ><i class="fa fa-comments-o mr-2"></i>Reply</span
-      //             >
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //     `;
-      // parentComment[i].insertBefore(newComment, beforeComment[i]);
-      // commentTyped[i].value = null;
-      console.log("no.:" + commentNumber);
-      console.log("text: " + commentText);
-      $.ajax({
-        type: "POST",
-        url: './social-activity.php',
-        data: {
-          number: commentNumber,
-          commentText: commentText,
-        },
-        success: function(data) {
-          // console.log(data);
-        },
-        error: function(xhr, status, error) {
-          console.error(xhr);
-        }
-      });
-    });
-  }
-  </script>
+  <script src="./js/comment.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>

@@ -22,6 +22,18 @@
       <div class="container-float">
         <div class="row m-2">
           <?php
+          //back button
+          echo '
+          <form action="./social.php" method="GET">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3 text-start">
+              <span class="text-secondary">
+                <<< </span> Back to Social
+          </button>
+          </form>'
+          ?>
+        </div>
+        <div class="row m-2">
+          <?php
             session_start();
             
             $otherID = $_GET['userID'];
@@ -54,7 +66,7 @@
                 // echo 'Goal: '.$row['goal_id'].'</br>';
                 echo '<div class="col-md-4">
                           <div class="goal1">
-                            <a href="social-actionplan.php?goalID='.$row['goal_id'].'&role='.$role.'" class="remove-hyperlink">
+                            <a href="social-actionplan.php?userID='.$_GET['userID'].'&goalID='.$row['goal_id'].'&role='.$role.'" class="remove-hyperlink">
                               <div class="card">
                                 <span class="material-icons-sharp">outlined_flag</span>
                                 <div class="middle">
@@ -85,6 +97,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <script src="./js/authListener.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
