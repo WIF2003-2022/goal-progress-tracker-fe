@@ -109,7 +109,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="./goal.html"
+          href="./goal.php"
           data-bs-toggle="tooltip"
           title="Goals"
         >
@@ -202,7 +202,7 @@ class NavBar extends HTMLElement {
     const file = /(?!.*\/).+\.(?:html|php)/.exec(url)[0];
     const pageTitleElem = document.querySelector("#page-title");
     switch (file) {
-      case "goal.html":
+      case "goal.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goals";
         break;

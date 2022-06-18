@@ -21,18 +21,30 @@
   cursor: pointer;
 }
 
-.row > div span {
+.row #middle #icon {
   display: inline-block;
   width: 45px;
-  background-color: #7380ec;
   padding: 0.5rem;
   border-radius: 50%;
   color: white;
   font-size: 2rem;
 }
 
+.row #middle .active .goalIcon {
+  background-color: #7380ec;
+}
+
+.row #middle .accomplished .goalIcon {
+  background-color: #41f1b6;
+}
+
+.row #middle .failed .goalIcon {
+  background-color: #ff7782;
+}
+
 .row .card .deadline span {
   background-color: #f9e90f;
+  border-radius: 50%;
   color: black;
   width: auto;
   padding: 0.5rem;
@@ -161,19 +173,25 @@
   cursor: pointer;
 }
 
+.row .leftColumn > div span {
+  font-size: 1.2rem;
+  width: auto;
+  border-radius: 50%;
+  padding: 0.5rem;
+  display: inline-block;
+  color: white;
+}
+
+.row .leftColumn .folder .activeGoal span {
+  background-color: #7380ec;
+}
+
 .row .leftColumn .folder .accomplishedGoal span {
   background-color: #41f1b6;
 }
 
 .row .leftColumn .folder .failedGoal span {
   background-color: #ff7782;
-}
-
-.row .leftColumn > div span {
-  font-size: 1.2rem;
-  width: auto;
-  padding: 0.5rem;
-  display: inline-block;
 }
 
 .row .leftColumn .naming {
@@ -199,6 +217,45 @@
 .row .leftColumn h6 {
   padding: 1rem;
   padding-left: none;
+}
+
+/* Folder Function */
+.filterDiv {
+  display: none; /* Hidden by default */
+}
+
+/* Display the elements based on folder or category */
+.show {
+  display: block;
+}
+
+/* Style the buttons */
+.leftColumn .btn {
+  border: none;
+  outline: none;
+  border-radius: 1.5rem;
+  padding: 9px 13px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+}
+
+/* Add a light grey background on mouse-over */
+.leftColumn .btn:hover {
+  background-color: #ddd;
+}
+
+.leftColumn .btn:active {
+  background-color: rgb(188, 188, 188);
+  box-shadow: 0 8px #666;
+  transform: translateY(2px);
+}
+
+/* Add a dark background to the current active button */
+.leftColumn .btn.current {
+  background-color: #0099ff4d;
+  color: white;
 }
 
 /* Add New Goal Page - goal-add.html */
@@ -281,43 +338,4 @@
   background-color: #7380ec;
   padding: 0.8rem;
   border-radius: 0.6rem;
-}
-
-/* Folder Function */
-.filterDiv {
-  display: none; /* Hidden by default */
-}
-
-/* Display the elements based on folder or category */
-.show {
-  display: block;
-}
-
-/* Style the buttons */
-.leftColumn .btn {
-  border: none;
-  outline: none;
-  border-radius: 1.5rem;
-  padding: 9px 13px;
-  background-color: #f1f1f1;
-  cursor: pointer;
-  display: block;
-  width: fit-content;
-}
-
-/* Add a light grey background on mouse-over */
-.leftColumn .btn:hover {
-  background-color: #ddd;
-}
-
-.leftColumn .btn:active {
-  background-color: rgb(188, 188, 188);
-  box-shadow: 0 8px #666;
-  transform: translateY(2px);
-}
-
-/* Add a dark background to the current active button */
-.leftColumn .btn.current {
-  background-color: #0099ff4d;
-  color: white;
 }
