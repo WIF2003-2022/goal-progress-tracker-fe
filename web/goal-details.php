@@ -35,53 +35,88 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container-float">
-          <div class="row m-2 justify-content-center">
-            <div id="detail" class="col-md-8">
-              <?php
-                $id = $_GET["id"];
-                $goalDetails = "SELECT * FROM goal WHERE goal_id = $id";
-                $goalRes = mysqli_query($conn, $goalDetails);
-                $goalR = mysqli_fetch_assoc($goalRes);
-                  
-                mysqli_free_result($goalRes);
-              ?>
-              <div class="photoFrame">
-                <img></img>
-              </div>
+          <div class="row m-4 justify-content-center">
+            <div id="detail" class="col-md-10">
               <div class="goalDetails">
-                <span id="icon" class="material-icons-sharp goalIcon"></span>
-                <div class="middle">
-                  <div class="left">
-                    <div class="goalTitle">
-                      <h3></h3>
+                <?php
+                  $id = $_GET["id"];
+                  $goalDetails = "SELECT * FROM goal WHERE goal_id = $id";
+                  $goalRes = mysqli_query($conn, $goalDetails);
+                  $goalR = mysqli_fetch_assoc($goalRes);
+                    
+                  mysqli_free_result($goalRes);
+                ?>
+                <div id="firstRow" class="row">
+                  <div class="col-12 col-lg-6">
+                    <div id="title" class="card">
+                      <span id="icon" class="material-icons-sharp goalIcon"></span>
+                      <div class="goalTitle"></div>
+                      <hr>
+                      <div class="goalContent">
+                        <div class="goalDescription">Description : </div>
+                        <div class="goalCategory">Category : </div>
+                        <div class="goalTracking">Mehtod(s) Used to Track Goals : </div>
+                        <div class="goalMentor">Mentor ID : </div>
+                      </div>
                     </div>
-                    <div class="goalDescription">Description : </div>
-                    <div class="goalCategory">Category : </div>
-                    <div class="goalTracking">Mehtod(s) Used to Track Goals : </div>
-                    <div class="goalMentor">Mentor ID : </div>
                   </div>
-                  <div class="percentage">
-                    <svg>
-                      <circle cx="38" cy="38" r="36"></circle>
-                    </svg>
-                    <div class="number">
-                      <p></p>
+
+                  <div class="col-12 col-lg-4">
+                    <div id="photo" class="card align-items-center">
+                      <div class="photoFrame">
+                        <img></img>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="startDate">
-                  <span class="material-icons-sharp">event</span>
-                  <div id="startDate" class="text-muted">Start Date : </div>
+
+                <div id="secondRow" class="row">
+                  <div class="col-12 col-lg-4">
+                    <div id="date" class="card">
+                      <div class="startDate">
+                        <span class="material-icons-sharp">event</span>
+                        <div id="startDate" class="text-muted">Start Date : </div>
+                        <hr>
+                      </div>
+                      <div class="endDate">
+                        <span class="material-icons-sharp">event</span>
+                        <div id="endDate" class="text-muted">End Date : </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-3">
+                    <div id="percentage" class="card align-items-center">
+                      <div class="percentage">
+                        <svg>
+                          <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                          <p></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-3">
+                    <div id="button" class="card align-items-center">
+                      <div class="actionPlanBtn">
+                        <a href="" class="btn btn-primary ">View Action Plans</a>
+                      </div>
+                      <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
+                      <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-danger btn-sm deleteBtn">Delete</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="endDate">
-                  <span class="material-icons-sharp">event</span>
-                  <div id="endDate" class="text-muted">End Date : </div>
+
+                <div id="thirdRow" class="row">
+                  <div class="col-12 col-lg-3">
+                    
+                  </div>
+
+                  
                 </div>
-                <div class="actionPlanBtn">
-                  <a href="" class="btn btn-primary">View Action Plans</a>
-                </div>
-                <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
-                <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-danger btn-sm deleteBtn">Delete</a>  
+
               </div>
             </div>
           </div>
