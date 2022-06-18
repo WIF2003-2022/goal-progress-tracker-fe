@@ -1,5 +1,5 @@
 <?php
-require_once @realpath(dirname(__FILE__) . "../../config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/../config/databaseConn.php");
 
 if (isset($_POST['user_delete'])) //check the button is clicked or not
 {
@@ -9,15 +9,15 @@ if (isset($_POST['user_delete'])) //check the button is clicked or not
 
   //check condition
   if ($result) {
-    $_SESSION['message'] = "Deleted Successfully";
+    // $_SESSION['message'] = "Deleted Successfully";
     unset($_SESSION['auth']);
     header("Location: ../login.php");
-    exit;
+    exit();
   }
   else {
-    $_SESSION['message'] = "Something went wrong";
+    // $_SESSION['message'] = "Something went wrong";
     header("Location: ../profile.php");
-    exit;
+    exit();
   }
 }
 ?>

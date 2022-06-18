@@ -18,6 +18,11 @@
     />
     <link rel="stylesheet" href="./styles/index.css" />
     <link rel="stylesheet" href="./styles/visualisation.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
     <title>Report</title>
   </head>
 
@@ -48,7 +53,7 @@
                 ACTIVE
               </span>
               <div>
-                <div class="goal">Loss 3kg in 3 months</div>
+                <div class="goal" id="goal-title"></div>
                 <span
                   style="
                     font-size: 80%;
@@ -62,18 +67,6 @@
                   <ul>
                     <li>
                       Exercise regularly
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                          role="progressbar"
-                          style="width: 23%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          23%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Jog 3 times a week
@@ -110,18 +103,6 @@
                     <br />
                     <li>
                       Maintain clean and healthy diet
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                          role="progressbar"
-                          style="width: 23%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          23%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Eat salad 1 time everyday
@@ -190,7 +171,7 @@
                 ACTIVE
               </span>
               <div>
-                <div class="goal">Read 2 books in 5 weeks</div>
+                <div class="goal" id="goal-title">Read 2 books in 5 weeks</div>
                 <span
                   style="
                     font-size: 80%;
@@ -204,18 +185,6 @@
                   <ul>
                     <li>
                       Read book before bed time
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                          role="progressbar"
-                          style="width: 50%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          50%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Allocate 30 min to read books before bed time
@@ -253,7 +222,7 @@
                 ACTIVE
               </span>
               <div>
-                <div class="goal">Score 4.0 in this semester</div>
+                <div class="goal" id="goal-title">Score 4.0 in this semester</div>
                 <span
                   style="
                     font-size: 80%;
@@ -267,18 +236,6 @@
                   <ul>
                     <li>
                       Study hard
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                          role="progressbar"
-                          style="width: 20%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          20%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Revise 2 chapters a day
@@ -346,7 +303,7 @@
                 ACTIVE
               </span>
               <div>
-                <div class="goal">Learn video-editing skill in 2 months</div>
+                <div class="goal" id="goal-title">Learn video-editing skill in 2 months</div>
                 <span
                   style="
                     font-size: 80%;
@@ -360,18 +317,6 @@
                   <ul>
                     <li>
                       Practice video-editing regularly
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                          role="progressbar"
-                          style="width: 60%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          60%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Allocate at least 4 hours a week to learn
@@ -404,7 +349,7 @@
                 ACCOMPLISHED
               </span>
               <div>
-                <div class="goal">Wake up at 7am for 21 days</div>
+                <div class="goal" id="goal-title">Wake up at 7am for 21 days</div>
                 <span
                   style="
                     font-size: 80%;
@@ -418,18 +363,6 @@
                   <ul>
                     <li>
                       Sleep early everyday
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                          role="progressbar"
-                          style="width: 100%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          100%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Sleep before 12am every night
@@ -478,7 +411,7 @@
                   <i class="bi bi-x-circle"></i>
                   FAILED
                 </span>
-                <div class="goal">Manage expenses within RM1000 in April</div>
+                <div class="goal" id="goal-title">Manage expenses within RM1000 in April</div>
                 <span
                   style="
                     font-size: 80%;
@@ -492,18 +425,6 @@
                   <ul>
                     <li>
                       Record daily expenses
-                      <div class="progress">
-                        <div
-                          class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                          role="progressbar"
-                          style="width: 81%"
-                          aria-valuenow="100"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
-                          81%
-                        </div>
-                      </div>
                       <ul>
                         <li>
                           Spend less than RM 200 per day
@@ -549,6 +470,28 @@
   </div>
     <script src="./js/authListener.js"></script>
     <script src="./js/visualisation.js"></script>
+    <script>
+    $(document).ready(() => {
+      $.ajax({
+      url: "./src/visualisationDetails.php",
+      type: "GET",
+      dataType: "json",
+    })
+      .done((json) => {
+        console.log(json)
+        $("#goal-title").text(json.length);
+      })
+      .fail((xhr, status, errorThrown) => {
+        alert("Sorry, there was a problem!");
+        console.log("Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(xhr);
+      })
+      .always(function (xhr, status) {
+        console.log("The request is complete!");
+      });
+  });
+</script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

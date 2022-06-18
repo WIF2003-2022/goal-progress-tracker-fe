@@ -20,10 +20,7 @@
   </head>
   <body>
     <?php 
-      session_start();
-      if ($_SESSION['auth'] == null) {
-        header("Location: ./login.php");
-      }
+      require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
     ?>
     <div class="wrapper">
       <nav-bar></nav-bar>

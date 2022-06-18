@@ -24,6 +24,37 @@
     />
   </head>
   <body>
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Reset password request failed!</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorText">
+              You might not have an account with this email address.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container text-center mb-3 mt-3">
       <div class="row">
         <div class="col" id="title">We need your email!</div>
@@ -39,7 +70,6 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10">
           <form
-            action="./src/handleRequestEmail.php"
             method="post"
             id="request-email-form"
             class="needs-validation"
@@ -68,17 +98,17 @@
           </form>
         </div>
       </div>
-      <div class="alert alert-info" role="alert" id="info">
-        The verification link is sent to your email. Click on the link in the
-        email to proceed. For testing purpose, click
-        <a href="forgot-password.html" class="alert-link"> here!</a>
-      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script type="module" src="./js/requestEmailValidate.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./js/requestEmailAction.js"></script>
   </body>
 </html>

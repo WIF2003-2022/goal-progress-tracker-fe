@@ -4,8 +4,13 @@ require_once @realpath(dirname(__FILE__) .'/services/sendEmail.php');
 require_once @realpath(dirname(__FILE__) .'/services/generateEmailVerificationLink.php');
 
 require "../../loadEnvVar.php";
+require @realpath(dirname(__FILE__) . "/services/checkIsSetAndNotEmpty.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!checkIsSetAndNotEmpty($_POST, ['username', 'email', 'password'])) {
+    http_response_code(400);
+    die("Some of the fields are not provided.");
+  }
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
@@ -17,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   $tokens = explode("/", $requestURI);
   $tokens[count($tokens) - 1] = 'handleEmailVerification.php';
   $verifyEmailURI = implode("/", $tokens);
+  unset($tokens[count($tokens) - 1]);
+  unset($tokens[count($tokens) - 1]);
+  $documentRootPath = implode("/", $tokens);
 
   $host = $_SERVER['HTTP_HOST'];
   $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
@@ -24,7 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   $verifyEmailURL = $protocol . $host . $verifyEmailURI;
 
   require_once "../config/databaseConn.php";
-  createUser($conn, $username, $email, $password);
+  try {
+    createUser($conn, $username, $email, $password);
+    echo json_encode('');
+  } catch (Exception $e) {
+    http_response_code(500);
+    die("Register failed. Please try again later.");
+  }
 
   $link = generateEmailVerificationLink($username, $email, $verifyEmailURL);
 
@@ -36,26 +50,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
     'goalprogresstracker2022@gmail.com', 
     'Goal Progress Tracker Support', 
     $username, 
-    $email
+    $email,
+    true
   );
 
   $subject = "Welcome to Goal Progress Tracker";
-
-  $body = "Please verify your account here $link";
-  
+  $templateFileName = "../email_templates/verify-email-template.html";
+    $context = array("LINK" => $link, "REQUEST_ORIGIN" => $protocol.$host.$documentRootPath);
   $altBody = "Copy and paste this link to the browser: $link";
+  $imgFileName = "email.png";
+  $imgCid = "email";
 
-  header("Location: ../email-verification.html");
-
-  if($sendMail(
+  if(!$sendMail(
     $subject,
-    $body,
-    $altBody
+    $templateFileName,
+    $context,
+    $altBody,
+    $imgFileName,
+    $imgCid
   ))
   {
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
-  } else {
-      echo 'Message sent!';
+    http_response_code(500);
+    die("We are not able to send you the verification email. Please contact the administrator for assistance.");
   }
 
 }

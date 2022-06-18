@@ -8,8 +8,10 @@ $dbName = $_ENV["DB_NAME"];
 
 $conn = new mysqli($dbServerName, $dbUsername, $dbPassword, $dbName);
 
-if ($conn->connect_error) {
-  die("Connection failed" . $conn->connect_error);
-}
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// echo "Connection Successful";
+if ($conn->connect_error) {
+  error_log("Database connection failed. Please try again later.");
+  http_response_code(500);
+  die("We are not able to process your request at the moment. Sorry for the inconvenience. ");
+}

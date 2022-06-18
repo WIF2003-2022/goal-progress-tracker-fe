@@ -29,18 +29,137 @@
         <!-- right tab -->
         <div class="col position-fixed shadow rounded right-tab-open">
           <!-- tab content -->
-          <div class="row mb-2 pe-1 py-2 activity">
-            <div class="col-3">
-              <img src="././images/sampleProfilePic.jpg" alt="profile_pic" class="img-fluid img-thumbnail"
-                id="i-size" />
-            </div>
-            <div class="col-9 text">
-              <div class="row text-secondary right-duration">4 hours ago</div>
-              <div class="row right-description">
-                username has achieved the goal: Lose weight in 2 months.
+          <?php
+            require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+
+            session_start();
+
+            $count = 0;
+            $userID = json_decode($_SESSION['auth'],true)['user_id'];   
+            $stmt = $conn->prepare(
+            'SELECT *
+            FROM recent
+            WHERE user_id IN (
+                SELECT DISTINCT mentee_id AS user_id
+                FROM goal
+                WHERE mentor_id = ?
+                UNION
+                SELECT DISTINCT mentor_id AS user_id
+                FROM goal
+                WHERE mentee_id = ?
+                ORDER BY user_id)
+            ORDER BY timestamp DESC
+            LIMIT 10'
+                );
+            $stmt->bind_param("ii",$userID,$userID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($recent = $result->fetch_assoc()){
+              $count++; 
+              // echo $recent['r_id'].'</br>';
+              if ($recent['r_type'] == "comment") {
+                $field = 'Comment';
+                $select = 'activity.a_id, activity.a_title';
+                $where = 'activity.a_id'; 
+                $title = 'a_title';
+              }else if($recent['r_type'] == "activity"){
+                $field = 'Activity';
+                $select = '`action plan`.ap_id, `action plan`.ap_title';
+                $where = '`action plan`.ap_id'; 
+                $title = 'ap_title';
+              }else if($recent['r_type'] == "action_plan"){
+                $field = 'Action Plan';
+                $select = 'goal.goal_id, goal.goal_title';
+                $where = 'goal.goal_id'; 
+                $title = 'goal_title';
+              }else if($recent['r_type'] == "goal"){
+                $field = 'Goal';
+                $select = 'goal.goal_id, goal.goal_title';
+                $where = 'goal.goal_id'; 
+                $title = 'goal_title';
+              }
+              
+              $stmt1 = $conn->prepare(
+              'SELECT DISTINCT '.$select.'
+              FROM goal 
+              LEFT OUTER JOIN `action plan` ON goal.goal_id = `action plan`.goal_id
+              LEFT OUTER JOIN activity ON `action plan`.ap_id = `activity`.ap_id
+              LEFT OUTER JOIN comment ON activity.a_id = comment.a_id
+              WHERE goal.goal_id IN(
+                  SELECT goal_id
+                  FROM goal
+                  WHERE mentor_id = ? OR mentee_id = ?) AND '.$where.'='.$recent['updated_id']
+              );
+              $stmt1->bind_param("ii",$userID,$userID);
+              $stmt1->execute();
+              $result1 = $stmt1->get_result();
+              $updateField = $result1->fetch_assoc();
+
+              $stmt2 = $conn->prepare(
+                'SELECT name, photo FROM user WHERE user_id = ?');
+              $stmt2->bind_param("i",$recent['user_id']);
+              $stmt2->execute();
+              $result2 = $stmt2->get_result();
+              $otherData = $result2->fetch_assoc();
+
+              $rUser = $otherData['name'];
+              $rTime = $recent['timestamp'];
+              $rTitle = $updateField[$title];
+              $rProPic = $otherData['photo'];
+
+              //determine what action to display in recent
+              if ($recent['r_type'] == "comment") {
+                $rContent = 'commented on<span class="theme-color">'.$field.'</span><span class="fst-italic">'.$rTitle.'</span>';
+              }else if($recent['r_type'] == "activity" || $recent['r_type'] == "action_plan" || $recent['action'] == "add" || $recent['r_type'] == "goal"){
+                if($recent['action'] == "add"){
+                  $rContent = 'added new<span class="theme-color">'.$field.'</span><span class="fst-italic">'.$rTitle.'</span>';
+                }else{
+                  $rContent = 'edited<span class="theme-color">'.$field.'</span><span class="fst-italic">'.$rTitle.'</span>';
+                }
+              }
+              
+              //display recent activities period
+              date_default_timezone_set('Asia/Kuala_Lumpur');
+              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+              $modifyDate = date_create($rTime);
+              $difference = date_diff($currentDate, $modifyDate); 
+              $year = strval($difference->y);
+              $month = strval($difference->m);
+              $day = strval($difference->d);
+              $hour = strval($difference->h);
+              $minute = strval($difference->i);
+              $second = strval($difference->s);
+              if ($year > 0) {
+                $unit = ($year == 1) ?  " year ago" : " years ago";
+                $period = $year.$unit;
+              }else if($month > 0){
+                $unit = ($month == 1) ?  " month ago" : " months ago";
+                $period = $month.$unit;
+              }else if($day > 0){
+                $unit = ($day == 1) ?  " day ago" : " days ago";
+                $period = $day.$unit;
+              }else if($hour > 0){
+                $unit = ($hour == 1) ?  " hour ago" : " hours ago";
+                $period = $hour.$unit;
+              }else if($minute > 0){
+                $unit = ($minute == 1) ?  " minute ago" : " minutes ago";
+                $period = $minute.$unit;
+              }else{
+                $period = "Just Now";
+              }
+              // echo json_encode($updateField);
+
+              echo '<div class="row mb-2 pe-1 py-2 activity">
+              <div class="col-3">
+                <img src="'.$rProPic.'" alt="profile_pic" class="img-fluid img-thumbnail" id="i-size" />
               </div>
-            </div>
-          </div>
+              <div class="col-9">
+                <div class="row text-secondary right-duration">'.$period.'</div>
+                <div class="row right-description">'.$rUser.' has '.$rContent.'</div>
+              </div>
+            </div>';
+            }
+          ?>
         </div>
       </div>
       <!-- content -->
@@ -65,8 +184,6 @@
           <div class="row row-cols-1 row-cols-xl-3 g-4 mt-3 mx-5 pb-4 card-container">
             <!-- single card -->
             <?php
-              session_start();
-
               $htmlLine = '';
               $count = 0;
               $preID = 0;
@@ -83,7 +200,7 @@
               }
 
               function generateSocialList($role){
-                require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+                require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                 $htmlLine = '';
                 $count = 0;
                 $preID = 0;
@@ -99,15 +216,16 @@
                 }else{
                   $field = $roleArr[1];
                   $field1 = $roleArr[0];}
-                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID; // only this line use field(own role)
+                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID.' AND '.$field1.' IS NOT NULL'; // only this line use field(own role)
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
+                
                 while ($row = $result->fetch_assoc()) {
+
                   $looped = true;
                   $count += 1;
                   $open = false;
-                  $goalID = $row['goal_id'];
 
                   if($row[$field1] == $preID){
                     $trigger = true;
@@ -139,11 +257,13 @@
                     ((!empty($row1['photo'])) ? $proPic = $row1['photo'] : $proPic = 'sampleProfilePic.jpg');
 
                     $htmlLine .= 
-                    '<div class="col"><a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
-                    <div class="card h-100" id="singleCard">
+                    '<div class="col">
+                    <a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
+                    <div class="card h-100" id="singleCard" >
                     <img src="././images/'.$proPic.'" class="card-img-top"/>
-                    <div class="card-body"><h5 class="card-title text-uppercase text-dark">'.$row1['name'].'
-                    </h5><p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';                 
+                    <div class="card-body">
+                    <h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5>
+                    <p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';                 
                   }
                   $trigger = false;  
                   $preID = $row[$field1];
