@@ -59,7 +59,9 @@ a {
   width: auto;
 }
 
-#forgotPassword {
+#forgotPassword,
+#emailVerification,
+#resetPassword {
   max-height: 30rem !important;
   min-height: 10rem;
   width: auto;

@@ -8,7 +8,6 @@ function findUserByEmailOrUsername($conn, $id) {
   $stmt->execute();
   $result = $stmt->get_result();
   $user = $result->fetch_assoc();
-  var_dump($user);
   return $user;
 }
 
@@ -20,6 +19,5 @@ function findUserByEmail($conn, $email) {
   $stmt->execute();
   $result = $stmt->get_result();
   $user = $result->fetch_assoc();
-  var_dump($user);
   return $user;
 }

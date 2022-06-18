@@ -3,6 +3,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
 require @realpath(dirname(__FILE__) . '/../../../vendor/autoload.php');
+require @realpath(dirname(__FILE__) . '/generateEmail.php');
 
 $mail;
 
@@ -14,7 +15,8 @@ function mailerObjFactory(
     $replyToEmail, 
     $replyToName,
     $recipientName,
-    $recipientEmail
+    $recipientEmail,
+    $isHTML
 ) {
     global $mail;
 
@@ -27,7 +29,7 @@ function mailerObjFactory(
     //SMTP::DEBUG_OFF = off (for production use)
     //SMTP::DEBUG_CLIENT = client messages
     //SMTP::DEBUG_SERVER = client and server messages
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
     //Set the hostname of the mail server
     $mail->Host = 'smtp.gmail.com';
@@ -67,25 +69,53 @@ function mailerObjFactory(
     //Set who the message is to be sent to
     $mail->addAddress($recipientEmail, $recipientName);
 
+    //Set is html
+    $mail->isHTML($isHTML);
+
+    if ($isHTML) {
+        return function($subject, $templatePath, $context, $altBody, $imgFileName, $imgCid) {
+            global $mail;
+            //Set the subject line
+            $mail->Subject = $subject;
+            
+            //Read an HTML message body from an external file, convert referenced images to embedded,
+            //convert HTML into a basic plain-text alternative body
+            // $mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+            $mail->Body = generateEmail($templatePath, $context);
     
-    return function($subject, $body, $altBody) {
-        
-        global $mail;
-        //Set the subject line
-        $mail->Subject = $subject;
+            //Replace the plain text body with one created manually
+            $mail->AltBody = $altBody;
 
-        //Read an HTML message body from an external file, convert referenced images to embedded,
-        //convert HTML into a basic plain-text alternative body
-        // $mail->msgHTML(file_get_contents('contents.html'), __DIR__);
-        $mail->Body = $body;
-
-        //Replace the plain text body with one created manually
-        $mail->AltBody = $altBody;
-
-        //Attach an image file
-        // $mail->addAttachment('images/phpmailer_mini.png');
-
-        //send the message, check for errors
-        return $mail->send();
-    };
+            if (isset($imgFileName) && isset($imgCid)) {
+                $mail->addEmbeddedImage(dirname(__DIR__) . "/../email_templates/images/$imgFileName", $imgCid);
+            }     
+            //Attach an image file
+            // $mail->addAttachment('images/phpmailer_mini.png');
+    
+            //send the message, check for errors
+            return $mail->send();
+        };
+    } else {
+        return function($subject, $body, $altBody) {
+            global $isHTML;        
+            global $mail;
+            //Set the subject line
+            $mail->Subject = $subject;
+            
+            //Read an HTML message body from an external file, convert referenced images to embedded,
+            //convert HTML into a basic plain-text alternative body
+            // $mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+            $mail->Body = $body;
+    
+            //Replace the plain text body with one created manually
+            $mail->AltBody = $altBody;
+    
+            //Attach an image file
+            // $mail->addAttachment('images/phpmailer_mini.png');
+    
+            //send the message, check for errors
+            return $mail->send();
+        };    
+    }
+    
 }

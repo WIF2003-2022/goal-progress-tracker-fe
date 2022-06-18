@@ -28,7 +28,14 @@
           //back button
           require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
            
-          
+          // $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+
+          // if($pageWasRefreshed ) {
+          //   echo "refreshed";
+          // } else {
+          //   echo "no referesh";
+          // }
+                    
           $stmt = $conn->prepare(
             "SELECT goal_id from `action plan` WHERE ap_id = ?"
           );
@@ -67,12 +74,12 @@
             
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
 
-            if (isset($_GET['aID'])){
+            if (isset($_POST['aID']) && isset($_POST['activity'.$_POST['aID']])){
               date_default_timezone_set('Asia/Kuala_Lumpur');
               $date = strval(date('y-m-d h:i:s'));
 
               // update database
-              $aID = $_GET['aID'];
+              $aID = $_POST['aID'];
               $cText = $_POST['activity'.$aID];
               $cID = $userID;
               $time = $date;
@@ -81,7 +88,9 @@
               );
               $stmt3->bind_param("isis", $aID, $cText, $cID, $time);
               $stmt3->execute();
-            }       
+            }     
+            // unset($_POST['aID']);
+            // echo var_dump($_POST);  
 
             $haveAct = false;
             $stmt = $conn->prepare(
@@ -191,6 +200,8 @@
                 ($_GET['role'] == 'Mentor') ? $other = 'Mentee' : $other = 'Mentor';
                 ($userID == $row1['commentor_id']) ? $roleLabel = "You" : $roleLabel = $other;
                 // echo $row2['name'].'</br>';
+
+                //display comment period
                 date_default_timezone_set('Asia/Kuala_Lumpur');
                 $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
                 $commentDate = date_create($row1['timestamp']);
@@ -244,10 +255,11 @@
                   </div>';
               }
                 $html .= '<!-- comment box -->
-                        <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
+                        <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'" method="POST" >
                           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
                             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
                             <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
+                            <input type="hidden" name="aID" value="'.$row['a_id'].'"/>
                           </div>
 
                         <!-- button -->
@@ -262,6 +274,25 @@
                     </li>
                     <!-- end activity -->
                     <br />';
+                // $html .= '<!-- comment box -->
+                //         <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
+                //           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
+                //             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
+                //             <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
+                //           </div>
+
+                //         <!-- button -->
+                //         <div class="text-end mt-3">
+                //           <button type="submit" class="btn btn-success">
+                //             Post Comment
+                //           </button>
+                //         </div>
+                //         </form>
+                //       </div>
+                //       <!-- end comment -->
+                //     </li>
+                //     <!-- end activity -->
+                //     <br />';
                 echo ($haveAct) ? $html : null;
             }                  
           ?>

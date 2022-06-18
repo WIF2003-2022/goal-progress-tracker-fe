@@ -19,7 +19,7 @@ if (stat == "Active") {
 
 var cate = goalR["goal_category"];
 var goalCategory = detail.querySelector(".goalCategory");
-goalCategory.textContent = cate;
+goalCategory.textContent += cate;
 var img = document.querySelector("img");
 if (cate == "Personal") {
   img.src = "./images/personalPhoto.jpg";
@@ -36,10 +36,12 @@ if (cate == "Personal") {
 // getElementsByTagName(), getElementsByClassName(), getElementsByName()  --  give an array, so need to add [0] to inidcate which element
 // getElementById  --  get only 1 specfic element (since id is unique), so no need to add [0]
 var title = detail.getElementsByTagName("h3");
-title[0].textContent = goalR["goal_title"];
+title[0].textContent = title[0].textContent + goalR["goal_title"];
 
 var description = document.getElementsByClassName("goalDescription");
-description[0].textContent = goalR["goal_description"];
+// description[0].textContent =
+//   description[0].textContent + goalR["goal_description"];
+description[0].append(goalR["goal_description"]);
 
 var tracking = document.getElementsByClassName("goalTracking");
 tracking[0].textContent = goalR["tracking_method"];
@@ -53,7 +55,7 @@ var progress = document.getElementsByTagName("p");
 progress[0].textContent = percent;
 
 var startDate = document.getElementById("startDate");
-startDate.textContent = goalR["goal_start_date"];
+startDate.textContent += goalR["goal_start_date"];
 
 var endDate = document.getElementById("endDate");
-endDate.textContent = goalR["goal_due_date"];
+endDate.textContent += goalR["goal_due_date"];

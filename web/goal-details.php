@@ -49,46 +49,39 @@
                 <img></img>
               </div>
               <div class="goalDetails">
-                <a href="" class="remove-hyperlink">
-                  <span id="icon" class="material-icons-sharp goalIcon"></span>
-                  <div class="middle">
-                    <div class="left">
-                      <div class="goalTitle">
-                        <h3></h3>
-                      </div>
-                      <div class="goalDescription">
-
-                      </div>
-                      <div class="goalCategory">
-
-                      </div>
-                      <div class="goalTracking">
-
-                      </div>
-                      <div class="goalMentor">
-
-                      </div>
+                <span id="icon" class="material-icons-sharp goalIcon"></span>
+                <div class="middle">
+                  <div class="left">
+                    <div class="goalTitle">
+                      <h3></h3>
                     </div>
-                    <div class="percentage">
-                      <svg>
-                        <circle cx="38" cy="38" r="36"></circle>
-                      </svg>
-                      <div class="number">
-                        <p></p>
-                      </div>
+                    <div class="goalDescription">Description : </div>
+                    <div class="goalCategory">Category : </div>
+                    <div class="goalTracking">Mehtod(s) Used to Track Goals : </div>
+                    <div class="goalMentor">Mentor ID : </div>
+                  </div>
+                  <div class="percentage">
+                    <svg>
+                      <circle cx="38" cy="38" r="36"></circle>
+                    </svg>
+                    <div class="number">
+                      <p></p>
                     </div>
                   </div>
-                  <div class="startDate">
-                    <span class="material-icons-sharp">event</span>
-                    <div id="startDate" class="text-muted"></div>
-                  </div>
-                  <div class="endDate">
-                    <span class="material-icons-sharp">event</span>
-                    <div id="endDate" class="text-muted"></div>
-                  </div>
-                  <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
-                  <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-danger btn-sm deleteBtn">Delete</a>
-                </a>
+                </div>
+                <div class="startDate">
+                  <span class="material-icons-sharp">event</span>
+                  <div id="startDate" class="text-muted">Start Date : </div>
+                </div>
+                <div class="endDate">
+                  <span class="material-icons-sharp">event</span>
+                  <div id="endDate" class="text-muted">End Date : </div>
+                </div>
+                <div class="actionPlanBtn">
+                  <a href="" class="btn btn-primary">View Action Plans</a>
+                </div>
+                <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
+                <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-danger btn-sm deleteBtn">Delete</a>  
               </div>
             </div>
           </div>

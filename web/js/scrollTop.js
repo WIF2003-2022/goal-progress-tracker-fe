@@ -21,6 +21,10 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+// if (window.history.replaceState) {
+//   window.history.replaceState(null, null, window.location.href);
+// }
 // const commentButton = document.querySelectorAll(".btn-success");
 // const beforeComment = document.querySelectorAll(".before-comment");
 // const parentComment = document.querySelectorAll(".parent-comment");
