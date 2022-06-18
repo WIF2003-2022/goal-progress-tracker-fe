@@ -47,7 +47,7 @@ include './src/message.php';
                     }
 
                     //fetch latest user info from db
-                    $userInfo = "SELECT name, email, mobile_phone, address, bio
+                    $userInfo = "SELECT name, email, mobile_phone, address, bio, photo
                                  FROM user
                                  WHERE user_id = $user->user_id";
                     $resInfo = mysqli_query($conn, $userInfo);
@@ -59,9 +59,10 @@ include './src/message.php';
                     <!--First column contains user's avatar-->
                     <div class="leftSection col-md-4">
                         <div class="mt-3 mb-4">
-                            <img src="images/default-user.png"
-                                alt="Circle Image" class="img-raised rounded-circle img-fluid shadow-sm"
-                                style="width: 150px;">
+                            <img src=<?php echo $rowInfo['photo']; ?>
+                                 alt="Circle Image" 
+                                 class="rounded-circle"
+                                 style="width: 180px;">
                         </div>
                         <div class="mt-3">
                             <div class="name mt-2">
@@ -209,7 +210,7 @@ include './src/message.php';
                                                 <p>Are you sure you want to delete your account?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="./src/deleteAccount.php" method="post">
+                                                <form action="src/deleteAccount.php" method="post">
                                                     <button id="delete" type="submit" name="user_delete" value="<?=$user->user_id ?>" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                                 </form>

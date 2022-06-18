@@ -7,6 +7,16 @@
   justify-content: space-between;
 }
 
+.main .left {
+  position: relative;
+}
+
+.main .right {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 .recognition {
   position: relative;
   display: flex;
@@ -60,6 +70,10 @@
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1rem;
+}
+
+.leftSection .img-raised {
+  border-radius: 50%;
 }
 
 .vl {
