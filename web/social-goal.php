@@ -22,6 +22,7 @@
       <div class="container">
         <div class="row">
           <?php
+          
           //back button
           echo '
           <form action="./social.php" method="GET">
@@ -44,7 +45,8 @@
             }else{
               generateGoalList($role,$userID,$otherID);
             }
-                      
+            
+            //function to generate goal list related to user 
             function generateGoalList($role, $menteeID, $mentorID){
               require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");   
 

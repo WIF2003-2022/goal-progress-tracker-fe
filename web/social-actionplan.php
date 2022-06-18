@@ -47,7 +47,8 @@
           ?>
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-
+            
+            //display goal title
             $stmt = $conn->prepare(
               "SELECT goal_title from goal WHERE goal_id = ?"
             );
@@ -61,7 +62,8 @@
           <div class="row">
             <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-
+            
+            //display content
             $stmt = $conn->prepare(
               'SELECT * from `action plan` WHERE goal_id = ?'
             );
@@ -69,6 +71,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
+              
                 //set due date
                 $dueDate = date("d-m-Y", strtotime($row['ap_due_date']));
 

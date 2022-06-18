@@ -25,6 +25,7 @@
       <div class="container">
         <div class="row">
           <?php
+          
           //back button
           require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
            
@@ -33,9 +34,9 @@
           // if($pageWasRefreshed ) {
           //   echo "refreshed";
           // } else {
-          //   echo "no referesh";
+          //   echo "no refresh";
           // }
-                    
+        
           $stmt = $conn->prepare(
             "SELECT goal_id from `action plan` WHERE ap_id = ?"
           );
@@ -57,6 +58,7 @@
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
 
+            //display action plan title
             $stmt = $conn->prepare(
               "SELECT ap_title from `action plan` WHERE ap_id = ?"
             );
@@ -128,6 +130,7 @@
                 $duePercentage = 100;
               }
 
+              //display activity content
               $haveAct = true;
               $html = '';
               $html .= '<!-- activity -->
@@ -274,25 +277,6 @@
                     </li>
                     <!-- end activity -->
                     <br />';
-                // $html .= '<!-- comment box -->
-                //         <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
-                //           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
-                //             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
-                //             <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
-                //           </div>
-
-                //         <!-- button -->
-                //         <div class="text-end mt-3">
-                //           <button type="submit" class="btn btn-success">
-                //             Post Comment
-                //           </button>
-                //         </div>
-                //         </form>
-                //       </div>
-                //       <!-- end comment -->
-                //     </li>
-                //     <!-- end activity -->
-                //     <br />';
                 echo ($haveAct) ? $html : null;
             }                  
           ?>
