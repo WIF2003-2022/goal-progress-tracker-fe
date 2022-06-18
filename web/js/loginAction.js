@@ -9,15 +9,15 @@ const loginAction = (e) => {
   const fields = document.getElementsByTagName("input");
   let isValid = true;
   let data = {};
-  // for (let field of fields) {
-  //   if (!(isValid = isValid && field.checkValidity())) {
-  //     showError(field.getAttribute("id"));
-  //   }
-  //   const name = field.getAttribute("name");
-  //   const value = field.value;
-  //   data[name] = value;
-  // }
-  // form.classList.add("was-validated");
+  for (let field of fields) {
+    if (!(isValid = isValid && field.checkValidity())) {
+      showError(field.getAttribute("id"));
+    }
+    const name = field.getAttribute("name");
+    const value = field.value;
+    data[name] = value;
+  }
+  form.classList.add("was-validated");
   console.log({ isValid });
   if (isValid) {
     $.ajax({
