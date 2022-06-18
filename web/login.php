@@ -34,6 +34,24 @@
         header("Location: ./index.php");
       }
     ?>
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Login failed</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="errorText">You are not registered.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="d-flex align-items-center min-vh-100">
       <div class="container text-center mb-3">
         <div class="row">
@@ -54,7 +72,6 @@
         <div class="row justify-content-center">
           <div class="col-lg-5 col-sm-10 col-md-10">
             <form
-              action="src/handleLogin.php"
               method="post"
               id="login-form"
               novalidate
@@ -135,15 +152,8 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script type="module" src="./js/loginValidate.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="module" src="./js/loginAction.js"></script>
     <script src="./js/password.js"></script>
-    <!-- <script>
-      window.addEventListener("load", () => {
-        const val = sessionStorage.getItem("auth");
-        if (val === "true") {
-          window.location.href = "./index.php";
-        }
-      });
-    </script> -->
   </body>
 </html>
