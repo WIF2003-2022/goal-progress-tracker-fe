@@ -11,7 +11,7 @@ $conn = new mysqli($dbServerName, $dbUsername, $dbPassword, $dbName);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 if ($conn->connect_error) {
-  die("Database connection failed. Please try again later.");
+  error_log("Database connection failed. Please try again later.");
+  http_response_code(500);
+  die("We are not able to process your request at the moment. Sorry for the inconvenience. ");
 }
-
-// echo "Connection Successful";
