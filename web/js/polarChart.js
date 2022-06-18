@@ -55,7 +55,7 @@ var myChart = new Chart(ctx, {
 
 $(document).ready(() => {
   $.ajax({
-    url: "./src/getGoals.php",
+    url: "./src/userGoal.php",
     type: "GET",
     dataType: "json",
   })
@@ -82,4 +82,5 @@ $(document).ready(() => {
     .always(function (xhr, status) {
       console.log("The request is complete!");
     });
+    
 });
