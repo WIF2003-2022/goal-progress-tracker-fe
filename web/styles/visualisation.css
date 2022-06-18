@@ -103,6 +103,29 @@
   display: grid;
   grid-gap: 30px;
 }
+
+.goalBox .btn{
+  border: none;
+  border-radius: 30px;
+  padding: 9px 13px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.goalBox .btn:hover {
+  background-color: rgb(194, 222, 246);
+}
+
+.goalBox .btn:active {
+  background-color: rgb(194, 222, 246);
+  box-shadow: 0 8px rgb(215, 234, 255);
+  transform: translateY(1px);
+}
+
+.goalBox .btn:focus {
+  background-color: rgb(194, 222, 246);
+}
+
 .goalBox .box {
   position: relative;
   background: white;
@@ -113,6 +136,7 @@
   justify-content: space-between;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 }
+
 .goalBox .box .goal {
   position: relative;
   font-weight: 500;
@@ -131,6 +155,13 @@
   float: right;
   height: 20px;
   width: 400px;
+}
+.filterDiv {
+  display: none; /* Hidden by default */
+}
+/* Display the elements based on folder or category */
+.show {
+  display: block;
 }
 
 @media screen and (max-width: 750px) {
