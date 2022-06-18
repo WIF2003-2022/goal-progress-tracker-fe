@@ -157,6 +157,10 @@
   width: 400px;
 }
 
+.filterDiv {
+  display: none; /* Hidden by default */
+}
+
 /* Display the elements based on folder or category */
 .show {
   display: block;

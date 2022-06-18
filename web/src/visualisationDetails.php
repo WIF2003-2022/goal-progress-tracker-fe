@@ -10,14 +10,11 @@ if (!$user) {
 }
 
  //fetch info from db
-$goal= "SELECT * FROM goal WHERE mentee_id = $user->user_id";
-$actionplan = "SELECT * FROM `action plan` INNER JOIN goal ON `action plan`.goal_id = goal.goal_id";
-$queryResult = $conn -> query($goal);
-$queryResult1 = $conn -> query($actionplan);
+// $actionplan = "SELECT * (SELECT * FROM `action plan` INNER JOIN goal ON `action plan`.goal_id = goal.goal_id) INNER JOIN activity ON ap_id = activity.ap_id  WHERE mentee_id = $user->user_id";
+$actionplan = "SELECT * FROM `action plan` INNER JOIN goal ON `action plan`.goal_id = goal.goal_id INNER JOIN activity ON `action plan`.ap_id = activity.ap_id WHERE mentee_id = 100";
+$queryResult = $conn -> query($actionplan);
 $result = $queryResult -> fetch_all(MYSQLI_ASSOC); 
-$result1 = $queryResult1 -> fetch_all(MYSQLI_ASSOC);
 echo json_encode($result);
-echo json_encode($result1);
-$queryResult -> free_result();
-$queryResult1 -> free_result();
-$conn -> close();
+// $queryResult -> free_result();
+// $queryResult1 -> free_result();
+// $conn -> close();
