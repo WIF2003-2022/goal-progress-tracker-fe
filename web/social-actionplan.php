@@ -72,13 +72,11 @@
                 //set due date
                 $dueDate = date("d-m-Y", strtotime($row['ap_due_date']));
 
-
                 ((!empty($row['ap_image'])) ? $apPic = $row['ap_image'] : $apPic = 'ActionPlanDefaultImage.jpg');
 
-
                 echo '<li class="card col-3 m-3 shadow" style="width: 25vw">
-                <img class="card-img-top mt-3"
-                  src="././images/'.$apPic.'" />
+                <img class="card-img-top mt-3" style="height: 15vw;"
+                  src="'.$apPic.'" />
                 <div class="card-body">
                   <a href="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$row['ap_id'].'&role='.$_GET['role'].'" style="text-decoration: none" class="card-text">'.$row['ap_title'].'</a>
                   <p class="card-text">Due: '.$dueDate.'</p>

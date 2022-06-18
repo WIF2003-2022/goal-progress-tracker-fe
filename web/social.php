@@ -151,7 +151,7 @@
 
               echo '<div class="row mb-2 pe-1 py-2 activity">
               <div class="col-3">
-                <img src="././images/'.$rProPic.'" alt="profile_pic" class="img-fluid img-thumbnail" id="i-size" />
+                <img src="'.$rProPic.'" alt="profile_pic" class="img-fluid img-thumbnail" id="i-size" />
               </div>
               <div class="col-9">
                 <div class="row text-secondary right-duration">'.$period.'</div>
@@ -216,15 +216,16 @@
                 }else{
                   $field = $roleArr[1];
                   $field1 = $roleArr[0];}
-                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID; // only this line use field(own role)
+                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID.' AND '.$field1.' IS NOT NULL'; // only this line use field(own role)
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
+                
                 while ($row = $result->fetch_assoc()) {
+
                   $looped = true;
                   $count += 1;
                   $open = false;
-                  $goalID = $row['goal_id'];
 
                   if($row[$field1] == $preID){
                     $trigger = true;
