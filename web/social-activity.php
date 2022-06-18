@@ -14,15 +14,39 @@
   <title>
     <?php echo (($_GET['role']=="Mentor" ) ? "Mentee: Your Mentee's Activity" :"Mentor: My Activity"); ?>
   </title>
+  <link rel="stylesheet" href="./styles/scroll-top.css" />
 </head>
 
 <body>
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
   <div class="wrapper">
     <nav-bar></nav-bar>
     <div class="content-wrapper">
       <div class="container">
-
         <div class="row">
+          <?php
+          //back button
+          require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+           
+          
+          $stmt = $conn->prepare(
+            "SELECT goal_id from `action plan` WHERE ap_id = ?"
+          );
+          $stmt->bind_param("i", $_GET['actionplanID']);
+          $stmt->execute();
+          $row = $stmt->get_result()->fetch_assoc();
+
+          echo '
+          <form action="./social-actionplan.php" method="GET">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
+              <span class="text-secondary">
+                <<< </span> Back to Action Plan
+          </button>
+          <input type="hidden" name="userID" value="'.$_GET['userID'].'"/>
+          <input type="hidden" name="goalID" value="'.$row['goal_id'].'"/>
+          <input type="hidden" name="role" value="'.$_GET['role'].'"/>
+          </form>'
+          ?>
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
 
@@ -43,12 +67,21 @@
             
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
 
-            if (isset($_POST['commentText'])){
+            if (isset($_GET['aID'])){
+              date_default_timezone_set('Asia/Kuala_Lumpur');
+              $date = strval(date('y-m-d h:i:s'));
+
               // update database
-              echo $_POST['commentText'];
-            }else{
-              echo "hi";
-            }        
+              $aID = $_GET['aID'];
+              $cText = $_POST['activity'.$aID];
+              $cID = $userID;
+              $time = $date;
+              $stmt3 = $conn->prepare(
+                "INSERT INTO comment (a_id, comment_text, commentor_id, timestamp)VALUES (?,?,?,?)"
+              );
+              $stmt3->bind_param("isis", $aID, $cText, $cID, $time);
+              $stmt3->execute();
+            }       
 
             $haveAct = false;
             $stmt = $conn->prepare(
@@ -62,11 +95,35 @@
             while ($row = $result->fetch_assoc()) {
               // echo 'ap_id: '.$row['ap_id'].'</br>';
               // echo 'a_id: '.$row['a_id'].'</br>';
+
+              //change date format
+              $startDate = date("d-m-Y", strtotime($row['a_start_date']));
+              $dueDate = date("d-m-Y", strtotime($row['a_due_date']));
+
+              //find due progress
+              date_default_timezone_set('Asia/Kuala_Lumpur');
+              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+              $sDate = date_create($row['a_start_date']); 
+              $dDate = date_create($row['a_due_date']); 
+
+              $difference1 = date_diff($sDate, $dDate); 
+              $difference2 = date_diff($sDate, $currentDate); 
+
+              $totalDay = $difference1->d;
+              $passedDay = $difference2->d;
+
+              $duePercentage = $passedDay * 100 / $totalDay;
+              
+              //prevent percentage over 100
+              if($duePercentage > 100){
+                $duePercentage = 100;
+              }
+
               $haveAct = true;
               $html = '';
               $html .= '<!-- activity -->
               <li class="card text-center">
-              <div class="card-header">'.$row['a_due_date'].'</div>
+              <div class="card-header text-start">Start Date: '.$startDate.'<span class="float-end text-danger">Due Date: '.$dueDate.'</span></div>
               <div class="card-body">
                 <h5 class="card-title">'.$row['a_title'].'</h5>
                 <p class="card-text">'.$row['a_description'].'</p>
@@ -92,8 +149,8 @@
                   <div class="col-6">
                     <div class="progress">
                       <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                        75%
+                        aria-valuenow="'.$duePercentage.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$duePercentage.'%">
+                        '.$duePercentage.'%
                       </div>
                     </div>
                   </div>
@@ -117,14 +174,13 @@
                   </div>';
 
               $stmt1 = $conn->prepare(
-                "SELECT * from comment WHERE a_id = ?"
+                "SELECT * from comment WHERE a_id = ? ORDER BY timestamp"
               );
               $stmt1->bind_param("i", $row['a_id']);
               $stmt1->execute();
               $result1 = $stmt1->get_result();
               while ($row1 = $result1->fetch_assoc()) {
-                // echo 'c_id:'.$row1['comment_id'].'</br>';
-                //display comment
+                // echo 'c_id:'.$row1['comment_id'].'</br>';              
                 $stmt2 = $conn->prepare(
                   "SELECT name from user WHERE user_id = ?"
                 );
@@ -135,6 +191,35 @@
                 ($_GET['role'] == 'Mentor') ? $other = 'Mentee' : $other = 'Mentor';
                 ($userID == $row1['commentor_id']) ? $roleLabel = "You" : $roleLabel = $other;
                 // echo $row2['name'].'</br>';
+                date_default_timezone_set('Asia/Kuala_Lumpur');
+                $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+                $commentDate = date_create($row1['timestamp']);
+                $difference = date_diff($currentDate, $commentDate); 
+                $year = strval($difference->y);
+                $month = strval($difference->m);
+                $day = strval($difference->d);
+                $hour = strval($difference->h);
+                $minute = strval($difference->i);
+                $second = strval($difference->s);
+                if ($year > 0) {
+                  $unit = ($year == 1) ?  " year ago" : " years ago";
+                  $period = $year.$unit;
+                }else if($month > 0){
+                  $unit = ($month == 1) ?  " month ago" : " months ago";
+                  $period = $month.$unit;
+                }else if($day > 0){
+                  $unit = ($day == 1) ?  " day ago" : " days ago";
+                  $period = $day.$unit;
+                }else if($hour > 0){
+                  $unit = ($hour == 1) ?  " hour ago" : " hours ago";
+                  $period = $hour.$unit;
+                }else if($minute > 0){
+                  $unit = ($minute == 1) ?  " minute ago" : " minutes ago";
+                  $period = $minute.$unit;
+                }else{
+                  $period = "Just Now";
+                }
+                //display comment
                 $html .= '
                   <div class="mt-2">
                     <div class="d-flex flex-row p-3">
@@ -148,9 +233,9 @@
                             <small class="'.(($roleLabel == "You")? 'y':'o').'-badge"><span class="px-3">'.$roleLabel.'</span></small>
                           </div>
                           <!-- time -->
-                          <small>12h ago</small>
+                          <small class="text-secondary">'.$period.'</small>
                         </div>
-                        <p class="text-justify comment-text mb-0">'.$row1["comment_text"].'</p>
+                        <p class="text-justify comment-text mb-0 fs-6">'.$row1["comment_text"].'</p>
                         <div class="d-flex flex-row user-feed">
                           <!-- <span class="wish"><i class="bi bi-pin mr-2"></i></span> -->
                         </div>
@@ -159,16 +244,18 @@
                   </div>';
               }
                 $html .= '<!-- comment box -->
+                        <form action="social-activity.php?userID='.$_GET['userID'].'&actionplanID='.$_GET['actionplanID'].'&role='.$_GET['role'].'&aID='.$row['a_id'].'" method="POST" >
                           <div class="mt-3 d-flex flex-row align-items-center p-3 form-color before-comment">
                             <img src="././images/sampleProfilePic.jpg" width="50" height="50" class="rounded-circle mr-2" />
-                            <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." />
+                            <input type="text" class="form-control comment-typed" placeholder="Leave your comment..." name="activity'.strval($row['a_id']).'"/>
                           </div>
-                        </div>
+
                         <!-- button -->
-                        <form class="text-end mt-3">
-                          <button type="button" class="btn btn-success">
+                        <div class="text-end mt-3">
+                          <button type="submit" class="btn btn-success">
                             Post Comment
                           </button>
+                        </div>
                         </form>
                       </div>
                       <!-- end comment -->
@@ -184,77 +271,7 @@
   </div>
   <script src="./js/authListener.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script>
-  const commentButton = document.querySelectorAll(".btn-success");
-  const beforeComment = document.querySelectorAll(".before-comment");
-  const parentComment = document.querySelectorAll(".parent-comment");
-  const commentTyped = document.querySelectorAll(".comment-typed");
-  var commentNumber = '';
-  var commentText = '';
-
-  for (let i = 0; i < commentButton.length; i++) {
-    commentButton[i].addEventListener("click", (e) => {
-      // e.preventDefault();
-      commentNumber = i;
-      commentText = commentTyped[i].value;
-      // const newComment = document.createElement("comment");
-      // newComment.innerHTML = `
-      //     <div class="mt-2">
-      //       <div class="d-flex flex-row p-3">
-      //         <img
-      //           src="././images/sampleProfilePic.jpg"
-      //           width="40"
-      //           height="40"
-      //           class="rounded-circle mr-3"
-      //         />
-      //         <div class="w-100">
-      //           <div
-      //             class="d-flex justify-content-between align-items-center"
-      //           >
-      //             <div class="d-flex flex-row align-items-center">
-      //               <span class="mr-2">Christian Louboutin</span>
-      //               <small class="y-badge"
-      //                 ><span class="px-3">You</span></small
-      //               >
-      //             </div>
-      //             <small>Just now</small>
-      //           </div>
-      //           <p class="text-justify comment-text mb-0">
-      //             ${commentTyped[i].value}
-      //           </p>
-      //           <div class="d-flex flex-row user-feed">
-      //             <span class="wish"
-      //               ><i class="bi bi-pin mr-2"></i
-      //             ></span>
-      //             <span class="ml-3"
-      //               ><i class="fa fa-comments-o mr-2"></i>Reply</span
-      //             >
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //     `;
-      // parentComment[i].insertBefore(newComment, beforeComment[i]);
-      // commentTyped[i].value = null;
-      console.log("no.:" + commentNumber);
-      console.log("text: " + commentText);
-      $.ajax({
-        type: "POST",
-        url: './social-activity.php',
-        data: {
-          number: commentNumber,
-          commentText: commentText,
-        },
-        success: function(data) {
-          // console.log(data);
-        },
-        error: function(xhr, status, error) {
-          console.error(xhr);
-        }
-      });
-    });
-  }
-  </script>
+  <script src="./js/scrollTop.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>
