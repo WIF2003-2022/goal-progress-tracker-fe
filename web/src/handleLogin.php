@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo json_encode($user);
     } else {
       http_response_code(401);
-      echo json_encode("Email or username and password is incorrect. Please try again.");
+      die("Email or username and password is incorrect. Please try again.");
     }
   } catch (Exception $e) {
     http_response_code(500);
@@ -27,5 +27,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 } else {
   http_response_code(400);
-  echo json_encode("Bad request");
+  die("Bad request");
 }
