@@ -1,7 +1,6 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-  //TODO: foreign (goal_id) to be determined how to pass
-  $foreign = 1;
+  $foreign = $_GET["id"];
   $title = $_POST["ap_title"];
   $start = $_POST["ap_start_date"];
   $due = $_POST["ap_due_date"];
@@ -41,5 +40,5 @@
   $stmt -> execute();
   $stmt -> close();
   $conn -> close();
-  header("Location: action-main.html");
+  header("Location: action-main.html?id=$foreign");
 ?>

@@ -269,7 +269,7 @@ class NavBar extends HTMLElement {
       case "profile.php":
         pageTitleElem.textContent = "Profile";
         break;
-      case "edit-profile.html":
+      case "edit-profile.php":
         pageTitleElem.textContent = "Edit Profile";
         break;
       default:

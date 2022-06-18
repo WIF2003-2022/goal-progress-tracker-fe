@@ -98,8 +98,8 @@
     ></script>
     <script>
       $(document).ready(() => {
-        $.ajax({
-          url: "./src/getGoals.php",
+          $.ajax({
+          url: "./src/userGoal.php?accomplished_only=true",
           type: "GET",
           dataType: "json",
         })

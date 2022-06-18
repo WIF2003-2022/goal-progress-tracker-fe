@@ -92,8 +92,9 @@ var lineChart = new Chart(line, {
     },
   },
 });
+
 $.ajax({
-  url: "src/getGoals.php?accomplished_only=true",
+  url: "./src/userGoal.php",
   type: "GET",
   dataType: "json",
 })

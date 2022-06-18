@@ -19,13 +19,13 @@
   <div class="wrapper">
     <nav-bar></nav-bar>
     <div class="content-wrapper">
-      <div class="container-float">
-        <div class="row m-2">
+      <div class="container">
+        <div class="row">
           <?php
           //back button
           echo '
           <form action="./social.php" method="GET">
-          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3 text-start">
+          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
               <span class="text-secondary">
                 <<< </span> Back to Social
           </button>
@@ -48,14 +48,6 @@
             function generateGoalList($role, $menteeID, $mentorID){
               require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");   
 
-              $roleArr = ['mentor_id','mentee_id'];
-              if($role == "Mentor"){
-                $field = $roleArr[0]; 
-                $field1 = $roleArr[1];
-              }else{
-                $field = $roleArr[1];
-                $field1 = $roleArr[0];
-              }
               $stmt = $conn->prepare(
                 "SELECT * from goal WHERE mentee_id = ? AND mentor_id = ?"
               );
@@ -64,6 +56,7 @@
               $result = $stmt->get_result();
               while ($row = $result->fetch_assoc()) {
                 // echo 'Goal: '.$row['goal_id'].'</br>';
+                $dueDate = date("d-m-Y", strtotime($row['goal_due_date']));
                 echo '<div class="col-md-4">
                           <div class="goal1">
                             <a href="social-actionplan.php?userID='.$_GET['userID'].'&goalID='.$row['goal_id'].'&role='.$role.'" class="remove-hyperlink">
@@ -84,7 +77,7 @@
                                 </div>
                                 <div class="deadline">
                                   <span class="material-icons-sharp">event</span>
-                                  <div class="text-muted">'.$row['goal_due_date'].'</div>
+                                  <div class="text-muted">'.$dueDate.'</div>
                                 </div>
                               </div>
                             </a>

@@ -1,3 +1,21 @@
+<?php
+include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+$a_id = $_GET["id"];
+$sql = "SELECT * FROM activity WHERE a_id = $a_id";
+$result = $conn -> query($sql);
+$row = $result -> fetch_array();
+$primary = $row["a_id"];
+$title = $row["a_title"];
+$description = $row["a_description"];
+$start = $row["a_start_date"];
+$due = $row["a_due_date"];
+$time = $row["a_times"];
+$day = $row["a_days"];
+$reminder = $row["a_reminder"];
+$priority = $row["a_priority"];
+$conn -> close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,8 +49,9 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container"></div>
-        <form class="m-5" action="activity.html">
+        <form class="m-5" action="activity-edit-process.php" method="post">
           <div class="mb-3">
+            <input type="hidden" name="a_id" <?php echo "value=$primary" ?>/>
             <label for="activity-title" class="form-label">
               Activity Title
             </label>
@@ -40,7 +59,8 @@
               type="text"
               class="form-control"
               id="activity-title"
-              placeholder="Activity 1"
+              name="a_title"
+              <?php echo "value=$title" ?>
             />
           </div>
           <div class="mb-3">
@@ -50,7 +70,7 @@
             <textarea
               class="form-control"
               id="activity-description"
-              placeholder="Description XXX"
+              name="a_description"
               rows="3"
             ></textarea>
           </div>
@@ -58,11 +78,11 @@
             <label for="activity-start-date" class="form-label"
               >Start Date
             </label>
-            <input type="date" class="form-control" id="activity-start-date" />
+            <input type="date" class="form-control" id="activity-start-date" name="a_start_date" <?php echo "value=$start" ?>/>
           </div>
           <div class="mb-5">
             <label for="activity-due-date" class="form-label"> Due Date </label>
-            <input type="date" class="form-control" id="activity-due-date" />
+            <input type="date" class="form-control" id="activity-due-date" name="a_due_date" <?php echo "value=$due" ?>/>
           </div>
           <div class="mb-5">
             <label for="activity-frequency" class="form-label">
@@ -74,7 +94,8 @@
                   type="number"
                   class="form-control activity-frequency"
                   id="activity-frequency-number"
-                  placeholder="1"
+                  name="a_times"
+                  <?php echo "value=$time" ?>
                 />
               </div>
               <div class="col-1 m-1">time(s)</div>
@@ -84,7 +105,8 @@
                   type="number"
                   class="form-control activity-frequency"
                   id="activity-frequency-day"
-                  placeholder="7"
+                  name="a_days"
+                  <?php echo "value=$day" ?>
                 />
               </div>
               <div class="col-1 m-1">day(s)</div>
@@ -98,35 +120,43 @@
               class="form-check-input"
               type="checkbox"
               id="flexCheckDefault"
+              name="a_reminder"
+              <?php
+              if ($reminder == 0) {
+              }
+              else {
+                echo "checked";
+              }
+              ?>
             />
           </div>
           <!-- https://codepen.io/neilpomerleau/pen/wzxzQM -->
           <div class="mt-5">Priority level</div>
           <div class="mb-5 rating">
             <label>
-              <input type="radio" name="stars" value="1" />
+              <input type="radio" name="stars" value="1" <?php if($priority==1){echo "checked";}?>/>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="2" />
-              <span class="icon">★</span>
-              <span class="icon">★</span>
-            </label>
-            <label>
-              <input type="radio" name="stars" value="3" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="2" <?php if($priority==2){echo "checked";}?>/>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="4" />
-              <span class="icon">★</span>
+              <input type="radio" name="stars" value="3" <?php if($priority==3){echo "checked";}?>/>
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
             </label>
             <label>
-              <input type="radio" name="stars" value="5" />
+              <input type="radio" name="stars" value="4" <?php if($priority==4){echo "checked";}?>/>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+              <span class="icon">★</span>
+            </label>
+            <label>
+              <input type="radio" name="stars" value="5" <?php if($priority==5){echo "checked";}?>/>
               <span class="icon">★</span>
               <span class="icon">★</span>
               <span class="icon">★</span>
@@ -141,5 +171,9 @@
       </div>
     </div>
     <script src="./js/authListener.js"></script>
+    <script>
+      var text = document.querySelector('textarea')
+      text.innerHTML = "<?php echo $description ?>"
+      </script>
   </body>
 </html>
