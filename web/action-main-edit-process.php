@@ -1,11 +1,17 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-  $primary = $_POST["ap_id"];
+  $goal_name = $_POST["goal_name"];
+  $goal_id = $_POST["goal_id"];
+  $ap_id = $_POST["ap_id"];
   $title = $_POST["ap_title"];
   $start = $_POST["ap_start_date"];
   $due = $_POST["ap_due_date"];
   $image = $_FILES["ap_image"];
   $img_size = $_FILES["ap_image"]["size"];
+  if($due < $start) {
+    header("Location: action-main-edit.php?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error2");
+    exit();
+  }
   if($img_size > 0){
     $img_name = $_FILES["ap_image"]["name"];
     $tmp_name = $_FILES["ap_image"]["tmp_name"];
@@ -23,21 +29,21 @@
       }
       $sql = "UPDATE `action plan` SET ap_start_date=?, ap_due_date=?, ap_title=?, ap_image=? WHERE ap_id = ?";
       $stmt = $conn -> prepare($sql);
-      $stmt -> bind_param ("ssssi", $start, $due, $title, $en_image, $primary);
+      $stmt -> bind_param ("ssssi", $start, $due, $title, $en_image, $ap_id);
     }
     else {
-      $em = "You can't upload files of this type";
-      header("Location: action-main-add.html?error=$em");
+      header("Location: action-main-edit.php?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error1");
+      exit();
     }
   }
   else {
     $sql = "UPDATE `action plan` SET ap_start_date=?, ap_due_date=?, ap_title=? WHERE ap_id = ?";
     $stmt = $conn -> prepare($sql);
-    $stmt -> bind_param ("sssi", $start, $due, $title, $primary);
+    $stmt -> bind_param ("sssi", $start, $due, $title, $ap_id);
   }
 
   $stmt -> execute();
   $stmt -> close();
   $conn -> close();
-  header("Location: action-main.html");
+  header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");
 ?>

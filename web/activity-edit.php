@@ -1,10 +1,11 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-$a_id = $_GET["id"];
+$ap_name = $_GET["ap_name"];
+$a_id = $_GET["a_id"];
+$ap_id = $_GET["ap_id"];
 $sql = "SELECT * FROM activity WHERE a_id = $a_id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_array();
-$primary = $row["a_id"];
 $title = $row["a_title"];
 $description = $row["a_description"];
 $start = $row["a_start_date"];
@@ -51,7 +52,9 @@ $conn -> close();
         <div class="container"></div>
         <form class="m-5" action="activity-edit-process.php" method="post">
           <div class="mb-3">
-            <input type="hidden" name="a_id" <?php echo "value=$primary" ?>/>
+            <input type="hidden" name="ap_id" <?php echo "value=$ap_id"; ?>>
+            <input type="hidden" name="a_id" <?php echo "value=$a_id"; ?>>
+            <input type="hidden" name="ap_name" value="<?php echo $ap_name;?>">
             <label for="activity-title" class="form-label">
               Activity Title
             </label>
@@ -174,6 +177,11 @@ $conn -> close();
     <script>
       var text = document.querySelector('textarea')
       text.innerHTML = "<?php echo $description ?>"
-      </script>
+      var urlString = window.location.search;
+      var param = new URLSearchParams(urlString);
+      if (param.has("error2")) {
+        alert("Your due date cannot be placed earlier than your start date.");
+      }
+    </script>
   </body>
 </html>
