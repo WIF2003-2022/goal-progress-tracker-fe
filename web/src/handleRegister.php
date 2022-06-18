@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $tokens = explode("/", $requestURI);
   $tokens[count($tokens) - 1] = 'handleEmailVerification.php';
   $verifyEmailURI = implode("/", $tokens);
+  unset($tokens[count($tokens) - 1]);
+  unset($tokens[count($tokens) - 1]);
+  $documentRootPath = implode("/", $tokens);
 
   $host = $_SERVER['HTTP_HOST'];
   $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
@@ -47,19 +50,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     'goalprogresstracker2022@gmail.com', 
     'Goal Progress Tracker Support', 
     $username, 
-    $email
+    $email,
+    true
   );
 
   $subject = "Welcome to Goal Progress Tracker";
-
-  $body = "Please verify your account here $link";
-  
+  $templateFileName = "../email_templates/verify-email-template.html";
+    $context = array("LINK" => $link, "REQUEST_ORIGIN" => $protocol.$host.$documentRootPath);
   $altBody = "Copy and paste this link to the browser: $link";
+  $imgFileName = "email.png";
+  $imgCid = "email";
 
   if(!$sendMail(
     $subject,
-    $body,
-    $altBody
+    $templateFileName,
+    $context,
+    $altBody,
+    $imgFileName,
+    $imgCid
   ))
   {
     http_response_code(500);

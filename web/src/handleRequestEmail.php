@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
     $tokens[count($tokens) - 2] = 'forgot-password.php';
     unset($tokens[count($tokens) - 1]);
     $resetPasswordURI = implode("/", $tokens);
+    unset($tokens[count($tokens) - 1]);
+    $documentRootPath = implode("/", $tokens);
   
     $host = $_SERVER['HTTP_HOST'];
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
@@ -41,16 +43,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
       'Goal Progress Tracker Support',
       $user['name'],
       $user['email'],
+      true,
     );
   
     $subject = "Reset your password";
-    $body = "You have requested to reset your password. Go to this link to proceed $resetPasswordLink";
+    $templateFileName = "../email_templates/reset-password-template.html";
+    $context = array("LINK" => $resetPasswordLink, "REQUEST_ORIGIN" => $protocol.$host.$documentRootPath);
     $altBody = "Reset your password";
+    $imgFileName = "reset-password.png";
+    $imgCid = "reset-password";
   
     if(!$mailer(
       $subject,
-      $body,
-      $altBody
+      $templateFileName,
+      $context,
+      $altBody,
+      $imgFileName,
+      $imgCid
     ))
     {
       error_log('Mailer Error: ' . $mail->ErrorInfo);
