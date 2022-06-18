@@ -96,9 +96,20 @@
     <script>
       var urlString = window.location.search;
       var param = new URLSearchParams(urlString);
-      var query = parseInt(param.get("id"));
+      var queryID = parseInt(param.get("goal_id"));
+      var queryName = param.get("goal_name");
       var targetURL = document.querySelector("form");
-      targetURL.action = "action-main-add-process.php?id=" + query;
+      targetURL.action =
+        "action-main-add-process.php?goal_name=" +
+        queryName +
+        "&goal_id=" +
+        queryID;
+      if (param.has("error1")) {
+        alert("You cannot upload files of this type.");
+      }
+      if (param.has("error2")) {
+        alert("Your due date cannot be placed earlier than your start date.");
+      }
     </script>
   </body>
 </html>

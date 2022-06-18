@@ -49,7 +49,9 @@ $conn -> close();
           method="post"
           enctype="multipart/form-data"
         >
-        <input type="hidden" name="ap_id" <?php echo "value=$primary" ?>/>
+        <input type="hidden" name="goal_name" value="<?php echo $goal_name;?>">
+        <input type="hidden" name="goal_id" value="<?php echo $goal_id;?>">
+        <input type="hidden" name="ap_id" value="<?php echo $ap_id;?>">
           <div class="mb-3">
             <label for="action-plan-title" class="form-label">
               Action Plan Title
@@ -60,7 +62,6 @@ $conn -> close();
               id="action-plan-title"
               name="ap_title"
               <?php echo "value=$title" ?>
-              placeholder="Action Plan 1"
             />
           </div>
           <div class="mb-3">
@@ -107,11 +108,14 @@ $conn -> close();
     </div>
     <script src="./js/authListener.js"></script>
     <script>
-      var id = window.location.search;
-      var param = new URLSearchParams(id);
-      var query = parseInt(param.get("id"));
-      urlString = "?id=" + query;
-      document.querySelector("form").action += urlString;
+      var urlString = window.location.search;
+      var param = new URLSearchParams(urlString);
+      if (param.has("error1")) {
+        alert("You cannot upload files of this type.");
+      }
+      if (param.has("error2")) {
+        alert("Your due date cannot be placed earlier than your start date.");
+      }
     </script>
   </body>
 </html>

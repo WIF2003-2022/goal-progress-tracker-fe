@@ -1,11 +1,18 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-  $foreign = $_GET["id"];
+  $goal_name = $_GET["goal_name"];
+  $goal_id = $_GET["goal_id"];
+  $ap_id = $_GET["ap_id"];
   $title = $_POST["ap_title"];
   $start = $_POST["ap_start_date"];
   $due = $_POST["ap_due_date"];
   $image = $_FILES["ap_image"];
   $img_size = $_FILES["ap_image"]["size"];
+  $condtion = $due < $start;
+  if($due < $start) {
+    header("Location: action-main-add.html?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error2");
+    exit();
+  }
   if($img_size > 0){
     $img_name = $_FILES["ap_image"]["name"];
     $tmp_name = $_FILES["ap_image"]["tmp_name"];
@@ -23,8 +30,8 @@
       }
     }
     else {
-      $em = "You can't upload files of this type";
-      header("Location: action-main-add.html?error=$em");
+      header("Location: action-main-add.html?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error1");
+      exit();
     }
   }
   else {
@@ -36,9 +43,9 @@
   
   $sql = "INSERT INTO `action plan` (goal_id, ap_timestamp, ap_start_date, ap_due_date, ap_title, ap_image) VALUES (?,?,?,?,?,?)";
   $stmt = $conn -> prepare($sql);
-  $stmt -> bind_param ("isssss", $foreign, $timestamp, $start, $due, $title, $en_image);
+  $stmt -> bind_param ("isssss", $goal_id, $timestamp, $start, $due, $title, $en_image);
   $stmt -> execute();
   $stmt -> close();
   $conn -> close();
-  header("Location: action-main.html?id=$foreign");
+  header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");
 ?>
