@@ -214,7 +214,7 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Edit Goal";
         break;
-      case "goal-details.html":
+      case "goal-details.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goal Details";
         break;
