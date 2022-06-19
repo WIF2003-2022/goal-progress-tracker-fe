@@ -72,7 +72,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
             <!--First column contains user's avatar-->
             <div class="leftSection col-md"><!--col-md-11-->
               <div class="left mt-3 mb-4 col-sm-4">
-                <img src=<?php echo $rowInfo['photo']; ?>
+                <img src=<?php echo $rowInfo['photo'] ?? "images/default-user.png"; ?>
                     alt="Circle Image" 
                     class="rounded-circle"
                     style="width: 200px;">
