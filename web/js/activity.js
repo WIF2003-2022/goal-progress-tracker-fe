@@ -54,6 +54,16 @@ ajax.onreadystatechange = function () {
     var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
+      console.log(new Date().valueOf());
+      console.log(new Date().valueOf() - new Date(data[i].a_start_date));
+      console.log(
+        new Date(data[i].a_due_date) - new Date(data[i].a_start_date)
+      );
+      console.log(
+        (new Date().valueOf() - new Date(data[i].a_start_date)) /
+          (new Date(data[i].a_due_date) - new Date(data[i].a_start_date))
+      );
+      console.log("-----------------------------------");
       html.innerHTML +=
         `
       <li class="card text-center">
@@ -96,7 +106,7 @@ ajax.onreadystatechange = function () {
                         <i class="bi-trash-fill" style="font-size: 2vw"></i>
                       </button>
                       <div class="mt-3 complete">
-                        <input class="form-check-input tick" type="checkbox" />
+                        <input class="form-check-input tick" type="checkbox" name="${data[i].a_id}">
                         Complete
                       </div>
                     </div>
@@ -116,16 +126,16 @@ ajax.onreadystatechange = function () {
                               class="progress-bar bg-danger progress-bar-striped progress-bar-animated due"
                               role="progressbar"
                               aria-valuenow="` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `"
                               aria-valuemin="0"
                               aria-valuemax="100"
                               style="width: ` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `%"
                             >
                             ` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `%
                             </div>
                           </div>
@@ -161,6 +171,18 @@ ajax.onreadystatechange = function () {
       document.querySelector("#deleteModal")
     );
 
+    function calculateDue(start_date, due_date) {
+      var diff = Math.floor(
+        ((new Date().valueOf() - new Date(data[i].a_start_date)) /
+          (new Date(data[i].a_due_date) - new Date(data[i].a_start_date))) *
+          100
+      );
+      if (diff < 0) {
+        return 0;
+      } else if (diff > 100) return 100;
+      else return diff;
+    }
+
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
     console.log(elem);
@@ -168,7 +190,7 @@ ajax.onreadystatechange = function () {
     for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
-        const id = elem[i]["name"];
+        let id = elem[i]["name"];
         //var x = this.closest("li");
         key.addEventListener("click", function () {
           //x.remove();
@@ -177,12 +199,64 @@ ajax.onreadystatechange = function () {
         });
       });
     }
-  }
 
-  function showModal() {
-    modal.show();
+    //complete function
+    var elem = document.querySelectorAll(".tick");
+    var percentage = document.querySelectorAll(".progress");
+    var fail = document.querySelectorAll(".due");
+    var pass = document.querySelectorAll(".finish");
+
+    for (let i = 0; i < elem.length; i++) {
+      if (fail[i].ariaValueNow <= 0) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>TO BE STARTED</strong>";
+        continue;
+      }
+      if (fail[i].ariaValueNow >= 100) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>FAILED</strong>";
+      } else if (pass[i].ariaValueNow == 100) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>COMPLETED</strong>";
+      }
+      elem[i].addEventListener("click", function () {
+        let id = elem[i]["name"];
+        if (
+          this.checked &&
+          confirm("Are you sure you have completed this activity?")
+        ) {
+          var x = this.closest("li").querySelector(".finish");
+          a = Number(x.ariaValueNow);
+          b = Number(15);
+          c = a + b;
+          x.ariaValueNow = c;
+          x.style.width = c + "%";
+          x.innerText = c + "%";
+          this.closest("li").querySelector(".tick").checked = false;
+          if (c >= 100) {
+            x.ariaValueNow = 100;
+            x.style.width = 100 + "%";
+            x.innerText = 100 + "%";
+            location.href =
+              "activity-complete.php?a_id=" + id + "&a_complete=100";
+            this.closest("li").querySelector(".complete").innerHTML =
+              "<strong>COMPLETED</strong>";
+          } else {
+            location.href =
+              "activity-complete.php?a_id=" + id + "&a_complete=" + c;
+            //this.closest("li").querySelector(".tick").disabled = true;
+          }
+        } else {
+          this.checked = false;
+        }
+      });
+    }
   }
 };
+
+function showModal() {
+  modal.show();
+}
 
 // var urlRefer = activities.find((o) => o.refer === queryID);
 // for (i = 0; i < urlRefer.contents.length; i++) {}

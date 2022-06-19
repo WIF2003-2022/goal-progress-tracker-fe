@@ -1,5 +1,7 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+  $userID = json_decode($_SESSION['auth'],true)['user_id'];
   $ap_name = $_GET["ap_name"];
   $ap_id = $_GET["ap_id"];
   $title = $_POST["a_title"];
@@ -29,6 +31,12 @@
   $stmt = $conn -> prepare($sql);
   $stmt -> bind_param ("issssssssii", $ap_id, $timestamp, $start, $due, $title, $description, $time, $day, $priority, $reminder, $complete);
   $stmt -> execute();
+
+  $lastId = mysqli_insert_id($conn);
+  $recentsql = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`, `action`) 
+                    values('activity', '$userID', '$lastId', 'add')";
+  mysqli_query($conn,$recentsql);
+
   $stmt -> close();
   $conn -> close();
   header("Location: activity.html?ap_name=$ap_name&ap_id=$ap_id");

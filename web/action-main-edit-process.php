@@ -1,5 +1,7 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+  $userID = json_decode($_SESSION['auth'],true)['user_id'];
   $goal_name = $_POST["goal_name"];
   $goal_id = $_POST["goal_id"];
   $ap_id = $_POST["ap_id"];
@@ -43,6 +45,11 @@
   }
 
   $stmt -> execute();
+  $recentsql = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`, `action`) 
+                    values('action_plan', '$userID', '$ap_id', 'edit')";
+  mysqli_query($conn,$recentsql);
+
+
   $stmt -> close();
   $conn -> close();
   header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");

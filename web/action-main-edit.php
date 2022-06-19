@@ -1,6 +1,8 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-$ap_id = $_GET["id"];
+$goal_name = $_GET["goal_name"];
+$goal_id = $_GET["goal_id"];
+$ap_id = $_GET["ap_id"];
 $sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_array();
