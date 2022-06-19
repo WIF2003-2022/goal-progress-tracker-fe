@@ -4,15 +4,15 @@ session_start();
 $user = json_decode($_SESSION['auth']);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   if($_GET['data'] == "activities"){
-    $queryActivities = "SELECT a_id,a_start_date,a_due_date,a_title,a_days,a_times FROM activity 
+    $queryActivities = "SELECT activity.ap_id,a_start_date,a_due_date,a_title,a_days,a_times FROM activity 
     INNER JOIN `action plan` ON activity.ap_id = `action plan`.ap_id
     INNER JOIN goal ON `action plan`.goal_id = goal.goal_id
-    WHERE goal.mentee_id =35";
+    WHERE goal.mentee_id =$user->user_id";
   } else if($_GET['data'] == "reminders"){
-    $queryActivities = "SELECT a_id,a_start_date,a_due_date,a_title,a_days,a_times,a_description FROM activity 
+    $queryActivities = "SELECT activity.ap_id,a_start_date,a_due_date,a_title,a_days,a_times,a_description FROM activity 
     INNER JOIN `action plan` ON activity.ap_id = `action plan`.ap_id
     INNER JOIN goal ON `action plan`.goal_id = goal.goal_id
-    WHERE goal.mentee_id =35 AND a_reminder=1 AND a_complete=0";
+    WHERE goal.mentee_id =$user->user_id AND a_reminder=1 AND a_complete=0";
   }
   $res = mysqli_query($conn, $queryActivities);
   $data = $res -> fetch_all(MYSQLI_ASSOC); 

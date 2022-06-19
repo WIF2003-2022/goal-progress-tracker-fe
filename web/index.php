@@ -74,7 +74,7 @@
               <div class="card-body d-flex flex-column">
                 <div class="d-flex align-items-center">
                   <h3 class="card-title">Reminders</h3>
-                  <button class="card-title edit-btn ms-2" type="button">
+                  <button class="card-title edit-btn ms-2 invisible" type="button">
                     <i class="bi bi-pencil-fill"></i>
                   </button>
                 </div>
