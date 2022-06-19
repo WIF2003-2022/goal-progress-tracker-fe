@@ -1,5 +1,6 @@
 <?php
-// // include @realpath(dirname(__FILE__) . "/../../config/databaseConn.php");
+//include @realpath(dirname(__FILE__) . "/../../config/databaseConn.php");
+//require_once @realpath(dirname(__FILE__) . "/../src/services/checkAuthenticated.php");
 // var_dump($_POST);
 // var_dump($_FILES);
 $image = $_FILES["profile"];

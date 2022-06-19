@@ -1,5 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/../config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/../src/services/checkAuthenticated.php");
 session_start();
 
 if (isset($_POST['user_delete'])) //check the button is clicked or not

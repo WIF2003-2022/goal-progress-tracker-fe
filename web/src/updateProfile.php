@@ -1,5 +1,6 @@
 <?php
 require_once @realpath(dirname(__FILE__)) . "../../config/databaseConn.php";
+require_once @realpath(dirname(__FILE__) . "/../src/services/checkAuthenticated.php");
 require_once @realpath(dirname(__FILE__)) . "/uploadPhoto.php";
 
 if (isset($_POST['save_changes'])) 
@@ -95,12 +96,10 @@ if (isset($_POST['save_changes']))
     mysqli_close($conn);
 
     if ($boo == TRUE) {
-      $_SESSION['message'] = "Update Successfully";
       header("Location: ../profile.php");
       exit;
     }
     else {
-      $_SESSION['message'] = "Something went wrong";
       header("Location: ../edit-profile.php");
       exit;
     }
