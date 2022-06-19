@@ -42,6 +42,7 @@ include './src/message.php';
                     // getting from session would be a string
                     // need to decode to get the class/object
                     $user = json_decode($userStr);
+                    // $userid = json_decode($userstr, true)["user_id"];
                     if (!$user) {
                         header("Location: ./login.php"); //change location of http header to login.php
                     }
@@ -244,23 +245,22 @@ include './src/message.php';
                             <div class="card-body">
 
                                 <!--Retrieve user info : mentor, mentee, goal accomplished-->
-                                <?php 
-                                    $userMentor = "SELECT COUNT(mentee_id) AS noOfMentee
-                                    FROM goal
-                                    INNER JOIN user
-                                    ON goal.mentor_id = user.user_id = $user->user_id";
+                                <?php
+                                    $userMentor = "SELECT COUNT(mentor_id) 
+                                    AS MentorNo 
+                                    FROM goal 
+                                    WHERE mentee_id=$user->user_id";
 
-                                    $userMentee = "SELECT COUNT(mentor_id) AS noOfMentor
-                                    FROM goal
-                                    INNER JOIN user
-                                    ON goal.mentee_id = user.user_id = $user->user_id";
+                                    $userMentee = "SELECT COUNT(mentee_id) 
+                                    AS MenteeNo
+                                    FROM goal 
+                                    WHERE mentor_id=$user->user_id";
 
                                     $goalAccomplished = "SELECT COUNT(goal_id) AS noOfGoalsAccomplished
                                     FROM goal
-                                    INNER JOIN user
-                                    ON user.user_id = goal.mentee_id = $user->user_id
                                     WHERE goal_status = 'Accomplished'
-                                    AND goal_progress = 100";
+                                    AND goal_progress = 100
+                                    AND mentee_id = $user->user_id";
 
                                     $res4 = mysqli_query($conn, $userMentor); //return mysqli_result object
                                     $res5 = mysqli_query($conn, $userMentee);
@@ -270,19 +270,19 @@ include './src/message.php';
                                     $row5 = mysqli_fetch_array($res5);
                                     $row6 = mysqli_fetch_array($res6);
 
-                                    mysqli_free_result($res4);
-                                    mysqli_free_result($res5);
-                                    mysqli_free_result($res6);
+                                    // mysqli_free_result($res4);
+                                    // mysqli_free_result($res5);
+                                    // mysqli_free_result($res6);
 
-                                    mysqli_close($conn);
+                                    // mysqli_close($conn);
                                 ?>
-                                
+                                <!--output: 0 1 1-->
                                 <div class="row text-center mb-4 mt-4">
                                     <div class="col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row4['noOfMentee'] ?></h3><small>Mentor</small> <!--same as $row4[0]-->
+                                        <h3 class="m-b-0 font-light"><?php echo $row4['MentorNo'] ?></h3><small>Mentor</small> 
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row5['noOfMentor'] ?></h3><small>Mentee</small>
+                                        <h3 class="m-b-0 font-light"><?php echo $row5['MenteeNo'] ?></h3><small>Mentee</small>
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
                                         <h3 class="m-b-0 font-light"><?php echo $row6['noOfGoalsAccomplished'] ?></h3><small>Goals Accomplished</small>
