@@ -94,11 +94,12 @@ var lineChart = new Chart(line, {
 });
 
 $.ajax({
-  url: "./src/userGoal.php",
+  url: "./src/userGoal.php?accomplished_only=true",
   type: "GET",
   dataType: "json",
 })
   .done((json) => {
+    console.log(json);
     const monthlyCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     json.forEach((data) => {
       let dateObj = new Date(data.goal_start_date);

@@ -4,7 +4,7 @@ $(document).ready(() => {
     ${a_title}
     <div class="progress">
       <div
-        class="progress-bar"
+        class="progress-bar progress-bar-striped progress-bar-animated"
         role="progressbar"
         style="width: ${a_progress}%"
         aria-valuenow="${a_progress}"
@@ -29,7 +29,7 @@ $(document).ready(() => {
     actionPlans
   ) =>
     `<div class="filterDiv ${goal_status.toLowerCase()}">
-    <div class="box" style="background-color: rgb(249, 252, 180)">
+    <div class="box" style="background-color: rgb(255, 255, 255)">
       <span
         style="
           font-size: 100%;
