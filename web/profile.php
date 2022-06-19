@@ -1,6 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-include './src/message.php';
+//include './src/message.php';
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +63,7 @@ include './src/message.php';
                             <img src=<?php echo $rowInfo['photo']; ?>
                                  alt="Circle Image" 
                                  class="rounded-circle"
-                                 style="width: 180px;">
+                                 style="width: 200px;">
                         </div>
                         <div class="mt-3">
                             <div class="name mt-2">
@@ -193,7 +193,11 @@ include './src/message.php';
                                             Edit Profile
                                         </a>
                                         <!-- Trigger the delete account modal with a button -->
-                                        <button id="deleteAccount" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                        <button id="deleteAccount" 
+                                                type="button" 
+                                                class="btn btn-outline-danger" 
+                                                data-toggle="modal" 
+                                                data-target="#deleteModal">
                                             Delete Account
                                         </button>
                              
@@ -203,19 +207,27 @@ include './src/message.php';
 
                                             <!-- Modal content-->
                                             <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete Account</h4>
-                                                <button type="button" class="btn-close" data-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to delete your account?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form action="src/deleteAccount.php" method="post">
-                                                    <button id="delete" type="submit" name="user_delete" value="<?=$user->user_id ?>" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                </form>
-                                            </div>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete Account</h4>
+                                                    <button type="button" class="btn-close" data-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to delete your account?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="./src/deleteAccount.php" method="post">
+                                                        <button id="delete" 
+                                                                type="submit" 
+                                                                name="user_delete" 
+                                                                value="<?=$user->user_id ?>" 
+                                                                class="btn btn-danger" 
+                                                                data-toggle="modal" 
+                                                                data-target="#message">
+                                                            Delete
+                                                        </button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                         </div>

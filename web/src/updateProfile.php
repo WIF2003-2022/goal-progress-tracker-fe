@@ -14,7 +14,6 @@ if (isset($_POST['save_changes']))
   $achievement = mysqli_real_escape_string($conn, $_POST['achievements']);
   $certificate = mysqli_real_escape_string($conn, $_POST['cert']);
 
-  //not sure cuz bootstrap mcm alr check for us
   if (empty($name) || empty($email) || empty($mobile) || empty($address) || empty($bio)
   || empty($expertise) || empty($achievement) || empty($certificate)) {
     if (empty($name)) {

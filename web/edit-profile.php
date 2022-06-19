@@ -1,6 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-include './src/message.php';
+//include './src/message.php';
 ?>
 
 <!DOCTYPE html>
@@ -73,10 +73,9 @@ include './src/message.php';
             <div class="leftSection col-md"><!--col-md-11-->
               <div class="left mt-3 mb-4 col-sm-4">
                 <img src=<?php echo $rowInfo['photo']; ?>
-                  alt="Circle Image"
-                  class="img-raised rounded-circle img-fluid shadow-sm"
-                  style="width: 180px"
-                />
+                    alt="Circle Image" 
+                    class="rounded-circle"
+                    style="width: 200px;">
               </div>
               <div class="mt-3">
                 <div class="name mt-2">
@@ -229,7 +228,7 @@ include './src/message.php';
                         />
                       </div>
                     </div>
-                    <!--password didn't save in db, later ask jb how to reset password-->
+                    <!--password didn't save in db, later ask jb how to reset password --take from hash password, decode then save in db?-->
                     <div class="row my-2">
                       <div class="col-sm-3">
                         <h6 class="mb-0">New Password</h6>
