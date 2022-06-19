@@ -468,7 +468,7 @@
 
               <!-- Add New Goal Card -->
               <div class="addGoal mb-3 order-last">
-                <a href="goal-add.html" class="remove-hyperlink">
+                <a href="goal-add-main.php" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">add</span>
                     <div>
