@@ -231,7 +231,7 @@
                     />
                   </div>
 
-                  <fieldset>
+                  <!-- <fieldset>
                     <legend class="col-form-label col-md-8">
                       Track Progress By
                     </legend>
@@ -267,7 +267,19 @@
                         </label>
                       </div>
                     </div>
-                  </fieldset>
+                  </fieldset> -->
+                  <div class="col-md-8">
+                    <select
+                      class="form-select"
+                      id="trackProgress"
+                      aria-label="Track Progress By"
+                      required
+                    >
+                      <option selected value="">Track Progress By</option>
+                      <option value="1">Final Outcome</option>
+                      <option value="2">Total Number of Completed Activities</option>
+                    </select>
+                  </div>
                   <div class="col-md-8 mb-2">
                     <label for="description" class="form-label"
                       >Description</label
@@ -336,13 +348,54 @@
         var target = $('#specificTarget').val();
         var startDate = $('#inputStartDate').val();
         var endDate = $('#inputEndDate').val();
-        var trackProgress1 = $('#trackProgress1').val();
-        var trackProgress2 = $('#trackProgress2').val();
-        var trackProgress3 = $('#trackProgress3').val();
-        var tracking = trackProgress1 + trackProgress2 + trackProgress3;
+        // Checklist Tracking_method : 'on'(included) , 'off'(excluded)
+        // var trackProgress1 = $('#trackProgress1').val();
+        // var trackProgress1Str = "";
+        // if(trackProgress1 == 'on'){
+        //   trackProgress1Str = "Final outcome, ";
+        // }
+        // var trackProgress2 = $('#trackProgress2').val();
+        // var trackProgress2Str = "";
+        // if(trackProgress2 == 'on'){
+        //   trackProgress2Str = "Total number of completed activities, ";
+        // }
+        // var trackProgress3 = $('#trackProgress3').val();
+        // var trackProgres31Str = "";
+        // if(trackProgress3 == 'on'){
+        //   trackProgress3Str = "Manually updating current progress";
+        // }
+        // var tracking = trackProgress1Str + trackProgress2Str + trackProgress3Str;
+        
+        // Select trackProgress 1,2
+        var trackProgressSelect = $('#trackProgress').val();
+        var tracking = "";
+        if (trackProgressSelect == 1) {
+          tracking = "Final outcome";
+        }
+        else if (trackProgressSelect == 2) {
+          tracking = "Total number of completed activities";
+        }
         var description = $('#description').val();
-        var category = $('#category').val();
+        //Select category 1,2,3,4,5
+        var categorySelect = $('#category').val();
+        var category = "";
+        if (categorySelect == 1) {
+          category = "Personal";
+        }
+        else if (categorySelect == 2) {
+          category = "Health";
+        }
+        else if (categorySelect == 3) {
+          category = "School";
+        }
+        else if (categorySelect == 4) {
+          category = "Family";
+        }
+        else if (categorySelect == 5) {
+          category = "Skill";
+        }
         var mentor = $('#mentor').val();
+        console.log(mentor);
         var mentee = <?php echo json_encode($userid); ?>;
         console.log("Test3");
         if (title != '' && target != '' && startDate != '' && endDate != '' && tracking != '' && category != '') {
@@ -352,10 +405,11 @@
             type: "post",                      // type - Specifies the type of request. (GET or POST)
             data: {                            // data - spscifies data to be sent to server
               title: title,
+              target: target,
               startDate: startDate,
               endDate: endDate,
               tracking: tracking,
-              // description: description,
+              description: description,
               category: category,
               mentor: mentor,
               mentee: mentee

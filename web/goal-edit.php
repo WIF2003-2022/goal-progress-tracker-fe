@@ -10,7 +10,12 @@ $startDate = $_POST['startDate'];
 $endDate = $_POST['endDate'];
 $id = $_POST['id'];
 
-$editsql = "UPDATE `goal` SET  `mentor_id`='$mentor' , `goal_title`= '$title', `goal_description`='$description',  `goal_category`='$category', `tracking_method` = '$tracking', `goal_start_date` = '$startDate', `goal_due_date` = '$endDate' WHERE goal_id='$id' ";
+if ($mentor == "") {
+    $editsql = "UPDATE `goal` SET  `mentor_id`= null , `goal_title`= '$title', `goal_description`='$description',  `goal_category`='$category', `tracking_method` = '$tracking', `goal_start_date` = '$startDate', `goal_due_date` = '$endDate' WHERE goal_id='$id' ";
+}
+else{
+    $editsql = "UPDATE `goal` SET  `mentor_id`='$mentor' , `goal_title`= '$title', `goal_description`='$description',  `goal_category`='$category', `tracking_method` = '$tracking', `goal_start_date` = '$startDate', `goal_due_date` = '$endDate' WHERE goal_id='$id' ";
+}
 $editQuery= mysqli_query($conn,$editsql);
 $lastId = mysqli_insert_id($conn);
 if($editQuery == true)

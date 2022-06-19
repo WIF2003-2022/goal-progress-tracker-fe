@@ -55,7 +55,7 @@
                       <div class="goalContent">
                         <div class="goalDescription">Description : </div>
                         <div class="goalCategory">Category : </div>
-                        <div class="goalTracking">Mehtod(s) Used to Track Goals : </div>
+                        <div class="goalTracking">Mehtod Used to Track Goals : </div>
                         <div class="goalMentor">Mentor ID : </div>
                       </div>
                     </div>
@@ -95,6 +95,10 @@
                           <p></p>
                         </div>
                       </div>
+                      <div class="updateGoalProgressBtn">
+                        <br>
+                        <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-primary updateProgressBtn">Update Progress</a>
+                      </div>
                     </div>
                   </div>
 
@@ -102,6 +106,7 @@
                     <div id="button" class="card align-items-center">
                       <div class="actionPlanBtn">
                         <a href="" class="btn btn-primary ">View Action Plans</a>
+                        <hr>
                       </div>
                       <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
                       <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-danger btn-sm deleteBtn">Delete</a>
@@ -127,7 +132,6 @@
     <script>
       // access variable from php in js
       var goalR = <?php echo json_encode($goalR); ?>;
-      console.log(goalR);
       // pass the variable(array) from one js file to another
       sessionStorage.setItem("goalR", JSON.stringify(goalR)); 
     </script>
@@ -137,7 +141,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-      // function to update car info into the table and database, '#updateCar' is the id of the form
+      // function to update goal info into the table and database, '#editGoal' is the id of the form
       $(document).on('submit', '#editGoal', function(e) {
         e.preventDefault();
         //var tr = $(this).closest('tr');
@@ -150,7 +154,7 @@
         var endDate = $('#endDateField').val();
         var trid = $('#trid').val();
         var id = $('#id').val();
-        if (title != '' && description != '' && category != '' && tracking != '' && startDate != '' && endDate != '') {
+        if (title != '' && category != '' && tracking != '' && startDate != '' && endDate != '') {
           $.ajax({
             url: "goal-edit.php",
             type: "post",
@@ -165,6 +169,7 @@
               id: id
             },
             success: function(data) {
+              console.log("Submit Button is clicked");
               console.log(data);
               var json = JSON.parse(data);
               var status = json.status;
@@ -174,7 +179,7 @@
                 var mentorId = document.getElementsByClassName("goalMentor");
                 mentorId[0].textContent = mentor;
 
-                var goalTitle = detail.getElementsByTagName("h3");
+                var goalTitle = detail.getElementsByClassName("goalTitle");
                 goalTitle[0].textContent = title;
 
                 var goalDescription = document.getElementsByClassName("goalDescription");
@@ -225,6 +230,7 @@
           },
           type: 'post',
           success: function(data) {
+            console.log("Edit Button is clicked");
             console.log(data);
             var json = JSON.parse(data);        // parse PHP object to javascript object
             $('#mentorField').val(json.mentor_id);
@@ -244,36 +250,64 @@
     $(document).on('click', '.deleteBtn', function(event) {
       event.preventDefault();
       $('#deleteModal').modal('show');
-      var id = $(this).data('id');
+      var id = <?php echo json_encode($id); ?>;
+      var confirmDlt = false;
       document.querySelector(".confirmDeleteBtn").addEventListener('click', 
         function(){
-          console.log("Confirm to delete this goal");
           // Use a varaible to track if the confirm delete button is clicked or not
-          var confirm = true;
-        })
-      if (confirm == true) {
+          confirmDlt = true;
+        
+          if (confirmDlt) {
+            $.ajax({
+              url: "goal-delete.php",
+              data: {
+                id: id
+              },
+              type: "post",
+              success: function(data) {
+                var json = JSON.parse(data);
+                status = json.status;
+                if (status == 'success') {
+                  // go back to goal page
+                  window.location.href = "goal.php";
+                } else {
+                  alert('Failed');
+                  return;
+                }
+              }
+            });
+          } else {
+            return null;
+          }
+
+        });
+    });
+
+    // function of Update Goal Progress button, show the modal form
+    $('#detail').on('click', '.updateProgressBtn ', function(event) {
+        // console.log(selectedRow);
+        var id = $(this).data('id');
+        $('#updateProgressModal').modal('show');   // show the modal (by default the modal is set as hidden)
+
         $.ajax({
-          url: "goal-delete.php",
+          url: "goal-get-single-row-data.php",   // retrieve the data of that specific row using car_id
           data: {
             id: id
           },
-          type: "post",
+          type: 'post',
           success: function(data) {
-            var json = JSON.parse(data);
-            status = json.status;
-            if (status == 'success') {
-              // go back to goal page
-              window.location.href = "goal.php";
-            } else {
-              alert('Failed');
-              return;
-            }
+            console.log(data);
+            var json = JSON.parse(data);        // parse PHP object to javascript object
+            var current = document.getElementById("manualField");
+            current.value = json.goal_progress;
+            console.log(current.value);
+            $('#id').val(id);
+            // $('#trid').val(trid);
           }
-        });
-      } else {
-        return null;
-      }
-    })
+        })
+      });
+
+
     </script>
     <!-- Edit Goal Modal  -->
     <!--  
@@ -366,6 +400,35 @@
           </div>
           <div class="modal-footer">
             <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Goal Progress Modal (Manual Update Current Progress) -->
+    <div class="modal fade" id="updateProgressModal" tabindex="-1" aria-labelledby="updateProgressModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateProgressModalLabel">Update Goal Progress</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="updateProgress">
+              <input type="hidden" name="id" id="id" value="">
+              <div class="mb-3 row">
+                <label for="outcomeField" class="col-md-3 form-label">Final Outcome</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="outcomeField" name="outcome">
+                </div>
+              </div>
+            </form>
+            <div class="text-end">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

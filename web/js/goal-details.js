@@ -64,3 +64,5 @@ startDate.textContent += goalR["goal_start_date"];
 
 var endDate = document.getElementById("endDate");
 endDate.textContent += goalR["goal_due_date"];
+
+//////   Range Wrapper of the input range to manually update the goal progress //////
