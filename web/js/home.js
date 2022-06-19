@@ -32,7 +32,6 @@ function updateQuote() {
       customQuoteElem.value = "";
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -55,7 +54,6 @@ function fetchQuote() {
       }
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -98,7 +96,6 @@ function fetchGoals() {
       pinnedGoals = json.pinnedGoals;
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -117,7 +114,6 @@ function updateGoals(goal_id, modal, index) {
       if (!!modal) modal.hide();
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -230,7 +226,7 @@ function fetchReminders() {
             "align-items-center"
           );
           listItem.innerHTML = `
-            <a class="flex-grow-1" href="javascript:void(0)">
+            <a class="flex-grow-1" href="./activity.html?ap_id=${reminder.ap_id}">
               <div class="d-flex flex-column">
                 <h5 class="mb-1">${reminder.title}</h5>
                 <p class="mb-1">${reminder.description}</p>
@@ -263,7 +259,6 @@ function fetchReminders() {
       });
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -288,7 +283,6 @@ function fetchActivities() {
       renderCalendar(processActivities(activities));
     })
     .fail((xhr, status, errorThrown) => {
-      alert("Sorry, there was a problem!");
       console.log("Error: " + errorThrown);
       console.log("Status: " + status);
       console.dir(xhr);
@@ -315,6 +309,7 @@ function processActivities(activities){
         const end = new Date(start.getTime());
         end.setDate(end.getDate() + duration);
         data.push({
+          ap_id: activity.ap_id,
           title: activity.a_title,
           start: start.toISOString().split("T")[0],
           end: end.toISOString().split("T")[0],
