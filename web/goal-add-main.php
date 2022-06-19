@@ -27,6 +27,20 @@
   </head>
 
   <body>
+    <?php
+      require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+      // current user data already saved in session
+      // so you can just retrieve them from the session
+      session_start();
+      $userStr = $_SESSION['auth'];
+      // getting from session would be a string
+      // need to decode to get the class/object
+      $user = json_decode($userStr);
+      $userid = json_decode($userStr, true)["user_id"];
+      if (!$user) {
+          header("Location: ./login.php"); //change location of http header to login.php
+      }
+    ?>
     <div class="wrapper">
       <nav-bar></nav-bar>
       <div class="content-wrapper">
@@ -165,7 +179,7 @@
             <div class="col-md-8 mb-4">
               <div class="addNewGoal">
                 <div class="heading">Add Goal</div>
-                <form class="row g-3" action="action-main-add.html">
+                <form id="addGoal" class="row g-3">
                   <div class="col-md-8">
                     <label for="goalTitle" class="form-label">Goal Title</label>
                     <input
@@ -268,6 +282,7 @@
                   <div class="col-md-6">
                     <select
                       class="form-select"
+                      id="category"
                       aria-label="Select Category"
                       required
                     >
@@ -287,13 +302,13 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="specificTarget"
+                      id="mentor"
                       placeholder="Enter mentor's username or email"
                     />
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Next</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
                 <!-- End of Form-->
@@ -304,6 +319,65 @@
         </div>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      console.log("Test1");
+      // function to add goal into the database, '#addGoal' is the id of the form
+      // $(selector).on(event,childSelector,function) - to add goal upon the submit button being pressed
+      // e is the short var reference for event object which will be passed to event handlers.
+      $(document).on('submit', '#addGoal', function(e) {
+        console.log("Test2");
+        e.preventDefault();     //cancel the default action of an event
+        var title = $('#goalTitle').val();  // .val() returns the value attribute from the form
+        var target = $('#specificTarget').val();
+        var startDate = $('#inputStartDate').val();
+        var endDate = $('#inputEndDate').val();
+        var trackProgress1 = $('#trackProgress1').val();
+        var trackProgress2 = $('#trackProgress2').val();
+        var trackProgress3 = $('#trackProgress3').val();
+        var tracking = trackProgress1 + trackProgress2 + trackProgress3;
+        var description = $('#description').val();
+        var category = $('#category').val();
+        var mentor = $('#mentor').val();
+        var mentee = <?php echo json_encode($userid); ?>;
+        console.log("Test3");
+        if (title != '' && target != '' && startDate != '' && endDate != '' && tracking != '' && category != '') {
+          console.log("Test4");
+          $.ajax({                              //$.ajax({}) - perform an AJAX (asynchronous HTTP) request
+            url: "goal-add-process.php",       // url - Specifies the URL to send the request to. Default is the current page
+            type: "post",                      // type - Specifies the type of request. (GET or POST)
+            data: {                            // data - spscifies data to be sent to server
+              title: title,
+              startDate: startDate,
+              endDate: endDate,
+              tracking: tracking,
+              // description: description,
+              category: category,
+              mentor: mentor,
+              mentee: mentee
+            },
+            success: function(data) {               //success - A function to be run when the request succeeds
+              console.log("Test6");
+              console.log(data);
+              var json = JSON.parse(data);          // parse the string data into javascript object
+              var status = json.status;             // used to indicate either that a JSON PARSE statement executed successfully or that a nonexception condition occurred during the JSON parse operation
+              if (status == 'true') {
+                window.location.href = "goal.php";
+              } else {
+                alert('failed');
+              }
+            }
+          });
+        } else {
+          alert('Fill all the required fields');
+        }
+      });
+    </script>
+
     <script src="./js/authListener.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

@@ -2,8 +2,9 @@ var ajax = new XMLHttpRequest();
 var method = "GET";
 var urlString = window.location.search;
 var param = new URLSearchParams(urlString);
-var queryID = parseInt(param.get("id"));
-var url = "action-main-data.php?id=" + queryID;
+var queryID = parseInt(param.get("goal_id"));
+var queryName = param.get("goal_name");
+var url = "action-main-data.php?goal_id=" + queryID;
 var asyn = true;
 var modal;
 var modalHTML = `
@@ -45,8 +46,11 @@ ajax.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     var data = JSON.parse(this.responseText);
     console.log(data);
+    var title = document.querySelector(".title");
+    title.innerHTML = queryName;
     var urlPath = document.querySelector(".add");
-    urlPath.parentNode.href = "action-main-add.html?id=" + queryID;
+    urlPath.parentNode.href =
+      "action-main-add.html?goal_name=" + queryName + "&goal_id=" + queryID;
     var html = document.querySelector("#starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
@@ -56,9 +60,7 @@ ajax.onreadystatechange = function () {
                     <div class="row">
                       <div class="col-1">
                         <a
-                          href="action-main-edit.php?id=` +
-        data[i].ap_id +
-        `"
+                          href="action-main-edit.php?goal_name=${queryName}&goal_id=${queryID}&ap_id=${data[i].ap_id}"
                           style="text-decoration: none"
                         >
                           <button style="border: none; background: none;">
@@ -71,13 +73,14 @@ ajax.onreadystatechange = function () {
                             class="deleteAP"
                             name="${data[i].ap_id}"
                             style="border: none; background: none;"
+                            onclick="handleDelete(${data[i].ap_id})"
                           >
                             <i class="bi-trash-fill" style="font-size: 1.5vw;"></i>
                           </button>
                       </div>
                     </div>
                     <img
-                      style="width: 100%; height:15vw;;"
+                      style="width: 100%; height:15vw;"
                       class="card-img-top"
                       src=` +
         data[i].ap_image +
@@ -104,19 +107,20 @@ ajax.onreadystatechange = function () {
     modal = bootstrap.Modal.getOrCreateInstance(
       document.querySelector("#deleteModal")
     );
+    document.querySelector(".loader").style.display = "none";
 
     //delete funtion
     var elem = document.querySelectorAll(".deleteAP");
     var key = document.querySelector(".deleteButton");
-    for (i = 0; i < elem.length; i++) {
+    console.log({ elemLen: elem.length });
+    for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
-        console.log(e.target.name);
         const id = e.target.name;
         //var x = this.closest("li");
         key.addEventListener("click", function () {
           //x.remove();
-          location.href = "action-main-delete.php?id=" + id;
+          location.href = "action-main-delete.php?goal_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
       });

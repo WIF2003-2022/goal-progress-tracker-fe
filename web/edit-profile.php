@@ -1,6 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-include './src/message.php';
+//include './src/message.php';
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +61,7 @@ include './src/message.php';
             }
 
             //fetch latest user info from db
-            $userInfo = "SELECT name, email, mobile_phone, address, bio
+            $userInfo = "SELECT name, email, mobile_phone, address, bio, photo
             FROM user
             WHERE user_id = $user->user_id";
             $resInfo = mysqli_query($conn, $userInfo);
@@ -71,13 +71,11 @@ include './src/message.php';
           <div class="row d-flex flex-row justify-content-center mt-5">
             <!--First column contains user's avatar-->
             <div class="leftSection col-md"><!--col-md-11-->
-              <div class="mt-3 mb-4">
-                <img
-                  src="images/default-user.png"
-                  alt="Circle Image"
-                  class="img-raised rounded-circle img-fluid shadow-sm"
-                  style="width: 150px"
-                />
+              <div class="left mt-3 mb-4 col-sm-4">
+                <img src=<?php echo $rowInfo['photo']; ?>
+                    alt="Circle Image" 
+                    class="rounded-circle"
+                    style="width: 200px;">
               </div>
               <div class="mt-3">
                 <div class="name mt-2">
@@ -88,9 +86,9 @@ include './src/message.php';
                 <div class="recognition">
                 <!--retrieve user's recognition from mysql-->
                 <?php
-                  $expertise = "SELECT e_title FROM expertise WHERE user_id = $user->user_id";
-                  $achievement = "SELECT ach_title FROM achievement WHERE user_id = $user->user_id";
-                  $cert = "SELECT c_title FROM certificate WHERE user_id = $user->user_id";
+                  $expertise = "SELECT * FROM expertise WHERE user_id = $user->user_id";
+                  $achievement = "SELECT * FROM achievement WHERE user_id = $user->user_id";
+                  $cert = "SELECT * FROM certificate WHERE user_id = $user->user_id";
 
                   $res1 = mysqli_query($conn, $expertise);
                   $res2 = mysqli_query($conn, $achievement);
@@ -110,7 +108,7 @@ include './src/message.php';
                               class="delete-btn"
                               name="delete_exp"
                               type="submit"
-                              value="<?= $user->user_id?>"
+                              value="<?php echo $row1['e_id']?>" 
                               data-bs-toggle="modal"
                               data-bs-target="#deleteModal"
                             >
@@ -133,7 +131,7 @@ include './src/message.php';
                               class="delete-btn"
                               name="delete_ach"
                               type="submit"
-                              value="<?= $user->user_id?>"
+                              value="<?php echo $row2['ach_id']?>"
                               data-bs-toggle="modal"
                               data-bs-target="#deleteModal"
                             >
@@ -157,7 +155,7 @@ include './src/message.php';
                             class="delete-btn"
                             name="delete_cert"
                             type="submit"
-                            value="<?= $user->user_id?>"
+                            value="<?php echo $row3['c_id']?>"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
                           >
@@ -186,7 +184,7 @@ include './src/message.php';
             <div class="col-md-10"> <!--col-md-4-->
               <div class="card mb-5">
                 <div class="card-body">
-                  <form action="./src/updateProfile.php" method="post">
+                  <form action="./src/updateProfile.php" method="post" enctype="multipart/form-data">
                     <div class="row my-2">
                       <div class="col-sm-3">
                         <h6 class="mb-0">Name</h6>
@@ -230,7 +228,7 @@ include './src/message.php';
                         />
                       </div>
                     </div>
-                    <!--password didn't save in db, later ask jb how to reset password-->
+                    <!--password didn't save in db, later ask jb how to reset password --take from hash password, decode then save in db?-->
                     <div class="row my-2">
                       <div class="col-sm-3">
                         <h6 class="mb-0">New Password</h6>
@@ -333,30 +331,24 @@ include './src/message.php';
                         ></textarea>
                       </div>
                     </div>
-                    <!--<div class="row my-2">
-                      <div class="col-sm-4">
-                        <label for="cert">Upload certificate:</label>
-                        <input type="file" id="file" class="form-control" />
-                      </div>
-                    </div>-->
                     <div class="row">
-                      <div class="col-sm-4">
-                        <label for="photo">Upload profile photo:</label>
-                        <input type="file" id="file" class="form-control" />
-                      </div>
-                      <div class="col-sm-8 mt-4">
-                        <!--<a href="profile.php">--> <!--button suppose will link to profile page but not working i dunno whyyyyyy TT-->
-                          <button
-                            type="submit"
-                            name="save_changes"
-                            value="<?=$user->user_id ?>"
-                            class="btn btn-primary"
-                            style="float: right"
-                          >
-                            Save changes
-                          </button>
-                        <!--</a>-->
-                      </div>
+                      <form action="./src/uploadPhoto.php" method="post" enctype="multipart/form-data">
+                        <div class="col-sm-4">
+                            <label for="photo">Change profile photo:</label>
+                            <input type="file" id="file" name="profile" class="form-control" /><!--type="submit"-->
+                        </div>
+                        <div class="col-sm-8 mt-4">
+                            <button
+                              type="submit"
+                              name="save_changes"
+                              value="<?=$user->user_id ?>"
+                              class="btn btn-primary"
+                              style="float: right";
+                            >
+                              Save changes
+                            </button>
+                        </div>
+                      </form>
                     </div>
                   </form>
                 </div>

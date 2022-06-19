@@ -1,6 +1,6 @@
 <?php
 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-include './src/message.php';
+//include './src/message.php';
 ?>
 
 <!DOCTYPE html>
@@ -42,12 +42,13 @@ include './src/message.php';
                     // getting from session would be a string
                     // need to decode to get the class/object
                     $user = json_decode($userStr);
+                    // $userid = json_decode($userstr, true)["user_id"];
                     if (!$user) {
                         header("Location: ./login.php"); //change location of http header to login.php
                     }
 
                     //fetch latest user info from db
-                    $userInfo = "SELECT name, email, mobile_phone, address, bio
+                    $userInfo = "SELECT name, email, mobile_phone, address, bio, photo
                                  FROM user
                                  WHERE user_id = $user->user_id";
                     $resInfo = mysqli_query($conn, $userInfo);
@@ -59,9 +60,10 @@ include './src/message.php';
                     <!--First column contains user's avatar-->
                     <div class="leftSection col-md-4">
                         <div class="mt-3 mb-4">
-                            <img src="images/default-user.png"
-                                alt="Circle Image" class="img-raised rounded-circle img-fluid shadow-sm"
-                                style="width: 150px;">
+                            <img src=<?php echo $rowInfo['photo']; ?>
+                                 alt="Circle Image" 
+                                 class="rounded-circle"
+                                 style="width: 200px;">
                         </div>
                         <div class="mt-3">
                             <div class="name mt-2">
@@ -191,7 +193,11 @@ include './src/message.php';
                                             Edit Profile
                                         </a>
                                         <!-- Trigger the delete account modal with a button -->
-                                        <button id="deleteAccount" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                        <button id="deleteAccount" 
+                                                type="button" 
+                                                class="btn btn-outline-danger" 
+                                                data-toggle="modal" 
+                                                data-target="#deleteModal">
                                             Delete Account
                                         </button>
                              
@@ -201,19 +207,27 @@ include './src/message.php';
 
                                             <!-- Modal content-->
                                             <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete Account</h4>
-                                                <button type="button" class="btn-close" data-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to delete your account?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form action="./src/deleteAccount.php" method="post">
-                                                    <button id="delete" type="submit" name="user_delete" value="<?=$user->user_id ?>" class="btn btn-danger" data-toggle="modal" data-target="#message">Delete</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                </form>
-                                            </div>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Delete Account</h4>
+                                                    <button type="button" class="btn-close" data-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to delete your account?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="./src/deleteAccount.php" method="post">
+                                                        <button id="delete" 
+                                                                type="submit" 
+                                                                name="user_delete" 
+                                                                value="<?=$user->user_id ?>" 
+                                                                class="btn btn-danger" 
+                                                                data-toggle="modal" 
+                                                                data-target="#message">
+                                                            Delete
+                                                        </button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                         </div>
@@ -243,23 +257,22 @@ include './src/message.php';
                             <div class="card-body">
 
                                 <!--Retrieve user info : mentor, mentee, goal accomplished-->
-                                <?php 
-                                    $userMentor = "SELECT COUNT(mentee_id) AS noOfMentee
-                                    FROM goal
-                                    INNER JOIN user
-                                    ON goal.mentor_id = user.user_id = $user->user_id";
+                                <?php
+                                    $userMentor = "SELECT COUNT(mentor_id) 
+                                    AS MentorNo 
+                                    FROM goal 
+                                    WHERE mentee_id=$user->user_id";
 
-                                    $userMentee = "SELECT COUNT(mentor_id) AS noOfMentor
-                                    FROM goal
-                                    INNER JOIN user
-                                    ON goal.mentee_id = user.user_id = $user->user_id";
+                                    $userMentee = "SELECT COUNT(mentee_id) 
+                                    AS MenteeNo
+                                    FROM goal 
+                                    WHERE mentor_id=$user->user_id";
 
                                     $goalAccomplished = "SELECT COUNT(goal_id) AS noOfGoalsAccomplished
                                     FROM goal
-                                    INNER JOIN user
-                                    ON user.user_id = goal.mentee_id = $user->user_id
                                     WHERE goal_status = 'Accomplished'
-                                    AND goal_progress = 100";
+                                    AND goal_progress = 100
+                                    AND mentee_id = $user->user_id";
 
                                     $res4 = mysqli_query($conn, $userMentor); //return mysqli_result object
                                     $res5 = mysqli_query($conn, $userMentee);
@@ -269,19 +282,19 @@ include './src/message.php';
                                     $row5 = mysqli_fetch_array($res5);
                                     $row6 = mysqli_fetch_array($res6);
 
-                                    mysqli_free_result($res4);
-                                    mysqli_free_result($res5);
-                                    mysqli_free_result($res6);
+                                    // mysqli_free_result($res4);
+                                    // mysqli_free_result($res5);
+                                    // mysqli_free_result($res6);
 
-                                    mysqli_close($conn);
+                                    // mysqli_close($conn);
                                 ?>
-                                
+                                <!--output: 0 1 1-->
                                 <div class="row text-center mb-4 mt-4">
                                     <div class="col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row4['noOfMentee'] ?></h3><small>Mentor</small> <!--same as $row4[0]-->
+                                        <h3 class="m-b-0 font-light"><?php echo $row4['MentorNo'] ?></h3><small>Mentor</small> 
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
-                                        <h3 class="m-b-0 font-light"><?php echo $row5['noOfMentor'] ?></h3><small>Mentee</small>
+                                        <h3 class="m-b-0 font-light"><?php echo $row5['MenteeNo'] ?></h3><small>Mentee</small>
                                     </div>
                                     <div class="vl col-lg-4 col-md-4 m-t-20">
                                         <h3 class="m-b-0 font-light"><?php echo $row6['noOfGoalsAccomplished'] ?></h3><small>Goals Accomplished</small>

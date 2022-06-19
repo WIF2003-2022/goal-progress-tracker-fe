@@ -36,6 +36,8 @@
 
             $count = 0;
             $userID = json_decode($_SESSION['auth'],true)['user_id'];   
+
+            //select top 10 recent activities
             $stmt = $conn->prepare(
             'SELECT *
             FROM recent
@@ -56,7 +58,6 @@
             $result = $stmt->get_result();
             while ($recent = $result->fetch_assoc()){
               $count++; 
-              // echo $recent['r_id'].'</br>';
               if ($recent['r_type'] == "comment") {
                 $field = 'Comment';
                 $select = 'activity.a_id, activity.a_title';
@@ -79,6 +80,7 @@
                 $title = 'goal_title';
               }
               
+              //join all tables coantaining goals related to user
               $stmt1 = $conn->prepare(
               'SELECT DISTINCT '.$select.'
               FROM goal 
@@ -95,6 +97,7 @@
               $result1 = $stmt1->get_result();
               $updateField = $result1->fetch_assoc();
 
+              //join all tables coantaining goals related to user
               $stmt2 = $conn->prepare(
                 'SELECT name, photo FROM user WHERE user_id = ?');
               $stmt2->bind_param("i",$recent['user_id']);
@@ -105,7 +108,6 @@
               $rUser = $otherData['name'];
               $rTime = $recent['timestamp'];
               $rTitle = $updateField[$title];
-              $rProPic = $otherData['photo'];
 
               //determine what action to display in recent
               if ($recent['r_type'] == "comment") {
@@ -149,9 +151,12 @@
               }
               // echo json_encode($updateField);
 
+              ((!empty($otherData['photo'])) ? $rProPic = $otherData['photo'] : $rProPic = './images/sampleProfilePic.jpg');
+
+              //display right tab content
               echo '<div class="row mb-2 pe-1 py-2 activity">
               <div class="col-3">
-                <img src="././images/'.$rProPic.'" alt="profile_pic" class="img-fluid img-thumbnail" id="i-size" />
+                <img src="'.$rProPic.'" class="img-fluid img-thumbnail" id="i-size" />
               </div>
               <div class="col-9">
                 <div class="row text-secondary right-duration">'.$period.'</div>
@@ -198,7 +203,7 @@
                 $role = "Mentee";
                 generateSocialList($role);
               }
-
+               //function to generate content
               function generateSocialList($role){
                 require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                 $htmlLine = '';
@@ -216,15 +221,16 @@
                 }else{
                   $field = $roleArr[1];
                   $field1 = $roleArr[0];}
-                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID; // only this line use field(own role)
+                $sql = 'SELECT * from goal WHERE '.$field.' = '.$userID.' AND '.$field1.' IS NOT NULL'; // only this line use field(own role)
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
+                
                 while ($row = $result->fetch_assoc()) {
+
                   $looped = true;
                   $count += 1;
                   $open = false;
-                  $goalID = $row['goal_id'];
 
                   if($row[$field1] == $preID){
                     $trigger = true;
@@ -253,13 +259,13 @@
                     $_SESSION['mentor_id'] = $row['mentor_id'];
                     $_SESSION['mentee_id'] = $row['mentee_id'];
 
-                    ((!empty($row1['photo'])) ? $proPic = $row1['photo'] : $proPic = 'sampleProfilePic.jpg');
+                    ((!empty($row1['photo'])) ? $proPic = $row1['photo'] : $proPic = './images/sampleProfilePic.jpg');
 
                     $htmlLine .= 
                     '<div class="col">
                     <a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
                     <div class="card h-100" id="singleCard" >
-                    <img src="././images/'.$proPic.'" class="card-img-top"/>
+                    <img src="'.$proPic.'" class="card-img-top"/>
                     <div class="card-body">
                     <h5 class="card-title text-uppercase text-dark">'.$row1['name'].'</h5>
                     <p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';                 

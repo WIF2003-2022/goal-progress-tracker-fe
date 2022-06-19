@@ -2,9 +2,9 @@ var ajax = new XMLHttpRequest();
 var method = "GET";
 var urlString = window.location.search;
 var param = new URLSearchParams(urlString);
-var queryID = parseInt(param.get("id"));
-var queryName = param.get("name");
-var url = "activity-data.php?id=" + queryID;
+var queryID = parseInt(param.get("ap_id"));
+var queryName = param.get("ap_name");
+var url = "activity-data.php?ap_id=" + queryID;
 var asyn = true;
 var modal;
 var modalHTML = `
@@ -49,7 +49,8 @@ ajax.onreadystatechange = function () {
     var title = document.querySelector(".title");
     title.innerHTML = queryName;
     var urlPath = document.querySelector(".add");
-    urlPath.parentNode.href = "activity-add.html?id=" + queryID;
+    urlPath.parentNode.href =
+      "activity-add.html?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
@@ -82,7 +83,7 @@ ajax.onreadystatechange = function () {
                           }
                         </script>
                       </div>
-                      <a href="activity-edit.php?id=${data[i].a_id}" style="text-decoration: none">
+                      <a href="activity-edit.php?ap_name=${queryName}&ap_id=${queryID}&a_id=${data[i].a_id}" style="text-decoration: none">
                         <button style="border: none; background: none">
                           <i class="bi-pencil" style="font-size: 2vw"></i>
                         </button>
@@ -135,16 +136,16 @@ ajax.onreadystatechange = function () {
                               class="progress-bar bg-success progress-bar-striped progress-bar-animated finish"
                               role="progressbar"
                               aria-valuenow="` +
-        50 +
+        data[i].a_complete +
         `"
                               aria-valuemin="0"
                               aria-valuemax="100"
                               style="width: ` +
-        50 +
+        data[i].a_complete +
         `%"
                             >
                             ` +
-        50 +
+        data[i].a_complete +
         `%
                             </div>
                           </div>
@@ -162,16 +163,16 @@ ajax.onreadystatechange = function () {
 
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
+    console.log(elem);
     var key = document.querySelector(".deleteButton");
-    for (i = 0; i < elem.length; i++) {
+    for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
-        console.log(e.target.name);
-        const id = e.target.name;
+        const id = elem[i]["name"];
         //var x = this.closest("li");
         key.addEventListener("click", function () {
           //x.remove();
-          location.href = "activity-delete.php?id=" + id;
+          location.href = "activity-delete.php?a_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
       });

@@ -168,9 +168,14 @@
     <script>
       var urlString = window.location.search;
       var param = new URLSearchParams(urlString);
-      var query = parseInt(param.get("id"));
+      var queryID = parseInt(param.get("ap_id"));
+      var queryName = param.get("ap_name");
       var targetURL = document.querySelector("form");
-      targetURL.action = "activity-add-process.php?id=" + query;
+      targetURL.action =
+        "activity-add-process.php?ap_name=" + queryName + "&ap_id=" + queryID;
+      if (param.has("error2")) {
+        alert("Your due date cannot be placed earlier than your start date.");
+      }
     </script>
     <script src="./js/authListener.js"></script>
   </body>

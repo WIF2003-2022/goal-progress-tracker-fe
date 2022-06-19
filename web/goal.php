@@ -29,6 +29,17 @@
     <?php 
     //require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");  
     require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+    // current user data already saved in session
+    // so you can just retrieve them from the session
+    session_start();
+    $userStr = $_SESSION['auth'];
+    // getting from session would be a string
+    // need to decode to get the class/object
+    $user = json_decode($userStr);
+    $userid = json_decode($userStr, true)["user_id"];
+    if (!$user) {
+        header("Location: ./login.php"); //change location of http header to login.php
+    }
     ?>
     <div class="wrapper">
       <nav-bar></nav-bar>
@@ -37,25 +48,29 @@
           <!-- Use 1 Row, with 3 columns(Left, Middle, Right)-->
           <div class="row m-2 justify-content-center">
             <!-- Left Column -->
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="leftColumn">
                 <div class="folder" id="btnFolder">
                   <?php 
                     $goalAllCount = "SELECT COUNT(goal_id) AS noOfAllGoals
-                    FROM goal";
+                    FROM goal
+                    WHERE mentee_id = $userid";
 
                     $goalActiveCount = "SELECT COUNT(goal_id) AS noOfActiveGoals
                     FROM goal
-                    WHERE goal_status = 'Active'";
+                    WHERE goal_status = 'Active'
+                    AND mentee_id = $userid";
 
                     $goalAccomplishedCount = "SELECT COUNT(goal_id) AS noOfAccomplishedGoals
                     FROM goal
                     WHERE goal_status = 'Accomplished'
-                    AND goal_progress = 100";
+                    AND goal_progress = 100
+                    AND mentee_id = $userid";
 
                     $goalFailedCount = "SELECT COUNT(goal_id) AS noOfFailedGoals
                     FROM goal
-                    WHERE goal_status = 'Failed'";
+                    WHERE goal_status = 'Failed'
+                    AND mentee_id = $userid";
 
                     $queryAll = mysqli_query($conn, $goalAllCount);
                     $queryActive = mysqli_query($conn, $goalActiveCount);
@@ -107,23 +122,28 @@
                   <?php
                     $goalPersonalCount = "SELECT COUNT(goal_id) AS noOfPersonalGoals
                     FROM goal
-                    WHERE goal_category = 'Personal'";
+                    WHERE goal_category = 'Personal'
+                    AND mentee_id = $userid";
 
                     $goalHealthCount = "SELECT COUNT(goal_id) AS noOfHealthGoals
                     FROM goal
-                    WHERE goal_category = 'Health'";
+                    WHERE goal_category = 'Health'
+                    AND mentee_id = $userid";
 
                     $goalSchoolCount = "SELECT COUNT(goal_id) AS noOfSchoolGoals
                     FROM goal
-                    WHERE goal_category = 'School'";
+                    WHERE goal_category = 'School'
+                    AND mentee_id = $userid";
 
                     $goalFamilyCount = "SELECT COUNT(goal_id) AS noOfFamilyGoals
                     FROM goal
-                    WHERE goal_category = 'Family'";
+                    WHERE goal_category = 'Family'
+                    AND mentee_id = $userid";
 
                     $goalSkillCount = "SELECT COUNT(goal_id) AS noOfSkillGoals
                     FROM goal
-                    WHERE goal_category = 'Skill'";
+                    WHERE goal_category = 'Skill'
+                    AND mentee_id = $userid";
 
                     $queryPersonal = mysqli_query($conn, $goalPersonalCount);
                     $queryHealth = mysqli_query($conn, $goalHealthCount);
@@ -173,9 +193,9 @@
             <!-- End of Left Column-->
 
             <!-- Middle Column -->
-            <div id="middle" class="col-md-8">
+            <div id="middle" class="col-md-7">
               <?php
-                $goalDetails = "SELECT * FROM goal";
+                $goalDetails = "SELECT * FROM goal WHERE mentee_id = $userid";
                 if($goalResult = mysqli_query($conn, $goalDetails)){
                   $rowTableCount = mysqli_num_rows($goalResult);
                   $goalRow = array();
@@ -262,10 +282,19 @@
                 title[i].textContent = goalRow[i]["goal_title"];
 
                 var percentSymbol = "%";
-                var percent = goalRow[i]["goal_progress"].concat(percentSymbol);
+                var percentage = goalRow[i]["goal_progress"];
+                var percent = percentage.concat(percentSymbol);
                 var progress = middle.getElementsByTagName("p");
                 progress[i].textContent = percent;
-
+                
+                /*  stroke-dasharray="{{circle.circumference}}" 
+                    stroke-dashoffset="{{circle.circumference * (1 - circle.percentage/100)}} */
+                var offset = 226 * (1 - parseInt(percentage)/100);
+                var offsetStr = offset.toString();
+                var circle = middle.getElementsByTagName("circle");
+                circle[i].style.strokeDasharray = '226';
+                circle[i].style.strokeDashoffset = offsetStr;
+                
                 var dueDate = middle.getElementsByClassName("text-muted");
                 dueDate[i].textContent = goalRow[i]["goal_due_date"];
 
@@ -439,7 +468,7 @@
 
               <!-- Add New Goal Card -->
               <div class="addGoal mb-3 order-last">
-                <a href="goal-add.html" class="remove-hyperlink">
+                <a href="goal-add-main.php" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">add</span>
                     <div>
