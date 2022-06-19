@@ -228,10 +228,9 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                         />
                       </div>
                     </div>
-                    <!--password didn't save in db, later ask jb how to reset password --take from hash password, decode then save in db?-->
                     <div class="row my-2">
                       <div class="col-sm-3">
-                        <h6 class="mb-0">New Password</h6>
+                        <h6 class="mb-0">Reset Password</h6>
                       </div>
                       <div class="passwordRow col-sm-9 text-secondary">
                         <input
@@ -239,7 +238,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
                           id="password"
                           type="password"
                           class="form-control"
-                          value="123GoalTracker!"
+                          value="************"
                           required
                           pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                           data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter."

@@ -2,6 +2,7 @@
 require_once @realpath(dirname(__FILE__)) . "../../config/databaseConn.php";
 require_once @realpath(dirname(__FILE__) . "/../src/services/checkAuthenticated.php");
 require_once @realpath(dirname(__FILE__)) . "/uploadPhoto.php";
+require_once @realpath(dirname(__FILE__)) . "/renewPassword.php";
 
 if (isset($_POST['save_changes'])) 
 {
