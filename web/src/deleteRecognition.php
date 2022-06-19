@@ -1,5 +1,6 @@
 <?php
 require_once @realpath(dirname(__FILE__) . "../../config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/../src/services/checkAuthenticated.php");
 
 if (isset($_POST['delete_exp'])) 
 {
