@@ -54,22 +54,10 @@ ajax.onreadystatechange = function () {
     var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
-      console.log(new Date().valueOf());
-      console.log(new Date().valueOf() - new Date(data[i].a_start_date));
-      console.log(
-        new Date(data[i].a_due_date) - new Date(data[i].a_start_date)
-      );
-      console.log(
-        (new Date().valueOf() - new Date(data[i].a_start_date)) /
-          (new Date(data[i].a_due_date) - new Date(data[i].a_start_date))
-      );
-      console.log("-----------------------------------");
       html.innerHTML +=
         `
-      <li class="card text-center">
-                    <div class="card-header">Due ` +
-        data[i].a_due_date +
-        `</div>
+      <li class="card text-center mb-2">
+                    <div class="card-header text-start">Start Date: ${data[i].a_start_date}<span class="float-end text-danger">Due Date: ${data[i].a_due_date}</span></div>
                     <div class="card-body">
                       <h5 class="card-title">` +
         data[i].a_title +
@@ -162,7 +150,7 @@ ajax.onreadystatechange = function () {
                         </div>
                       </div>
                     </div>
-                  </li><br>
+                  </li>
       `;
     }
     html.innerHTML += "</ul>";
@@ -173,8 +161,8 @@ ajax.onreadystatechange = function () {
 
     function calculateDue(start_date, due_date) {
       var diff = Math.floor(
-        ((new Date().valueOf() - new Date(data[i].a_start_date)) /
-          (new Date(data[i].a_due_date) - new Date(data[i].a_start_date))) *
+        ((new Date().valueOf() - new Date(start_date).valueOf()) /
+          (new Date(due_date).valueOf() - new Date(start_date).valueOf())) *
           100
       );
       if (diff < 0) {
@@ -202,7 +190,6 @@ ajax.onreadystatechange = function () {
 
     //complete function
     var elem = document.querySelectorAll(".tick");
-    var percentage = document.querySelectorAll(".progress");
     var fail = document.querySelectorAll(".due");
     var pass = document.querySelectorAll(".finish");
 
@@ -219,6 +206,21 @@ ajax.onreadystatechange = function () {
         elem[i].closest("li").querySelector(".complete").innerHTML =
           "<strong>COMPLETED</strong>";
       }
+      if (
+        data[i].a_click <
+        Math.ceil(
+          (new Date().valueOf() - new Date(data[i].a_start_date).valueOf()) /
+            1000 /
+            60 /
+            60 /
+            24
+        ) *
+          data[i].a_times
+      ) {
+        elem[i].disabled = false;
+      } else {
+        elem[i].disabled = true;
+      }
       elem[i].addEventListener("click", function () {
         let id = elem[i]["name"];
         if (
@@ -226,14 +228,14 @@ ajax.onreadystatechange = function () {
           confirm("Are you sure you have completed this activity?")
         ) {
           var x = this.closest("li").querySelector(".finish");
-          a = Number(x.ariaValueNow);
-          b = Number(15);
-          c = a + b;
+          a = parseFloat(x.ariaValueNow);
+          b = parseFloat((1 / data[i].a_max_click) * 100);
+          c = Math.floor(a + b, 2);
           x.ariaValueNow = c;
           x.style.width = c + "%";
           x.innerText = c + "%";
           this.closest("li").querySelector(".tick").checked = false;
-          if (c >= 100) {
+          if (c > 99) {
             x.ariaValueNow = 100;
             x.style.width = 100 + "%";
             x.innerText = 100 + "%";
@@ -244,7 +246,6 @@ ajax.onreadystatechange = function () {
           } else {
             location.href =
               "activity-complete.php?a_id=" + id + "&a_complete=" + c;
-            //this.closest("li").querySelector(".tick").disabled = true;
           }
         } else {
           this.checked = false;
@@ -257,15 +258,3 @@ ajax.onreadystatechange = function () {
 function showModal() {
   modal.show();
 }
-
-// var urlRefer = activities.find((o) => o.refer === queryID);
-// for (i = 0; i < urlRefer.contents.length; i++) {}
-
-//Jquery
-/*
-$(".deleteAct").on("click", function () {
-  if (confirm("Are you sure you want to delete this action plan?")) {
-    $(this).closest("li").remove();
-  }
-});
-*/

@@ -11,10 +11,11 @@
   $due = $_POST["a_due_date"];
   $time = $_POST["a_times"];
   $day = $_POST["a_days"];
-  $reminder = $_POST["a_reminder"];
-  $reminder = 0;
   if(isset($_POST["a_reminder"])) {
     $reminder = 1;
+  }
+  else {
+    $reminder = 0;
   }
   
   if($due < $start) {

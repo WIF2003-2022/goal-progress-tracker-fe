@@ -6,6 +6,7 @@ $sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_assoc();
 $startConstraint = $row["ap_start_date"];
+$dueConstraint = $row["ap_due_date"];
 $conn -> close();
 ?>
 
@@ -89,6 +90,7 @@ $conn -> close();
               class="form-control"
               name="a_due_date"
               id="activity-due-date"
+              <?php echo "max=$dueConstraint" ?>
               required
             />
           </div>

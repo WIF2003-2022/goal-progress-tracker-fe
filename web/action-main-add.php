@@ -6,6 +6,7 @@ $sql = "SELECT * FROM goal WHERE goal_id = $goal_id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_assoc();
 $startConstraint = $row["goal_start_date"];
+$dueConstraint = $row["goal_due_date"];
 $conn -> close();
 ?>
 
@@ -82,6 +83,7 @@ $conn -> close();
               class="form-control"
               id="action-plan-due-date"
               name="ap_due_date"
+              <?php echo "max=$dueConstraint" ?>
               required
             />
           </div>

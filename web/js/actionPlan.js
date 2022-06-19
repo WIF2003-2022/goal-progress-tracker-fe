@@ -117,9 +117,7 @@ ajax.onreadystatechange = function () {
       elem[i].addEventListener("click", function (e) {
         showModal();
         const id = e.target.name;
-        //var x = this.closest("li");
         key.addEventListener("click", function () {
-          //x.remove();
           location.href = "action-main-delete.php?goal_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
@@ -131,12 +129,3 @@ ajax.onreadystatechange = function () {
     modal.show();
   }
 };
-
-//JQuery
-/*
-$(".close").on("click", function () {
-  if (confirm("Are you sure you want to delete this action plan?")) {
-    $(this).closest("li").remove();
-  }
-});
-*/
