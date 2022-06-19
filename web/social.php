@@ -31,8 +31,7 @@
           <!-- tab content -->
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
-
-            session_start();
+            require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
 
             $count = 0;
             $userID = json_decode($_SESSION['auth'],true)['user_id'];   
@@ -158,7 +157,7 @@
               <div class="col-3">
                 <img src="'.$rProPic.'" class="img-fluid img-thumbnail" id="i-size" />
               </div>
-              <div class="col-9">
+              <div class="col-9 text">
                 <div class="row text-secondary right-duration">'.$period.'</div>
                 <div class="row right-description">'.$rUser.' has '.$rContent.'</div>
               </div>
@@ -263,7 +262,7 @@
 
                     $htmlLine .= 
                     '<div class="col">
-                    <a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'" class="text-decoration-none">
+                    <a href="./social-goal.php?userID='.$row[$field1].'&role='.$role.'&sort=date&orderD=ASC&orderP=ASC&valueD=Earliest_Due&valueP=Least_Progress'.'" class="text-decoration-none">
                     <div class="card h-100" id="singleCard" >
                     <img src="'.$proPic.'" class="card-img-top"/>
                     <div class="card-body">
@@ -281,25 +280,11 @@
         </div>
       </div>
       <script src="./js/authListener.js"></script>
-      <script src="./js/socialTest.js"></script>
+      <script src="./js/socialArrowToggle.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
       </script>
       <script src="./js/navbar.js"></script>
-      <script>
-      const arrow = document.querySelector("#right-tab-arrow");
-      const tab = document.querySelector(".right-tab-open");
-      const content = document.querySelector(".text");
-      arrow.addEventListener("click", () => {
-        tab.classList.toggle("right-tab-close");
-        content.classList.toggle("visually-hidden");
-        if (arrow.classList.contains("bi-chevron-right")) {
-          arrow.classList.replace("bi-chevron-right", "bi-chevron-left");
-        } else {
-          arrow.classList.replace("bi-chevron-left", "bi-chevron-right");
-        }
-      });
-      </script>
     </div>
 </body>
 

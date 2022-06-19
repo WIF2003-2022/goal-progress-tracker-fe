@@ -24,6 +24,10 @@
     border-radius: 1em;
     border-style: solid;
   }
+
+  .theme-yellow {
+    background-color: #f9e90f;
+  }
   </style>
 </head>
 
@@ -34,16 +38,38 @@
       <div class="container">
         <div class="row">
           <?php
+          require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+          
           //back button
           echo '
+          <div class="col-6">
           <form action="./social-goal.php" method="GET">
-          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
+          <button type="submit" class="col-3 ms-3 mb-3 btn theme-yellow shadow-sm rounded-3">
               <span class="text-secondary">
                 <<< </span> Back to Goal
           </button>
           <input type="hidden" name="userID" value="'.$_GET['userID'].'"/>
           <input type="hidden" name="role" value="'.$_GET['role'].'"/>
-          </form>'
+          <input type="hidden" name="sort" value="date"/>
+          <input type="hidden" name="orderD" value="ASC"/>
+          <input type="hidden" name="orderP" value="ASC"/>
+          <input type="hidden" name="valueD" value="Earliest_Due"/>
+          <input type="hidden" name="valueP" value="Least_Progress"/>
+          </form>
+          </div>
+          <div class="col-6 pe-4">
+            <form class="float-end">
+              <span class="fs-5">Sort by:</span>
+              <input type="button" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3 sort-date" value="'.str_replace('_', ' ', $_GET['valueD']).'">
+              </input>
+              <input type="hidden" class="dateSort" name="date" value='.$_GET['orderD'].'>
+              <input type="hidden" class="goalID" name="goalID" value='.$_GET['goalID'].'>
+              <input type="hidden" class="userID" name="userID" value='.$_GET['userID'].'>
+              <input type="hidden" class="role" name="role" value='.$_GET['role'].'>
+            </form>
+          </div>
+          '
+          
           ?>
           <?php
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
@@ -64,9 +90,8 @@
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
             
             //display content
-            $stmt = $conn->prepare(
-              'SELECT * from `action plan` WHERE goal_id = ?'
-            );
+            $sql = 'SELECT * from `action plan` WHERE goal_id = ? ORDER BY ap_due_date '.$_GET['orderD'];
+            $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $_GET['goalID']);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -75,7 +100,7 @@
                 //set due date
                 $dueDate = date("d-m-Y", strtotime($row['ap_due_date']));
 
-                ((!empty($row['ap_image'])) ? $apPic = $row['ap_image'] : $apPic = 'ActionPlanDefaultImage.jpg');
+                ((!empty($row['ap_image'])) ? $apPic = $row['ap_image'] : $apPic = './images/ActionPlanDefaultImage.jpg');
 
                 echo '<li class="card col-3 m-3 shadow" style="width: 25vw">
                 <img class="card-img-top mt-3" style="height: 15vw;"
@@ -94,6 +119,7 @@
   </div>
   <script src="./js/navbar.js"></script>
   <script src="./js/authListener.js"></script>
+  <script src="./js/socialActionPlan.js"></script>
 </body>
 
 </html>

@@ -316,3 +316,14 @@
   padding: 0.8rem;
   border-radius: 0.6rem;
 }
+
+.theme-yellow {
+  background-color: #f9e90f;
+}
+
+.date-pressed {
+  background-color: gray;
+}
+.progress-pressed {
+  background-color: gray;
+}

@@ -26,8 +26,10 @@
         <div class="row">
           <?php
           
+          require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");          
+          require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+          
           //back button
-          require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
            
           // $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
 
@@ -46,13 +48,15 @@
 
           echo '
           <form action="./social-actionplan.php" method="GET">
-          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
+          <button type="submit" class="col-2 ms-3 mb-3 btn theme-yellow shadow-sm rounded-3">
               <span class="text-secondary">
                 <<< </span> Back to Action Plan
           </button>
           <input type="hidden" name="userID" value="'.$_GET['userID'].'"/>
           <input type="hidden" name="goalID" value="'.$row['goal_id'].'"/>
           <input type="hidden" name="role" value="'.$_GET['role'].'"/>
+          <input type="hidden" name="orderD" value="ASC"/>
+          <input type="hidden" name="valueD" value="Earliest_Due"/>
           </form>'
           ?>
           <?php
@@ -71,7 +75,6 @@
 
         <ul>
           <?php
-            session_start();
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
             
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
