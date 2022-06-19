@@ -1,55 +1,68 @@
+let pinnedGoals = [];
+let goals = [];
+
 document.addEventListener("DOMContentLoaded", () => {
-  generateQuote();
-  renderGoals();
-  var calendarEl = document.getElementById("calendar");
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    themeSystem: "bootstrap5",
-    headerToolbar: {
-      left: "prev",
-      center: "title",
-      right: "next",
-    },
-    footerToolbar: {
-      right: "dayGridMonth,timeGridDay,listWeek",
-    },
-    initialView: "dayGridMonth",
-    events: [
-      {
-        id: "a",
-        title: "Jog 3 times a week",
-        start: "2022-05-04",
-        end: "2022-05-07",
-      },
-      {
-        id: "b",
-        title: "Jog 3 times a week",
-        start: "2022-04-27",
-        end: "2022-04-30",
-      },
-      {
-        id: "c",
-        title: "Jog 3 times a week",
-        start: "2022-04-20",
-        end: "2022-04-23",
-      },
-    ],
-  });
-  calendar.render();
+  fetchQuote();
+  fetchGoals();
+  fetchReminders();
+  fetchActivities();
 });
 
 // quote
 const refreshBtn = document.querySelector(".refresh-btn");
 const textArea = document.querySelector(".text-area");
 const quoteForm = document.querySelector("#quote-form");
-refreshBtn.addEventListener("click", () => generateQuote());
+refreshBtn.addEventListener("click", () => fetchQuoteFromAPI());
 quoteForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const customQuoteElem = document.querySelector("#custom-quote");
-  document.querySelector(".quote").textContent = customQuoteElem.value;
-  document.querySelector(".author").textContent = "Christian Louboutin";
-  customQuoteElem.value = "";
+  updateQuote();
 });
-function generateQuote() {
+
+function updateQuote() {
+  const customQuoteElem = document.querySelector("#custom-quote");
+  $.ajax({
+    url: "./src/customQuote.php",
+    type: "POST",
+    data: { quote: customQuoteElem.value },
+  })
+    .done((json) => {
+      const { author, quote } = JSON.parse(json);
+      $(".author").text(author);
+      $(".quote").text(quote);
+      customQuoteElem.value = "";
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    });
+}
+
+function fetchQuote() {
+  $.ajax({
+    url: "./src/customQuote.php",
+    type: "GET",
+    dataType: "json",
+  })
+    .done((json) => {
+      const { author, quote } = json;
+      if (!!quote && quote.length !== 0) {
+        $(".author").text(author);
+        $(".quote").text(quote);
+      } else {
+        fetchQuoteFromAPI();
+      }
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    });
+}
+
+function fetchQuoteFromAPI() {
   const temp = textArea.innerHTML;
   textArea.innerHTML = `<span class="spinner-border"></span>`;
   refreshBtn.style.display = "none";
@@ -65,74 +78,79 @@ function generateQuote() {
     .finally(() => {
       refreshBtn.style.display = "";
     });
+  $.ajax({
+    url: "./src/customQuote.php",
+    type: "POST",
+    data: { quote: null },
+  }).fail((xhr, status, errorThrown) => {
+    console.log("Error: " + errorThrown);
+  });
 }
 
-//goal
-const pinnedGoals = [
-  {
-    goal: "Loss 3kg in 3 months",
-    actionPlan: ["Exercise regularly", "Maintain clean and healthy diet"],
-    progress: "23",
-  },
-  {
-    goal: "Read 2 books in 5 weeks",
-    actionPlan: ["Read book before bed time"],
-    progress: "50",
-  },
-  {
-    goal: "Wake up at 7am for 21 days",
-    actionPlan: ["Sleep early everyday"],
-    progress: "100",
-  },
-  {},
-];
+function fetchGoals() {
+  $.ajax({
+    url: "./src/pinnedGoals.php",
+    type: "GET",
+    dataType: "json",
+  })
+    .done((json) => {
+      goals = json.goals;
+      pinnedGoals = json.pinnedGoals;
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    })
+    .always(() => renderGoals());
+}
 
-const goals = [
-  {
-    goal: "Manage expenses within RM1000 in April",
-    actionPlan: ["Record daily expenses"],
-    progress: "81",
-  },
-  {
-    goal: "Score 4.0 in this semester",
-    actionPlan: ["Study hard"],
-    progress: "50",
-  },
-  {
-    goal: "Learn video-editing skill in 2 months",
-    actionPlan: ["Practice video-editing regularly"],
-    progress: "60",
-  },
-];
+function updateGoals(goal_id, modal, index) {
+  $.ajax({
+    url: "./src/pinnedGoals.php",
+    type: "POST",
+    data: { goal_id: goal_id, goal_pinned: parseInt(index) },
+  })
+    .done(() => {
+      fetchGoals();
+      if (!!modal) modal.hide();
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    });
+}
 
 function renderGoals() {
   const modal = bootstrap.Modal.getOrCreateInstance(
     document.querySelector("#chooseGoal")
   );
-  document.querySelectorAll(".goal-card").forEach((card, index) => {
-    if (Object.keys(pinnedGoals[index]).length !== 0) {
-      renderCard(card, index);
-    } else {
-      renderPlaceholder(card, modal, index);
-    }
-  });
+  const cards = document.querySelectorAll(".goal-card");
+  cards.forEach((card, index) => renderPlaceholder(card, modal, index));
+  pinnedGoals.forEach((goal, index) =>
+    renderCard(cards[goal.goal_pinned], index)
+  );
 }
 
-function renderCard(card, cIndex) {
+function renderCard(card, index) {
   card.classList.remove("pin-goal");
-  const { goal, actionPlan, progress } = pinnedGoals[cIndex];
+  const { goal_id, goal_title, action_plans, goal_progress } =
+    pinnedGoals[index];
   let actionPlanList = "";
-  actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
+  action_plans.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
   card.innerHTML = `
     <div class="card-body d-flex align-items-center position-relative">
       <div
         class="spinner m-4"
-        style="background: conic-gradient(#7380ec ${progress}%, rgb(242, 242, 242) ${progress}%);"
+        style="background: conic-gradient(#7380ec ${goal_progress}%, rgb(242, 242, 242) ${goal_progress}%);"
       >
-        <div class="middle-circle">${progress}%</div>
+        <div class="middle-circle">${goal_progress}%</div>
       </div>
       <div class="goal">
-        <h3 class="card-title">${goal}</h3>
+        <h3 class="card-title">${goal_title}</h3>
         <p class="card-text"><ul>${actionPlanList}</ul></p>
       </div>
     </div>
@@ -143,14 +161,12 @@ function renderCard(card, cIndex) {
   unpinBtn.style.right = "3%";
   unpinBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    goals.push(pinnedGoals[cIndex]);
-    pinnedGoals[cIndex] = {};
-    renderGoals();
+    updateGoals(goal_id, null, null);
   });
   card.firstElementChild.appendChild(unpinBtn);
 }
 
-function renderPlaceholder(card, modal, cIndex) {
+function renderPlaceholder(card, modal, index) {
   card.classList.add("pin-goal");
   card.innerHTML = `
       <div class="card-body d-flex align-items-center justify-content-center w-100" >
@@ -159,33 +175,31 @@ function renderPlaceholder(card, modal, cIndex) {
       </div>
     `;
   card.firstElementChild.addEventListener("click", () =>
-    showModal(modal, cIndex)
+    showModal(modal, index)
   );
 }
 
-function showModal(modal, cIndex) {
+function showModal(modal, index) {
   const list = document.querySelector("#chooseGoal .list-group");
   list.innerHTML = "";
-  goals.forEach((goal, index) => {
+  goals.forEach((goal) => {
     let actionPlanList = "";
-    goal.actionPlan.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
+    goal.action_plans.forEach((plan) => (actionPlanList += `<li>${plan}</li>`));
     const btn = document.createElement("button");
     btn.classList.add("list-group-item", "list-group-item-action");
     btn.innerHTML = `
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex flex-column">
           <p>
-            <b>${goal.goal}</b>
+            <b>${goal.goal_title}</b>
           </p>
           <ul>${actionPlanList}</ul>
         </div>
-        <p class="fs-4 m-0">${goal.progress}%</p>
+        <p class="fs-4 m-0">${goal.goal_progress}%</p>
       </div>
     `;
     btn.addEventListener("click", () => {
-      pinnedGoals[cIndex] = goals.splice(index, 1)[0];
-      renderGoals();
-      modal.hide();
+      updateGoals(goal.goal_id, modal, index);
     });
     list.appendChild(btn);
   });
@@ -193,6 +207,68 @@ function showModal(modal, cIndex) {
 }
 
 //reminders
+function fetchReminders() {
+  $.ajax({
+    url: "./src/handleActivities.php",
+    type: "GET",
+    dataType: "json",
+    data: { data: "reminders" },
+  })
+    .done((reminders) => {
+      processActivities(reminders).forEach((reminder) => {
+        const startDate = new Date(reminder.start);
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        if (today <= startDate) {
+          const listItem = document.createElement("div");
+          listItem.classList.add(
+            "list-group-item",
+            "list-group-item-action",
+            "d-flex",
+            "justify-content-between",
+            "align-items-center"
+          );
+          listItem.innerHTML = `
+            <a class="flex-grow-1" href="javascript:void(0)">
+              <div class="d-flex flex-column">
+                <h5 class="mb-1">${reminder.title}</h5>
+                <p class="mb-1">${reminder.description}</p>
+                <p class="mb-1 text-muted">${reminder.start}</p>
+              </div>
+            </a>
+            <button
+              class="delete-btn"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+            >
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+        `;
+          if (startDate.toDateString() === today.toDateString()) {
+            document
+              .querySelector("#today > .list-group")
+              .appendChild(listItem);
+          } else if (startDate.toDateString() === tomorrow.toDateString()) {
+            document
+              .querySelector("#tomorrow > .list-group")
+              .appendChild(listItem);
+          } else {
+            document
+              .querySelector("#upcoming > .list-group")
+              .appendChild(listItem);
+          }
+        }
+      });
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    });
+}
 const editBtn = document.querySelector(".edit-btn");
 editBtn.addEventListener("click", () => {
   document.querySelector(".reminder").classList.toggle("editing");
@@ -200,3 +276,72 @@ editBtn.addEventListener("click", () => {
     .querySelectorAll(".reminder .list-group-item")
     .forEach((elem) => elem.classList.toggle("list-group-item-action"));
 });
+
+function fetchActivities() {
+  $.ajax({
+    url: "./src/handleActivities.php",
+    type: "GET",
+    dataType: "json",
+    data: { data: "activities" },
+  })
+    .done((activities) => {
+      renderCalendar(processActivities(activities));
+    })
+    .fail((xhr, status, errorThrown) => {
+      alert("Sorry, there was a problem!");
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
+    });
+}
+
+function processActivities(activities){
+  const data = [];
+  activities.forEach((activity) => {
+    let duration = parseInt(activity.a_days) / parseInt(activity.a_times);
+    let times;
+    if (duration < 1) {
+      duration = 1;
+      times = 1;
+    } else {
+      duration = Math.floor(duration);
+      times = parseInt(activity.a_times);
+    }
+    const endDate = new Date(activity.a_due_date);
+    let currDate = new Date(activity.a_start_date);
+    while (currDate < endDate) {
+      let start = new Date(currDate.getTime());
+      for (let i = 0; i < times; i++) {
+        const end = new Date(start.getTime());
+        end.setDate(end.getDate() + duration);
+        data.push({
+          title: activity.a_title,
+          start: start.toISOString().split("T")[0],
+          end: end.toISOString().split("T")[0],
+          description: activity.a_description
+        });
+        start = new Date(end.getTime());
+      }
+      currDate.setDate(currDate.getDate() + parseInt(activity.a_days));
+    }
+  });
+  return data;
+}
+
+function renderCalendar(activities) {
+  var calendarEl = document.getElementById("calendar");
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    themeSystem: "bootstrap5",
+    headerToolbar: {
+      left: "prev",
+      center: "title",
+      right: "next",
+    },
+    footerToolbar: {
+      right: "dayGridMonth,timeGridDay,listWeek",
+    },
+    initialView: "dayGridMonth",
+    events: activities,
+  });
+  calendar.render();
+}
