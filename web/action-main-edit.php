@@ -11,6 +11,10 @@ $title = $row["ap_title"];
 $start = $row["ap_start_date"];
 $due = $row["ap_due_date"];
 $image = $row["ap_image"];
+$sql = "SELECT * FROM goal WHERE goal_id = $goal_id";
+$result = $conn -> query($sql);
+$row = $result -> fetch_assoc();
+$startConstraint = $row["goal_start_date"];
 $conn -> close();
 ?>
 <!DOCTYPE html>
@@ -76,7 +80,8 @@ $conn -> close();
               id="action-plan-start-date"
               name="ap_start_date"
               <?php echo "value=$start" ?>
-            />
+              <?php echo "min=$startConstraint" ?>
+            >
           </div>
           <div class="mb-3">
             <label for="action-plan-due-date" class="form-label">

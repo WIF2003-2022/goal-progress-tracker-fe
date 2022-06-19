@@ -20,7 +20,7 @@
   $priority = $_POST["stars"];
 
   if($due < $start) {
-    header("Location: activity-add.html?ap_name=$ap_name&ap_id=$ap_id&a_id=$a_id&error2");
+    header("Location: activity-add.php?ap_name=$ap_name&ap_id=$ap_id&a_id=$a_id&error2");
     exit();
   }
 

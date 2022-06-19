@@ -1,3 +1,14 @@
+<?php
+include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+$ap_name = $_GET["ap_name"];
+$ap_id = $_GET["ap_id"];
+$sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";
+$result = $conn -> query($sql);
+$row = $result -> fetch_assoc();
+$startConstraint = $row["ap_start_date"];
+$conn -> close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -67,6 +78,7 @@
               class="form-control"
               name="a_start_date"
               id="activity-start-date"
+              <?php echo "min=$startConstraint" ?>
               required
             />
           </div>

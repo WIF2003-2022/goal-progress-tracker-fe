@@ -50,7 +50,7 @@ ajax.onreadystatechange = function () {
     title.innerHTML = queryName;
     var urlPath = document.querySelector(".add");
     urlPath.parentNode.href =
-      "action-main-add.html?goal_name=" + queryName + "&goal_id=" + queryID;
+      "action-main-add.php?goal_name=" + queryName + "&goal_id=" + queryID;
     var html = document.querySelector("#starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
