@@ -5,7 +5,12 @@ require_once @realpath(dirname(__FILE__) . "/../config/databaseConn.php");
 require_once @realpath(dirname(__FILE__) . "/services/generateResetPasswordLink.php");
 require_once @realpath(dirname(__FILE__) . "/services/sendEmail.php");
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
+  if (!isset($_POST['_token']) || $_POST['_token'] !== $_SESSION['_token']) {
+    http_response_code(403);
+    die("Invalid CSRF token");
+  }
   $email = $_POST['email'];
 
   try {

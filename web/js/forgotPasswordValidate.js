@@ -12,12 +12,10 @@ const forgotPasswordAction = (e) => {
   for (let field of fields) {
     if (!(isValid = isValid && field.checkValidity())) {
       showError(field.getAttribute("id"));
-      e.preventDefault();
     }
   }
   form.classList.add("was-validated");
   if (isValid) {
-    e.preventDefault();
     window.location.href = destinationPage;
   }
 };
