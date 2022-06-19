@@ -93,6 +93,11 @@
               );
               $stmt3->bind_param("isis", $aID, $cText, $cID, $time);
               $stmt3->execute();
+              $lastId = mysqli_insert_id($conn);
+              $stmt4 = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`) VALUES ('comment','$userID','$lastId')";
+              mysqli_query($conn,$stmt4);
+              header('Location: '.$_SERVER['REQUEST_URL']);
+              die();
             }     
             // unset($_POST['aID']);
             // echo var_dump($_POST);  
