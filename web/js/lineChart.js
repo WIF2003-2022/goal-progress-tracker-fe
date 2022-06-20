@@ -102,7 +102,7 @@ $.ajax({
     console.log(json);
     const monthlyCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     json.forEach((data) => {
-      let dateObj = new Date(data.goal_start_date);
+      let dateObj = new Date(data.goal_due_date);
       monthlyCount[dateObj.getMonth()] += 1;
     });
     console.log(monthlyCount);
