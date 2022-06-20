@@ -118,7 +118,7 @@ ajax.onreadystatechange = function () {
         showModal();
         const id = e.target.name;
         key.addEventListener("click", function () {
-          location.href = "action-main-delete.php?goal_id=" + id;
+          location.href = "action-main-delete.php?ap_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
       });
