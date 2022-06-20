@@ -60,18 +60,18 @@
               if ($recent['r_type'] == "comment") {
                 $field = 'Activity';
                 $select = 'activity.a_id, activity.a_title';
-                $where = 'comment.comment_id'; 
+                $where = 'activity.a_id'; 
                 $title = 'a_title';
               }else if($recent['r_type'] == "activity"){
                 $field = 'Activity';
+                $select = '`activity`.a_id, `activity`.a_title';
+                $where = '`activity`.a_id'; 
+                $title = 'a_title';
+              }else if($recent['r_type'] == "action_plan"){
+                $field = 'Action Plan';
                 $select = '`action plan`.ap_id, `action plan`.ap_title';
                 $where = '`action plan`.ap_id'; 
                 $title = 'ap_title';
-              }else if($recent['r_type'] == "action_plan"){
-                $field = 'Action Plan';
-                $select = 'goal.goal_id, goal.goal_title';
-                $where = 'goal.goal_id'; 
-                $title = 'goal_title';
               }else if($recent['r_type'] == "goal"){
                 $field = 'Goal';
                 $select = 'goal.goal_id, goal.goal_title';
