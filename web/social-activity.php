@@ -29,16 +29,7 @@
           require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");          
           require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
           
-          //back button
-           
-          // $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
-
-          // if($pageWasRefreshed ) {
-          //   echo "refreshed";
-          // } else {
-          //   echo "no refresh";
-          // }
-        
+          //display back button
           $stmt = $conn->prepare(
             "SELECT goal_id from `action plan` WHERE ap_id = ?"
           );
