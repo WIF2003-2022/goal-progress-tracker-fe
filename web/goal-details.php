@@ -45,6 +45,16 @@
                   $goalR = mysqli_fetch_assoc($goalRes);
                     
                   mysqli_free_result($goalRes);
+
+                  $mentorID = $goalR['mentor_id'];
+                  $getNameRes = null;
+                  if (isset($mentorID)) {
+                    $getNameSql = "SELECT * FROM user WHERE user_id = $mentorID";
+                    $getNameQuery = mysqli_query($conn, $getNameSql);
+                    $getNameRes = mysqli_fetch_assoc($getNameQuery);
+
+                    mysqli_free_result($getNameQuery);
+                  }
                 ?>
                 <div id="firstRow" class="row">
                   <div class="col-12 col-lg-6">
@@ -56,7 +66,7 @@
                         <div class="goalDescription">Description : </div>
                         <div class="goalCategory">Category : </div>
                         <div class="goalTracking">Mehtod Used to Track Goals : </div>
-                        <div class="goalMentor">Mentor ID : </div>
+                        <div class="goalMentor">Mentor : </div>
                       </div>
                     </div>
                   </div>
@@ -105,7 +115,7 @@
                   <div class="col-12 col-lg-3">
                     <div id="button" class="card align-items-center">
                       <div class="actionPlanBtn">
-                        <a href="" class="btn btn-primary ">View Action Plans</a>
+                        <a id="apLink" href="" class="btn btn-primary">View Action Plans</a>
                         <hr>
                       </div>
                       <a href="javascript:void(0);" data-id=<?php echo "$id" ?> class="btn btn-sm editBtn">Edit</a>
@@ -113,15 +123,6 @@
                     </div>
                   </div>
                 </div>
-
-                <div id="thirdRow" class="row">
-                  <div class="col-12 col-lg-3">
-                    
-                  </div>
-
-                  
-                </div>
-
               </div>
             </div>
           </div>
@@ -134,6 +135,14 @@
       var goalR = <?php echo json_encode($goalR); ?>;
       // pass the variable(array) from one js file to another
       sessionStorage.setItem("goalR", JSON.stringify(goalR)); 
+      console.log(goalR);
+      
+      if (<?php echo json_encode(isset($mentorID)); ?>) {
+        var getNameRes = <?php echo json_encode($getNameRes); ?>;
+        // pass the variable(array) from one js file to another 
+        sessionStorage.setItem("getNameRes", JSON.stringify(getNameRes)); 
+      }
+      console.log(goalR["mentor_id"]);
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -197,14 +206,6 @@
                 var end = document.getElementById("endDate");
                 end.textContent = endDate;
 
-                // table.cell(parseInt(trid) - 1,0).data(id);
-                // table.cell(parseInt(trid) - 1,1).data(mentor);
-                // table.cell(parseInt(trid) - 1,2).data(description);
-                // table.cell(parseInt(trid) - 1,3).data(name);
-                // table.cell(parseInt(trid) - 1,4).data(id);
-                // var button = '<td><a href="javascript:void();" data-id="' + id + '" class="btn btn-info btn-sm editbtn">Edit</a>  <a href="#!"  data-id="' + id + '"  class="btn btn-danger btn-sm deleteBtn">Delete</a></td>';
-                // var row = table.row("[id='" + trid + "']");       
-                // row.row("[id='" + trid + "']").data([id, mentor, name, description,category, tracking, startDate, button]);    //set data for selected row
                 $('#editModal').modal('hide');
                 window.location.reload();
               } else {
@@ -282,13 +283,124 @@
 
         });
     });
+      
+      // function to update goal progress (by outcome) into the table and database, '#updateOutcome' is the id of the form
+      $(document).on('submit', '#updateOutcome', function(e) {
+        e.preventDefault();
+        console.log("Submit btn clicked");
+        var target = $('#targetField').val();
+        var outcome = $('#outcomeField').val();
+        var id = <?php echo json_encode($id); ?>;
+        var progress = (outcome/target) * 100;
 
-    // function of Update Goal Progress button, show the modal form
-    $('#detail').on('click', '.updateProgressBtn ', function(event) {
+        if (outcome != '') {
+          $.ajax({
+            url: "goal-update-progress.php",
+            type: "post",
+            data: {
+              progress: progress,
+              id: id
+            },
+            success: function(data) {
+              console.log("Submit Button is clicked");
+              console.log(data);
+              var json = JSON.parse(data);
+              var status = json.status;
+              if (status == 'true') {
+                $('#updateOutcomeModal').modal('hide');
+                window.location.reload();
+              } else {
+                alert('failed');
+              }
+            }
+          });
+        } else {
+          alert('Fill all the required fields');
+        }
+
+      });
+
+      // function to sync goal progress with activity progress  
+      $(document).on('click', '#syncActivity', function(event) {
+      event.preventDefault();
+        console.log("Sync Activity Progress btn clicked");
+        var id = <?php echo json_encode($id); ?>;
+        <?php
+          $activityRow = array();
+          $rowTableCount = array();
+          $apIDSql = 
+          "SELECT * FROM `action plan`
+          INNER JOIN goal
+          ON `action plan`.goal_id = goal.goal_id
+          WHERE `action plan`.goal_id = $id";
+          $apIDQuery = mysqli_query($conn, $apIDSql);
+          $apIDRes = mysqli_fetch_assoc($apIDQuery);
+          mysqli_free_result($apIDQuery);
+          if (isset($apIDRes)) {
+            $actionPlanID = $apIDRes['ap_id'];
+            $getActivitySql = "SELECT * FROM activity WHERE ap_id = $actionPlanID";
+
+            if($getActivityQuery = mysqli_query($conn, $getActivitySql)){
+              $rowTableCount = mysqli_num_rows($getActivityQuery);
+              $activityRow = array();
+              for ($i=0; $i < $rowTableCount ; $i++) { 
+                $activityRow[$i] = mysqli_fetch_assoc($getActivityQuery);
+              } 
+              mysqli_free_result($getActivityQuery);
+            }
+          }
+ 
+        ?>
+        console.log(<?php echo json_encode(isset($rowTableCount)); ?>);
+        console.log(<?php echo json_encode(isset($activityRow)); ?>);
+        if(<?php echo json_encode(isset($rowTableCount)); ?> && <?php echo json_encode(isset($activityRow)); ?>){
+          const noOfRow = <?php echo json_encode($rowTableCount); ?>;
+          var activityRow = <?php echo json_encode($activityRow); ?>;
+          console.log(noOfRow);
+          console.log(activityRow);
+          
+          var activityProgress = 0.0;
+          for (let i = 0; i < noOfRow; i++) {
+            activityProgress += parseFloat(activityRow[i]['a_complete']);
+          }
+          console.log(activityProgress);
+          var progress = activityProgress/noOfRow;
+          console.log(progress);
+
+          if (progress != '') {
+            $.ajax({
+              url: "goal-update-progress.php",
+              type: "post",
+              data: {
+                progress: progress,
+                id: id
+              },
+              success: function(data) {
+                console.log("Submit Button is clicked");
+                console.log(data);
+                var json = JSON.parse(data);
+                var status = json.status;
+                if (status == 'true') {
+                  $('#updateOutcomeModal').modal('hide');
+                  window.location.reload();
+                } else {
+                  alert('failed');
+                }
+              }
+            });
+          } else {
+            alert('Fill all the required fields');
+          }
+
+        }
+
+      });
+
+      // function of Update Goal Progress button, show the modal form
+      $('#detail').on('click', '.updateProgressBtn ', function(event) {
         // console.log(selectedRow);
         var id = $(this).data('id');
-        $('#updateProgressModal').modal('show');   // show the modal (by default the modal is set as hidden)
-
+        
         $.ajax({
           url: "goal-get-single-row-data.php",   // retrieve the data of that specific row using car_id
           data: {
@@ -296,13 +408,21 @@
           },
           type: 'post',
           success: function(data) {
-            console.log(data);
+            // console.log(data);
+            // console.log("Update Progress Button is clicked");
             var json = JSON.parse(data);        // parse PHP object to javascript object
-            var current = document.getElementById("manualField");
-            current.value = json.goal_progress;
-            console.log(current.value);
+            var finalOutcome = "Final outcome";
+            var compltAct = "Total number of completed activities";
+            // To perform insensitive string comparison (ignore string case)
+            if (json.tracking_method.toUpperCase() == finalOutcome.toUpperCase()) {
+              $('#updateOutcomeModal').modal('show');
+              $('#targetField').val(json.goal_target);
+              console.log("What is target"); 
+            }
+            else if(json.tracking_method.toUpperCase() == compltAct.toUpperCase()){
+              $('#completedActModal').modal('show'); 
+            }
             $('#id').val(id);
-            // $('#trid').val(trid);
           }
         })
       });
@@ -405,26 +525,59 @@
       </div>
     </div>
 
-    <!-- Update Goal Progress Modal (Manual Update Current Progress) -->
-    <div class="modal fade" id="updateProgressModal" tabindex="-1" aria-labelledby="updateProgressModalLabel" aria-hidden="true">
+    <!-- Update Goal Progress Modal (Final Outcome) -->
+    <div class="modal fade" id="updateOutcomeModal" tabindex="-1" aria-labelledby="updateOutcomeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="updateProgressModalLabel">Update Goal Progress</h5>
+            <h5 class="modal-title" id="updateOutcomeModalLabel">Update Goal Progress</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="updateProgress">
+            <form id="updateOutcome">
               <input type="hidden" name="id" id="id" value="">
               <div class="mb-3 row">
-                <label for="outcomeField" class="col-md-3 form-label">Final Outcome</label>
+                <label for="targetField" class="col-md-3 form-label">Target</label>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" id="outcomeField" name="outcome">
+                  <input type="text" readonly class="form-control-plaintext" id="targetField" name="target">
                 </div>
               </div>
+              <div class="mb-3 row">
+                <label for="outcomeField" class="col-md-3 form-label">Update Outcome</label>
+                <div class="col-md-9">
+                  <input type="number" class="form-control" id="outcomeField" name="outcome" step=".01">
+                </div>
+              </div>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>  
             </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Goal Progress Modal (Total number of completed activities) -->
+    <div class="modal fade" id="completedActModal" tabindex="-1" aria-labelledby="completedActModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="completedActModalLabel">Update Goal Progress</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id" id="id" value="">
+            <p> 
+              This goal will be tracked by the activity progress.
+              <br>
+              Go complete the activities scheduled and update the activities as completed to update your goal progress.
+            </p>
             <div class="text-end">
-              <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" id="syncActivity" class="btn btn-warning">Sync Activity Progress</button>
+              <button type="button" class="btn btn-primary">View Activity</button>
             </div>
           </div>
           <div class="modal-footer">

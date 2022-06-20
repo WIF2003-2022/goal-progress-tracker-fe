@@ -45,8 +45,8 @@
       <nav-bar></nav-bar>
       <div class="content-wrapper">
         <div class="container-float">
-          <div class="row m-2">
-            <div class="col-md-4">
+          <div class="row m-2 mb-4 justify-content-center">
+            <div class="col-12 col-lg-4">
               <div class="smart">
                 <div class="card">
                   <h2>SMART goal</h2>
@@ -88,7 +88,7 @@
                 </div>
                 <!-- End of Left Column (SMART) -->
 
-                <div class="col-md-8">
+                <div class="col-md-6">
                   <div class="question">
                     <div class="card">
                       <div class="questionMeasurable>">
@@ -176,7 +176,7 @@
             </div>
             <!-- End of Left Column -->
 
-            <div class="col-md-8 mb-4">
+            <div class="col-12 col-lg-6 mb-4">
               <div class="addNewGoal">
                 <div class="heading">Add Goal</div>
                 <form id="addGoal" class="row g-3">
@@ -199,11 +199,10 @@
                       >Specific and Measurable Target</label
                     >
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
                       id="specificTarget"
-                      placeholder="Eg: 100km"
-                      required
+                      placeholder="Eg: 100"
                     />
                   </div>
 
@@ -231,43 +230,6 @@
                     />
                   </div>
 
-                  <!-- <fieldset>
-                    <legend class="col-form-label col-md-8">
-                      Track Progress By
-                    </legend>
-                    <div class="col-md-8 mb-2">
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="trackProgress1"
-                        />
-                        <label class="form-check-label" for="trackProgress1">
-                          Final outcome
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="trackProgress2"
-                        />
-                        <label class="form-check-label" for="trackProgress12">
-                          Total number of completed activities
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="trackProgress3"
-                        />
-                        <label class="form-check-label" for="trackProgress3">
-                          Manually updating current progress
-                        </label>
-                      </div>
-                    </div>
-                  </fieldset> -->
                   <div class="col-md-8">
                     <select
                       class="form-select"
@@ -312,10 +274,10 @@
                       >Find Mentor</label
                     >
                     <input
-                      type="text"
+                      type="email"
                       class="form-control"
                       id="mentor"
-                      placeholder="Enter mentor's username or email"
+                      placeholder="Enter mentor's email"
                     />
                   </div>
 
@@ -348,23 +310,6 @@
         var target = $('#specificTarget').val();
         var startDate = $('#inputStartDate').val();
         var endDate = $('#inputEndDate').val();
-        // Checklist Tracking_method : 'on'(included) , 'off'(excluded)
-        // var trackProgress1 = $('#trackProgress1').val();
-        // var trackProgress1Str = "";
-        // if(trackProgress1 == 'on'){
-        //   trackProgress1Str = "Final outcome, ";
-        // }
-        // var trackProgress2 = $('#trackProgress2').val();
-        // var trackProgress2Str = "";
-        // if(trackProgress2 == 'on'){
-        //   trackProgress2Str = "Total number of completed activities, ";
-        // }
-        // var trackProgress3 = $('#trackProgress3').val();
-        // var trackProgres31Str = "";
-        // if(trackProgress3 == 'on'){
-        //   trackProgress3Str = "Manually updating current progress";
-        // }
-        // var tracking = trackProgress1Str + trackProgress2Str + trackProgress3Str;
         
         // Select trackProgress 1,2
         var trackProgressSelect = $('#trackProgress').val();
@@ -396,9 +341,10 @@
         }
         var mentor = $('#mentor').val();
         console.log(mentor);
+        console.log(typeof mentor);
         var mentee = <?php echo json_encode($userid); ?>;
         console.log("Test3");
-        if (title != '' && target != '' && startDate != '' && endDate != '' && tracking != '' && category != '') {
+        if (title != '' &&  startDate != '' && endDate != '' && tracking != '' && category != '') {
           console.log("Test4");
           $.ajax({                              //$.ajax({}) - perform an AJAX (asynchronous HTTP) request
             url: "goal-add-process.php",       // url - Specifies the URL to send the request to. Default is the current page
