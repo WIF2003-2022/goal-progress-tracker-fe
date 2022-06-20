@@ -1,10 +1,20 @@
+<?php 
+  session_start();
+  if (isset($_SESSION['auth'])) {
+    header("Location: ./index.php");
+    die();
+  }
+  $_SESSION['_token'] = bin2hex(random_bytes(16));
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register account</title>
+    <title>Reset Password</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -28,7 +38,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Register failed</h5>
+            <h5 class="modal-title">Reset password request failed!</h5>
             <button
               type="button"
               class="close"
@@ -40,8 +50,7 @@
           </div>
           <div class="modal-body">
             <p id="errorText">
-              We are not able to register your account at the moment. Please try
-              again later.
+              You might not have an account with this email address.
             </p>
           </div>
           <div class="modal-footer">
@@ -56,87 +65,51 @@
         </div>
       </div>
     </div>
-    <div class="container text-center mb-3">
+    <div class="container text-center mb-3 mt-3">
       <div class="row">
-        <div class="col pb-2" id="welcome-msg">Hello new user!</div>
+        <div class="col" id="title">We need your email!</div>
       </div>
       <div class="row">
-        <div clas="col">
-          <img src="./images/queue-animate.svg" alt="" id="queue" />
+        <div class="col">
+          <img src="./images/emails-animate.svg" alt="" id="forgotPassword" />
         </div>
       </div>
       <div class="row">
-        <div class="col mb-3" id="title">Goal Progress Tracker System</div>
+        <div class="col pb-3" id="subtitle">Goal Progress Tracker System</div>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-5 col-sm-10">
           <form
             method="post"
-            novalidate
-            id="register-form"
+            id="request-email-form"
             class="needs-validation"
+            novalidate
           >
-            <div class="form-group mb-3">
-              <input
-                name="username"
-                id="username"
-                placeholder="Username"
-                class="form-control pt-4 pb-4"
-                required
-              />
-              <div class="invalid-feedback" id="username-feedback"></div>
-            </div>
-            <div class="form-group mb-3">
+            <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'];?>">
+            <div class="form-group">
               <input
                 name="email"
                 id="email"
-                placeholder="Email"
                 type="email"
+                placeholder="Email"
                 class="form-control pt-4 pb-4"
                 required
               />
               <div class="invalid-feedback" id="email-feedback"></div>
             </div>
-            <div class="row align-items-center mb-3">
-              <div class="col-11">
-                <input
-                  name="password"
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  class="form-control pt-4 pb-4"
-                  required
-                  pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                  data-pattern-desc="contains at least 1 digit, 1 special character and 1 uppercase letter."
-                  minlength="8"
-                />
-                <div class="invalid-feedback" id="password-feedback"></div>
-              </div>
-              <div class="col-1">
-                <a class="input-group-text" id="showPassword" type="button">
-                  <i class="bi bi-eye"></i>
-                </a>
-              </div>
+            <div class="form-group mb-3">
+              <button
+                type="submit"
+                class="btn btn-primary w-100 p-4 mt-3"
+                id="submit-btn"
+              >
+                Send Verification Email
+              </button>
             </div>
-            <button
-              type="submit"
-              class="btn btn-primary w-100 p-4 mt-3"
-              id="submit-btn"
-              name="submit"
-            >
-              Sign Up
-            </button>
           </form>
         </div>
       </div>
-      <div class="row mt-5">
-        <div class="col">
-          Already have an account?
-          <strong><a href="login.php">Login</a></strong>
-        </div>
-      </div>
     </div>
-    <img src="./images/Vector.svg" alt="wavy" id="wavy-img" class="img-fluid" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -147,7 +120,6 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="./js/registerAction.js"></script>
-    <script src="./js/password.js"></script>
+    <script type="module" src="./js/requestEmailAction.js"></script>
   </body>
 </html>

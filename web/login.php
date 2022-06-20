@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if (isset($_SESSION['auth'])) {
+    header("Location: ./index.php");
+    die();
+  }
+  $_SESSION['_token'] = bin2hex(random_bytes(16));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,12 +37,6 @@
     />
   </head>
   <body>
-    <?php
-      session_start();
-      if (isset($_SESSION['auth'])) {
-        header("Location: ./index.php");
-      }
-    ?>
     <div class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -76,6 +79,7 @@
               id="login-form"
               novalidate
             >
+              <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'];?>">
               <div class="form-group mb-3">
                 <input
                   name="id"
@@ -108,7 +112,7 @@
                 </div>
               </div>
               <div class="text-end mt-2 mb-2">
-                <a href="request-email.html">Forgot password?</a>
+                <a href="request-email.php">Forgot password?</a>
               </div>
               <button
                 type="submit"
@@ -141,7 +145,7 @@
         <div class="row mt-5">
           <div class="col">
             Don't have an account?
-            <strong><a href="register.html">Register Now</a></strong>
+            <strong><a href="register.php">Register Now</a></strong>
           </div>
         </div>
       </div>
