@@ -68,8 +68,8 @@ $conn -> close();
               class="form-control"
               id="action-plan-title"
               name="ap_title"
-              <?php echo "value=$title" ?>
-            />
+              value="<?php echo $title?>"
+            >
           </div>
           <div class="mb-3">
             <label for="action-plan-start-date" class="form-label" name>

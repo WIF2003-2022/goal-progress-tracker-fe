@@ -68,7 +68,7 @@ $conn -> close();
               class="form-control"
               id="activity-title"
               name="a_title"
-              <?php echo "value=$title" ?>
+              value="<?php echo $title?>"
             />
           </div>
           <div class="mb-3">
