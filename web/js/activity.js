@@ -139,12 +139,12 @@ ajax.onreadystatechange = function () {
     urlPath.parentNode.href =
       "activity-add.php?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
-    html.innerHTML += "<ul>";
     var totalPercentage = 0;
     for (i = 0; i < data.length; i++) {
       totalPercentage += parseFloat(data[i].a_complete);
       html.innerHTML +=
         `
+      <ul>
       <li class="card text-center mb-2">
                     <div class="card-header text-start">Start Date: ${data[i].a_start_date}<span class="float-end text-danger">Due Date: ${data[i].a_due_date}</span></div>
                     <div class="card-body">
@@ -230,9 +230,10 @@ ajax.onreadystatechange = function () {
                       </div>
                     </div>
                   </li>
+                </ul>
       `;
     }
-    html.innerHTML += "</ul>";
+
     html.innerHTML += modalHTML;
     modal = bootstrap.Modal.getOrCreateInstance(
       document.querySelector("#deleteModal")
