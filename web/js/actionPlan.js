@@ -50,7 +50,7 @@ ajax.onreadystatechange = function () {
     title.innerHTML = queryName;
     var urlPath = document.querySelector(".add");
     urlPath.parentNode.href =
-      "action-main-add.html?goal_name=" + queryName + "&goal_id=" + queryID;
+      "action-main-add.php?goal_name=" + queryName + "&goal_id=" + queryID;
     var html = document.querySelector("#starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
@@ -88,7 +88,7 @@ ajax.onreadystatechange = function () {
                     />
                     <div class="card-body" style="line-height: 1em;">
                       <a
-                        href="activity.html?name=${data[i].ap_title}&id=${data[i].ap_id}" 
+                        href="activity.html?ap_name=${data[i].ap_title}&ap_id=${data[i].ap_id}" 
                         style="text-decoration: none; font-size: 1.5vw;"
                         class="card-text"
                         >` +
@@ -117,9 +117,7 @@ ajax.onreadystatechange = function () {
       elem[i].addEventListener("click", function (e) {
         showModal();
         const id = e.target.name;
-        //var x = this.closest("li");
         key.addEventListener("click", function () {
-          //x.remove();
           location.href = "action-main-delete.php?goal_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
@@ -131,12 +129,3 @@ ajax.onreadystatechange = function () {
     modal.show();
   }
 };
-
-//JQuery
-/*
-$(".close").on("click", function () {
-  if (confirm("Are you sure you want to delete this action plan?")) {
-    $(this).closest("li").remove();
-  }
-});
-*/

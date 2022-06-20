@@ -14,53 +14,21 @@ template.innerHTML = `
         tabindex="0"
       ></i>
       <h3 id="page-title"></h3>
-      <div class="dropdown m-2">
+      <div class="dropdown m-2 noti-dropdown">
         <i
           class="bi bi-bell-fill nav-link position-relative large"
           tabindex="0"
           data-bs-toggle="dropdown"
         >
           <span
-            class="position-absolute translate-middle badge rounded-pill bg-danger no-select"
-            style="font-size: 0.75rem; font-style:normal;left:75%;"
+            class="position-absolute translate-middle badge rounded-pill bg-danger no-select unread-num"
+            style="font-size: 0.75rem; font-style:normal;left:75%;display:none;"
           >
             2
           </span>
         </i>
-        <ul class="dropdown-menu dropdown-menu-end" style="width:350px">
+        <ul class="dropdown-menu dropdown-menu-end notifications" style="width:350px">
           <li><h6 class="dropdown-header">Notifications</h6></li>
-          <li>
-            <a href="#" class="dropdown-item">
-              <div class="d-flex w-100 align-items-center">
-                <span class="bg-info rounded-circle notification-icon">
-                  <i class="bi bi-info-circle"></i>
-                </span>
-                <div class="d-flex flex-column ms-2">
-                  <p class="text-wrap m-0">
-                    Some placeholder content in a paragraph.
-                  </p>
-                  <small class="font-weight-light text-muted">1 hour ago</small>
-                </div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-item">
-              <div class="d-flex w-100 align-items-center">
-                <span class="bg-info rounded-circle notification-icon">
-                  <i class="bi bi-info-circle"></i>
-                </span>
-                <div class="d-flex flex-column ms-2">
-                  <p class="text-wrap m-0">
-                    Some placeholder content in a paragraph.
-                  </p>
-                  <small class="font-weight-light text-muted">
-                    2 hours ago
-                  </small>
-                </div>
-              </div>
-            </a>
-          </li>
         </ul>
       </div>
       <div class="dropdown m-2">
@@ -70,8 +38,8 @@ template.innerHTML = `
           data-bs-toggle="dropdown"
         >
           <img
-            src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg"
             class="avatar"
+            id="profilePic"
           />
         </button>
         <ul class="dropdown-menu dropdown-menu-end" style="width:200px">
@@ -181,6 +149,66 @@ class NavBar extends HTMLElement {
         }
       });
     });
+    const getPhoto = new XMLHttpRequest();
+    getPhoto.responseType = "json";
+    getPhoto.open("GET", "./src/getPhoto.php");
+    getPhoto.send();
+    getPhoto.onload = function () {
+      document.querySelector("#profilePic").src =
+        getPhoto.response ?? "images/default-user.png";
+    };
+    document.querySelector(".noti-dropdown").addEventListener("hidden.bs.dropdown", () => {
+      const updateNotification = new XMLHttpRequest();
+      updateNotification.open("POST", "./src/handleNotifications.php");
+      updateNotification.send();
+      updateNotification.onload = () => {
+        this.fetchNotification();
+      };
+    });
+    this.fetchNotification();
+  }
+
+  fetchNotification() {
+    const getNotification = new XMLHttpRequest();
+    getNotification.responseType = "json";
+    getNotification.open("GET", "./src/handleNotifications.php");
+    getNotification.send();
+    getNotification.onload = function () {
+      const parent = document.querySelector(".notifications");
+      parent.innerHTML = `<li><h6 class="dropdown-header">Notifications</h6></li>`;
+      let unread = 0;
+      getNotification.response.forEach((notification) => {
+        const listItem = document.createElement("li");
+        if (notification.n_status === "1") {
+          listItem.style.backgroundColor = "lightcyan";
+          unread++;
+        }
+        listItem.innerHTML = `
+        <a href="#" class="dropdown-item">
+          <div class="d-flex w-100 align-items-center">
+            <span class="bg-info rounded-circle notification-icon">
+              <i class="bi bi-info-circle"></i>
+            </span>
+            <div class="d-flex flex-column ms-2">
+              <p class="text-wrap m-0">
+                ${notification.n_text}
+              </p>
+              <small class="font-weight-light text-muted">
+                ${new Date(notification.n_timestamp).toDateString()}
+              </small>
+            </div>
+          </div>
+        </a>`;
+        parent.appendChild(listItem);
+      });
+      const badge = document.querySelector(".unread-num");
+      badge.textContent = unread;
+      if (unread !== 0) {
+        badge.style.display = "initial";
+      } else {
+        badge.style.display = "none";
+      }
+    };
   }
 
   initTooltip(path, placement, disable = false) {

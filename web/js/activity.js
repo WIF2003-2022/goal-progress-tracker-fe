@@ -50,16 +50,14 @@ ajax.onreadystatechange = function () {
     title.innerHTML = queryName;
     var urlPath = document.querySelector(".add");
     urlPath.parentNode.href =
-      "activity-add.html?ap_name=" + queryName + "&ap_id=" + queryID;
+      "activity-add.php?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
     for (i = 0; i < data.length; i++) {
       html.innerHTML +=
         `
-      <li class="card text-center">
-                    <div class="card-header">Due ` +
-        data[i].a_due_date +
-        `</div>
+      <li class="card text-center mb-2">
+                    <div class="card-header text-start">Start Date: ${data[i].a_start_date}<span class="float-end text-danger">Due Date: ${data[i].a_due_date}</span></div>
                     <div class="card-body">
                       <h5 class="card-title">` +
         data[i].a_title +
@@ -96,7 +94,7 @@ ajax.onreadystatechange = function () {
                         <i class="bi-trash-fill" style="font-size: 2vw"></i>
                       </button>
                       <div class="mt-3 complete">
-                        <input class="form-check-input tick" type="checkbox" />
+                        <input class="form-check-input tick" type="checkbox" name="${data[i].a_id}">
                         Complete
                       </div>
                     </div>
@@ -116,16 +114,16 @@ ajax.onreadystatechange = function () {
                               class="progress-bar bg-danger progress-bar-striped progress-bar-animated due"
                               role="progressbar"
                               aria-valuenow="` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `"
                               aria-valuemin="0"
                               aria-valuemax="100"
                               style="width: ` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `%"
                             >
                             ` +
-        50 +
+        calculateDue(data[i].a_start_date, data[i].a_due_date) +
         `%
                             </div>
                           </div>
@@ -152,7 +150,7 @@ ajax.onreadystatechange = function () {
                         </div>
                       </div>
                     </div>
-                  </li><br>
+                  </li>
       `;
     }
     html.innerHTML += "</ul>";
@@ -161,6 +159,18 @@ ajax.onreadystatechange = function () {
       document.querySelector("#deleteModal")
     );
 
+    function calculateDue(start_date, due_date) {
+      var diff = Math.floor(
+        ((new Date().valueOf() - new Date(start_date).valueOf()) /
+          (new Date(due_date).valueOf() - new Date(start_date).valueOf())) *
+          100
+      );
+      if (diff < 0) {
+        return 0;
+      } else if (diff > 100) return 100;
+      else return diff;
+    }
+
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
     console.log(elem);
@@ -168,7 +178,7 @@ ajax.onreadystatechange = function () {
     for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
-        const id = elem[i]["name"];
+        let id = elem[i]["name"];
         //var x = this.closest("li");
         key.addEventListener("click", function () {
           //x.remove();
@@ -177,21 +187,74 @@ ajax.onreadystatechange = function () {
         });
       });
     }
-  }
 
-  function showModal() {
-    modal.show();
+    //complete function
+    var elem = document.querySelectorAll(".tick");
+    var fail = document.querySelectorAll(".due");
+    var pass = document.querySelectorAll(".finish");
+
+    for (let i = 0; i < elem.length; i++) {
+      if (fail[i].ariaValueNow <= 0) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>TO BE STARTED</strong>";
+        continue;
+      }
+      if (fail[i].ariaValueNow >= 100) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>FAILED</strong>";
+      } else if (pass[i].ariaValueNow == 100) {
+        elem[i].closest("li").querySelector(".complete").innerHTML =
+          "<strong>COMPLETED</strong>";
+      }
+      if (
+        data[i].a_click <
+        Math.ceil(
+          (new Date().valueOf() - new Date(data[i].a_start_date).valueOf()) /
+            1000 /
+            60 /
+            60 /
+            24
+        ) *
+          data[i].a_times
+      ) {
+        elem[i].disabled = false;
+      } else {
+        elem[i].disabled = true;
+      }
+      elem[i].addEventListener("click", function () {
+        let id = elem[i]["name"];
+        if (
+          this.checked &&
+          confirm("Are you sure you have completed this activity?")
+        ) {
+          var x = this.closest("li").querySelector(".finish");
+          a = parseFloat(x.ariaValueNow);
+          b = parseFloat((1 / data[i].a_max_click) * 100);
+          c = Math.floor(a + b, 2);
+          x.ariaValueNow = c;
+          x.style.width = c + "%";
+          x.innerText = c + "%";
+          this.closest("li").querySelector(".tick").checked = false;
+          if (c > 99) {
+            x.ariaValueNow = 100;
+            x.style.width = 100 + "%";
+            x.innerText = 100 + "%";
+            location.href =
+              "activity-complete.php?a_id=" + id + "&a_complete=100";
+            this.closest("li").querySelector(".complete").innerHTML =
+              "<strong>COMPLETED</strong>";
+          } else {
+            location.href =
+              "activity-complete.php?a_id=" + id + "&a_complete=" + c;
+          }
+        } else {
+          this.checked = false;
+        }
+      });
+    }
   }
 };
 
-// var urlRefer = activities.find((o) => o.refer === queryID);
-// for (i = 0; i < urlRefer.contents.length; i++) {}
-
-//Jquery
-/*
-$(".deleteAct").on("click", function () {
-  if (confirm("Are you sure you want to delete this action plan?")) {
-    $(this).closest("li").remove();
-  }
-});
-*/
+function showModal() {
+  modal.show();
+}

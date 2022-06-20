@@ -2,6 +2,11 @@
 var goalR = JSON.parse(sessionStorage.getItem("goalR"));
 console.log(goalR);
 
+if (goalR["mentor_id"] != null) {
+  var getNameRes = JSON.parse(sessionStorage.getItem("getNameRes"));
+  console.log(getNameRes);
+}
+
 var detail = document.getElementById("detail");
 var goalDetail = document.querySelector(".goalDetails");
 var stat = goalR["goal_status"];
@@ -45,7 +50,13 @@ var tracking = document.getElementsByClassName("goalTracking");
 tracking[0].textContent += goalR["tracking_method"];
 
 var mentor = document.getElementsByClassName("goalMentor");
-mentor[0].textContent += goalR["mentor_id"];
+if (goalR["mentor_id"] == null) {
+  mentor[0].textContent += "no mentor";
+}
+else{
+  // mentor[0].textContent += goalR["mentor_id"];
+  mentor[0].textContent += getNameRes["name"] + " (" + getNameRes["email"] + ")";
+}
 
 var percentSymbol = "%";
 var percent = goalR["goal_progress"].concat(percentSymbol);
@@ -64,3 +75,9 @@ startDate.textContent += goalR["goal_start_date"];
 
 var endDate = document.getElementById("endDate");
 endDate.textContent += goalR["goal_due_date"];
+
+var url = "action-main.html?goal_name=" + goalR["goal_title"] + "&goal_id=" + goalR["goal_id"];
+console.log(url);
+var link = document.querySelector("#apLink");
+link.href = url;
+console.log(link.href);

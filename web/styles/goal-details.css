@@ -29,16 +29,18 @@
 }
 
 #detail .photoFrame {
-  width: 350px;
-  height: 250px;
+  width: auto;
+  height: auto;
   border: 2px solid #ccc;
+  border-radius: 1.8rem;
   background: #eee;
   margin: auto;
-  padding: 10px 8px;
+  padding: 8px 8px;
   display: inline-block;
 }
 
 #detail img {
+  border-radius: 1.6rem;
   width: 100%;
   height: 100%;
 }
@@ -164,7 +166,7 @@
   margin-left: 0.8em;
 }
 
-.btn {
+#detail .btn {
   text-transform: uppercase;
   text-align: center;
   vertical-align: bottom;
@@ -176,20 +178,25 @@
   line-height: 1.5;
   color: #fff;
   margin: 0.4rem;
+  border-radius: 0.6rem;
 }
 
-.btn:hover {
+#detail .btn:hover {
   box-shadow: none;
   cursor: pointer;
   color: #fff;
 }
 
-.btn-secondary {
+#detail .btn-secondary {
   color: #fff;
   background-color: #b23cfd;
 }
 
-.editBtn {
+#detail .updateProgressBtn {
+  background-color: rgb(107, 233, 229);
+}
+
+#detail .editBtn {
   color: #fff;
   background-color: #0dcaf0;
 }
@@ -204,5 +211,31 @@
 
 .modal-title {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
+}
+
+.modal .btn {
+  text-transform: uppercase;
+  text-align: center;
+  vertical-align: bottom;
+  border: 0;
+  box-shadow: 0 4px 7px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);
+  font-weight: 500;
+  padding: 0.7rem 1.6rem 0.6rem;
+  font-size: 0.8em;
+  line-height: 1.5;
+  color: #fff;
+  margin: 0.4rem;
+  border-radius: 0.6rem;
+}
+
+.modal .btn:hover {
+  box-shadow: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.modal .btn-secondary {
+  color: #fff;
+  background-color: #b23cfd;
 }

@@ -1,6 +1,8 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-$ap_id = $_GET["id"];
+$goal_name = $_GET["goal_name"];
+$goal_id = $_GET["goal_id"];
+$ap_id = $_GET["ap_id"];
 $sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";
 $result = $conn -> query($sql);
 $row = $result -> fetch_array();
@@ -9,6 +11,11 @@ $title = $row["ap_title"];
 $start = $row["ap_start_date"];
 $due = $row["ap_due_date"];
 $image = $row["ap_image"];
+$sql = "SELECT * FROM goal WHERE goal_id = $goal_id";
+$result = $conn -> query($sql);
+$row = $result -> fetch_assoc();
+$startConstraint = $row["goal_start_date"];
+$dueConstraint = $row["goal_due_date"];
 $conn -> close();
 ?>
 <!DOCTYPE html>
@@ -74,7 +81,8 @@ $conn -> close();
               id="action-plan-start-date"
               name="ap_start_date"
               <?php echo "value=$start" ?>
-            />
+              <?php echo "min=$startConstraint" ?>
+            >
           </div>
           <div class="mb-3">
             <label for="action-plan-due-date" class="form-label">
@@ -86,7 +94,8 @@ $conn -> close();
               id="action-plan-due-date"
               name="ap_due_date"
               <?php echo "value=$due" ?>
-            />
+              <?php echo "max=$dueConstraint" ?>
+            >
           </div>
           <div class="mb-3">
             <label for="action-plan-image" class="form-label">

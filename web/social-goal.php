@@ -22,21 +22,36 @@
       <div class="container">
         <div class="row">
           <?php
+          require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
           
-          //back button
           echo '
-          <form action="./social.php" method="GET">
-          <button type="submit" class="col-2 ms-3 mb-3 btn btn-warning shadow-sm rounded-3">
-              <span class="text-secondary">
-                <<< </span> Back to Social
-          </button>
-          </form>'
+          <!-- back button -->
+          <div class="col-6">
+            <form action="./social.php" method="GET">
+              <button type="submit" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3">
+                <span class="text-secondary">
+                  <<< </span> Back to Social
+              </button>
+            </form>
+          </div>
+          <div class="col-6 pe-4">
+            <form class="float-end">
+              <span class="fs-5">Sort by:</span>
+              <input type="button" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3 sort-progress" value="'.str_replace('_', ' ', $_GET['valueP']).'">
+              </input>
+              <input type="button" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3 sort-date" value="'.str_replace('_', ' ', $_GET['valueD']).'">
+              </input>
+              <input type="hidden" class="progressSort" name="progress" value='.$_GET['orderP'].'>
+              <input type="hidden" class="dateSort" name="date" value='.$_GET['orderD'].'>
+              <input type="hidden" class="userID" name="userID" value='.$_GET['userID'].'>
+              <input type="hidden" class="role" name="role" value='.$_GET['role'].'>
+            </form>
+          </div>';
           ?>
+
         </div>
         <div class="row m-2">
           <?php
-            session_start();
-            
             $otherID = $_GET['userID'];
             $role = $_GET['role'];
             $userID = json_decode($_SESSION['auth'],true)['user_id'];
@@ -50,9 +65,17 @@
             function generateGoalList($role, $menteeID, $mentorID){
               require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");   
 
-              $stmt = $conn->prepare(
-                "SELECT * from goal WHERE mentee_id = ? AND mentor_id = ?"
-              );
+              if($_GET['sort'] == "date"){
+                $sortMethod = "goal_due_date";
+                $order = $_GET['orderD'];
+              } 
+              else{
+                $sortMethod = "goal_progress";
+                $order = $_GET['orderP'];
+              }
+              
+              $sql = "SELECT * from goal WHERE mentee_id = ? AND mentor_id = ? ORDER BY ".$sortMethod." ".$order;
+              $stmt = $conn->prepare($sql);
               $stmt->bind_param("ii", $menteeID, $mentorID);
               $stmt->execute();
               $result = $stmt->get_result();
@@ -61,9 +84,8 @@
                 $dueDate = date("d-m-Y", strtotime($row['goal_due_date']));
                 echo '<div class="col-md-4">
                           <div class="goal1">
-                            <a href="social-actionplan.php?userID='.$_GET['userID'].'&goalID='.$row['goal_id'].'&role='.$role.'" class="remove-hyperlink">
+                            <a href="social-actionplan.php?userID='.$_GET['userID'].'&goalID='.$row['goal_id'].'&role='.$role.'&orderD=ASC&valueD=Earliest_Due" class="remove-hyperlink">
                               <div class="card">
-                                <span class="material-icons-sharp">outlined_flag</span>
                                 <div class="middle">
                                   <div class="left">
                                     <h3>'.$row['goal_title'].'</h3>
@@ -95,6 +117,7 @@
   </div>
   </div>
   <script src="./js/authListener.js"></script>
+  <script src="./js/socialGoal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
   </script>
