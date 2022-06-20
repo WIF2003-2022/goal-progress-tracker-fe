@@ -25,12 +25,19 @@
 
   $priority = $_POST["stars"];
 
-  date_default_timezone_set('Asia/Kuala_Lumpur');
-  $timestamp = date("Y-m-d H:i:s",time());
+  $sql = "SELECT * FROM activity WHERE a_id = $a_id";
+  $result = $conn -> query($sql);
+  $row = $result -> fetch_assoc();
+  $click = $row["a_click"];
+
+  $difference = date_diff(new DateTime($start), new DateTime($due), true);
+  $daysDiff = $difference -> days;
+  $maxClick = ceil(($daysDiff)/$day)*$time;
+  $complete = round(1/$maxClick*$click*100*100)/100;
   
-  $sql = "UPDATE activity SET a_start_date=?, a_due_date=?, a_title=?, a_description=?, a_times=?, a_days=?, a_priority=?, a_reminder=? WHERE a_id=?";
+  $sql = "UPDATE activity SET a_start_date=?, a_due_date=?, a_title=?, a_description=?, a_times=?, a_days=?, a_priority=?, a_reminder=?, a_complete=?, a_max_click=? WHERE a_id=?";
   $stmt = $conn -> prepare($sql);
-  $stmt -> bind_param ("ssssssiii", $start, $due, $title, $description, $time, $day, $priority, $reminder, $a_id);
+  $stmt -> bind_param ("ssssssiidii", $start, $due, $title, $description, $time, $day, $priority, $reminder, $complete, $maxClick, $a_id);
   $stmt -> execute();
 
   $recentsql = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`, `action`) 

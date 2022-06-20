@@ -30,7 +30,7 @@
   $difference = date_diff(new DateTime($start), new DateTime($due), true);
   $daysDiff = $difference -> days;
   $click = 0;
-  $maxClick = ceil(($daysDiff+1)/$day)*$time;
+  $maxClick = ceil(($daysDiff)/$day)*$time;
 
   
   $sql = "INSERT INTO activity (ap_id, a_timestamp, a_start_date, a_due_date, a_title, a_description, a_times, a_days, a_priority, a_reminder, a_complete, a_click, a_max_click) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
