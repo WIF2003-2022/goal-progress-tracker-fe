@@ -40,6 +40,93 @@ var modalHTML = `
           </div>
 `;
 
+var newAjax = new XMLHttpRequest();
+var newURL = "activity-action-main-data.php?ap_id=" + queryID;
+newAjax.open(method, newURL, asyn);
+newAjax.send();
+newAjax.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    var data = JSON.parse(this.responseText);
+    console.log(data);
+    var elem = document.querySelector(".ap");
+    for (i = 0; i < data.length; i++) {
+      elem.innerHTML +=
+        `<ul><li class="card text-center mb-2 style="width:auto;"">
+                    <div class="card-header text-start">Start Date: ${data[i].ap_start_date}<span class="float-end text-danger">Due Date: ${data[i].ap_due_date}</span></div>
+                    <div class="card-body">
+                      <h5 class="card-title">` +
+        data[i].ap_title +
+        `</h5>
+                    <div class="card-footer">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="text-start">Due</div>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-start">Complete</div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="progress">
+                            <div
+                              class="progress-bar bg-danger progress-bar-striped progress-bar-animated due"
+                              role="progressbar"
+                              aria-valuenow="` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: ` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `%"
+                            >
+                            ` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `%
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="progress">
+                            <div
+                              class="progress-bar bg-success progress-bar-striped progress-bar-animated avgPercentage"
+                              role="progressbar"
+                              aria-valuenow="` +
+        0 +
+        `"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: ` +
+        0 +
+        `%"
+                            >
+                            ` +
+        0 +
+        `%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  </ul>
+      `;
+    }
+  }
+  function calculateDue(start_date, due_date) {
+    var diff = Math.floor(
+      ((new Date().valueOf() - new Date(start_date).valueOf()) /
+        (new Date(due_date).valueOf() - new Date(start_date).valueOf())) *
+        100
+    );
+    if (diff < 0) {
+      return 0;
+    } else if (diff > 100) return 100;
+    else return diff;
+  }
+};
+
 ajax.open(method, url, asyn);
 ajax.send();
 ajax.onreadystatechange = function () {
@@ -53,7 +140,9 @@ ajax.onreadystatechange = function () {
       "activity-add.php?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
     html.innerHTML += "<ul>";
+    var totalPercentage = 0;
     for (i = 0; i < data.length; i++) {
+      totalPercentage += parseFloat(data[i].a_complete);
       html.innerHTML +=
         `
       <li class="card text-center mb-2">
@@ -161,6 +250,14 @@ ajax.onreadystatechange = function () {
       else return diff;
     }
 
+    //AP progress
+    var avgPercentage = Math.floor((totalPercentage / data.length) * 100) / 100;
+    var elem = document.querySelector(".avgPercentage");
+    console.log(elem);
+    elem.ariaValueNow = avgPercentage;
+    elem.style.width = String(avgPercentage) + "%";
+    elem.innerText = String(avgPercentage) + "%";
+
     //star function
     var elem = document.querySelectorAll(".star");
     for (let i = 0; i < elem.length; i++) {
@@ -249,8 +346,7 @@ ajax.onreadystatechange = function () {
       });
     }
   }
+  function showModal() {
+    modal.show();
+  }
 };
-
-function showModal() {
-  modal.show();
-}
