@@ -70,17 +70,7 @@ ajax.onreadystatechange = function () {
         ` time(s) per ` +
         data[i].a_days +
         ` day(s)</p>
-                      <div class="mb-3">
-                        <script>
-                          for (j = 0; j < ` +
-        data[i].a_priority +
-        `; j++) {
-                            document.write(
-                              "<i class='bi-star-fill' style='color: red; font-size: 2vw'></i>"
-                            );
-                          }
-                        </script>
-                      </div>
+                      <div class="mb-3 star"></div>
                       <a href="activity-edit.php?ap_name=${queryName}&ap_id=${queryID}&a_id=${data[i].a_id}" style="text-decoration: none">
                         <button style="border: none; background: none">
                           <i class="bi-pencil" style="font-size: 2vw"></i>
@@ -171,6 +161,15 @@ ajax.onreadystatechange = function () {
       else return diff;
     }
 
+    //star function
+    var elem = document.querySelectorAll(".star");
+    for (let i = 0; i < elem.length; i++) {
+      for (let j = 0; j < data[i].a_priority; j++) {
+        elem[i].innerHTML +=
+          "<i class='bi-star-fill' style='color: red; font-size: 2vw'></i>";
+      }
+    }
+
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
     var key = document.querySelector(".deleteButton");
@@ -178,9 +177,7 @@ ajax.onreadystatechange = function () {
       elem[i].addEventListener("click", function (e) {
         showModal();
         let id = elem[i]["name"];
-        //var x = this.closest("li");
         key.addEventListener("click", function () {
-          //x.remove();
           location.href = "activity-delete.php?a_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
@@ -195,15 +192,15 @@ ajax.onreadystatechange = function () {
     for (let i = 0; i < elem.length; i++) {
       if (fail[i].ariaValueNow <= 0) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>TO BE STARTED</strong>";
+          "<strong style='color:gold'>TO BE STARTED</strong>";
         continue;
       }
       if (fail[i].ariaValueNow >= 100) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>FAILED</strong>";
+          "<strong style='color:red'>FAILED</strong>";
       } else if (pass[i].ariaValueNow == 100) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>COMPLETED</strong>";
+          "<strong style='color:green'>COMPLETED</strong>";
       }
       if (
         data[i].a_click <
@@ -229,7 +226,7 @@ ajax.onreadystatechange = function () {
           var x = this.closest("li").querySelector(".finish");
           a = parseFloat(x.ariaValueNow);
           b = parseFloat((1 / data[i].a_max_click) * 100);
-          c = Math.floor(a + b, 2);
+          c = parseFloat(Math.floor((a + b) * 100) / 100);
           x.ariaValueNow = c;
           x.style.width = c + "%";
           x.innerText = c + "%";
