@@ -14,6 +14,11 @@ $time = $row["a_times"];
 $day = $row["a_days"];
 $reminder = $row["a_reminder"];
 $priority = $row["a_priority"];
+$sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";
+$result = $conn -> query($sql);
+$row = $result -> fetch_assoc();
+$startConstraint = $row["ap_start_date"];
+$dueConstraint = $row["ap_due_date"];
 $conn -> close();
 ?>
 
@@ -81,11 +86,11 @@ $conn -> close();
             <label for="activity-start-date" class="form-label"
               >Start Date
             </label>
-            <input type="date" class="form-control" id="activity-start-date" name="a_start_date" <?php echo "value=$start" ?>/>
+            <input type="date" class="form-control" id="activity-start-date" name="a_start_date" <?php echo "value=$start"?> <?php echo "min=$startConstraint" ?>>
           </div>
           <div class="mb-5">
             <label for="activity-due-date" class="form-label"> Due Date </label>
-            <input type="date" class="form-control" id="activity-due-date" name="a_due_date" <?php echo "value=$due" ?>/>
+            <input type="date" class="form-control" id="activity-due-date" name="a_due_date" <?php echo "value=$due" ?> <?php echo "max=$dueConstraint" ?>>
           </div>
           <div class="mb-5">
             <label for="activity-frequency" class="form-label">

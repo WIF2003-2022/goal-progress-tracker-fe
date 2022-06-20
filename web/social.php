@@ -58,9 +58,9 @@
             while ($recent = $result->fetch_assoc()){
               $count++; 
               if ($recent['r_type'] == "comment") {
-                $field = 'Comment';
+                $field = 'Activity';
                 $select = 'activity.a_id, activity.a_title';
-                $where = 'activity.a_id'; 
+                $where = 'comment.comment_id'; 
                 $title = 'a_title';
               }else if($recent['r_type'] == "activity"){
                 $field = 'Activity';
@@ -94,7 +94,9 @@
               $stmt1->bind_param("ii",$userID,$userID);
               $stmt1->execute();
               $result1 = $stmt1->get_result();
-              $updateField = $result1->fetch_assoc();
+              $updateField = $result1->fetch_assoc(); 
+              $rTitle = $updateField[$title];            
+                
 
               //join all tables coantaining goals related to user
               $stmt2 = $conn->prepare(
@@ -106,12 +108,13 @@
 
               $rUser = $otherData['name'];
               $rTime = $recent['timestamp'];
-              $rTitle = $updateField[$title];
+
+              
 
               //determine what action to display in recent
               if ($recent['r_type'] == "comment") {
                 $rContent = 'commented on<span class="theme-color">'.$field.'</span><span class="fst-italic">'.$rTitle.'</span>';
-              }else if($recent['r_type'] == "activity" || $recent['r_type'] == "action_plan" || $recent['action'] == "add" || $recent['r_type'] == "goal"){
+              }else if($recent['r_type'] == "activity" || $recent['r_type'] == "action_plan" || $recent['r_type'] == "goal"){
                 if($recent['action'] == "add"){
                   $rContent = 'added new<span class="theme-color">'.$field.'</span><span class="fst-italic">'.$rTitle.'</span>';
                 }else{

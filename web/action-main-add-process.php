@@ -1,8 +1,9 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+  $userID = json_decode($_SESSION['auth'],true)['user_id'];
   $goal_name = $_GET["goal_name"];
   $goal_id = $_GET["goal_id"];
-  $ap_id = $_GET["ap_id"];
   $title = $_POST["ap_title"];
   $start = $_POST["ap_start_date"];
   $due = $_POST["ap_due_date"];
@@ -10,7 +11,7 @@
   $img_size = $_FILES["ap_image"]["size"];
   $condtion = $due < $start;
   if($due < $start) {
-    header("Location: action-main-add.html?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error2");
+    header("Location: action-main-add.php?goal_name=$goal_name&goal_id=$goal_id&error2");
     exit();
   }
   if($img_size > 0){
@@ -30,7 +31,7 @@
       }
     }
     else {
-      header("Location: action-main-add.html?goal_name=$goal_name&goal_id=$goal_id&ap_id=$ap_id&error1");
+      header("Location: action-main-add.php?goal_name=$goal_name&goal_id=$goal_id&error1");
       exit();
     }
   }
@@ -45,6 +46,12 @@
   $stmt = $conn -> prepare($sql);
   $stmt -> bind_param ("isssss", $goal_id, $timestamp, $start, $due, $title, $en_image);
   $stmt -> execute();
+
+  $lastId = mysqli_insert_id($conn);
+  $recentsql = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`, `action`) 
+                    values('action_plan', '$userID', '$lastId', 'add')";
+  mysqli_query($conn,$recentsql);
+
   $stmt -> close();
   $conn -> close();
   header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");

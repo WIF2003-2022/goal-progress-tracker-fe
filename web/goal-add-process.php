@@ -35,10 +35,27 @@ else{
   else {
     echo '<script>alert("Email Not Found")</script>';
   }
+  $queryMentor = "SELECT `user_id` FROM `user` WHERE email='$mentor' OR name='$mentor'";
+  $res = mysqli_query($conn, $queryMentor);
+  $mentor = $res->fetch_assoc();
+  $mentorId = $mentor['user_id'];
+  $addsql = "INSERT INTO `goal` (`mentee_id`,`mentor_id`,`goal_title`,`goal_target`,`goal_description`,`goal_category`,`goal_status`,`goal_progress`,`tracking_method`,`goal_start_date`,`goal_due_date`) 
+                    values ('$mentee', '$mentorId', '$title','$target', '$description','$category', '$status', '$progress', '$tracking', '$startDate', '$endDate' )";
+  $currTimestamp = date('Y-m-d H:i:s', time());
+  session_start();
+  $user = json_decode($_SESSION['auth']);
+  $text = "$user->name invited you to mentor him/her on $title";
+  $addNotification = "INSERT INTO `notification`(`n_text`, `n_timestamp`, `n_status`, `user_id`) VALUES ('$text','$currTimestamp','1','$mentorId')";
+  mysqli_query($conn,$addNotification);
 }
 
 $addquery= mysqli_query($conn,$addsql);
+
 $lastId = mysqli_insert_id($conn);
+$recentsql = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`, `action`) 
+                    values('goal', '$mentee', '$lastId', 'add')";
+                    
+mysqli_query($conn,$recentsql);
 
 if($addquery ==true){
   $data = array(
