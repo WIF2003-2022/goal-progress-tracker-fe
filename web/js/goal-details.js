@@ -83,5 +83,5 @@ var urlAp =
   goalR["goal_id"];
 console.log(urlAp);
 var linkAp = document.querySelector("#apLink");
-linkAp.href = url;
-console.log(linkAp.href);
+linkAp.href = urlAp;
+console.log(location.href);
