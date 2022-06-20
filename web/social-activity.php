@@ -121,7 +121,7 @@
 
               //find due progress
               date_default_timezone_set('Asia/Kuala_Lumpur');
-              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+              $currentDate = date_create(strval(date('y-m-d H:i:s'))); 
               $sDate = date_create($row['a_start_date']); 
               $dDate = date_create($row['a_due_date']); 
 

@@ -14,7 +14,7 @@ if (!$user) {
 // for each goal, find its action plans
 // for each action plan, find its activities
 
-$actionplan = "SELECT goal.goal_id, ap.ap_id, activity.a_id, goal.goal_status, goal.goal_title, goal.goal_start_date, goal.goal_due_date, ap.ap_title, activity.a_title, activity.a_progress FROM `action plan` AS ap INNER JOIN goal ON ap.goal_id = goal.goal_id INNER JOIN activity ON ap.ap_id = activity.ap_id WHERE mentee_id = $user->user_id;";
+$actionplan = "SELECT goal.goal_id, ap.ap_id, activity.a_id, goal.goal_status, goal.goal_title, goal.goal_start_date, goal.goal_due_date, ap.ap_title, activity.a_title, activity.a_complete FROM `action plan` AS ap INNER JOIN goal ON ap.goal_id = goal.goal_id INNER JOIN activity ON ap.ap_id = activity.ap_id WHERE mentee_id = $user->user_id;";
 $queryResult = $conn -> query($actionplan);
 $result = $queryResult -> fetch_all(MYSQLI_ASSOC);
 
@@ -42,7 +42,7 @@ foreach ($result as $goal) {
     $currActivity = array(
         "a_id" => $goal['a_id'],
         "a_title" => $goal['a_title'],
-        "a_progress" => $goal["a_progress"],
+        "a_complete" => $goal["a_complete"],
     );
     array_push($goals[$goal['goal_id']]['action_plans'][$goal['ap_id']]['activities'], $currActivity);
 }

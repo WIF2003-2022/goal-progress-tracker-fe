@@ -3,4 +3,5 @@
   if ($_SESSION['auth'] == null) {
     header("Location: ./login.php");
   }
+  session_write_close();
 ?>

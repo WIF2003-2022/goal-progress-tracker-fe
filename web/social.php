@@ -33,7 +33,6 @@
             require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
             require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
 
-            $count = 0;
             $userID = json_decode($_SESSION['auth'],true)['user_id'];   
 
             //select top 10 recent activities
@@ -56,7 +55,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             while ($recent = $result->fetch_assoc()){
-              $count++; 
+
               if ($recent['r_type'] == "comment") {
                 $field = 'Activity';
                 $select = 'activity.a_id, activity.a_title';
@@ -124,7 +123,7 @@
               
               //display recent activities period
               date_default_timezone_set('Asia/Kuala_Lumpur');
-              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+              $currentDate = date_create(strval(date('y-m-d H:i:s'))); 
               $modifyDate = date_create($rTime);
               $difference = date_diff($currentDate, $modifyDate); 
               $year = strval($difference->y);
@@ -133,6 +132,7 @@
               $hour = strval($difference->h);
               $minute = strval($difference->i);
               $second = strval($difference->s);
+ 
               if ($year > 0) {
                 $unit = ($year == 1) ?  " year ago" : " years ago";
                 $period = $year.$unit;
@@ -212,6 +212,7 @@
                 $count = 0;
                 $preID = 0;
                 $looped = false;
+                $lastRow = false;
                 $goalCount = 1;
                 $trigger = false;
                 $userID = json_decode($_SESSION['auth'],true)['user_id'];
@@ -227,6 +228,7 @@
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
+                $rowCount = $result->num_rows;
                 
                 while ($row = $result->fetch_assoc()) {
 
@@ -240,6 +242,12 @@
                     $preID = $row['goal_id'];
                     array_push($goalArr,$row['goal_id']);
                     $htmlLine .= '<p class="card-text text-secondary fst-italic">'.$row['goal_title'].'</p>';
+                    if($rowCount == $count)
+                    {
+                      $htmlLine .= 
+                    '</div><div class="card-footer"><small class="text-muted">Total goals: '.$goalCount.'</small></div></div></a></div>';
+                      $lastRow = true;
+                    }
                     continue;
                   }   
                   if(($goalCount > 1 && $row['goal_id'] != $preID) || ($count != 1 && !$trigger)){
@@ -275,7 +283,7 @@
                   $trigger = false;  
                   $preID = $row[$field1];
                 }
-                ($looped) ? $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>': null;         
+                ($looped && !$lastRow) ? $htmlLine .= '</div><div class="card-footer"><small class="text-muted">Total goal: 1</small></div></div></a></div>': null;         
                 echo $htmlLine;
               }
             ?>

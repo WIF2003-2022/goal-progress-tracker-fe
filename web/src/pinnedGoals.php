@@ -4,7 +4,7 @@ session_start();
 $user = json_decode($_SESSION['auth']);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $queryGoals = "SELECT goal.goal_id,goal_title,goal_progress,GROUP_CONCAT( `action plan`.`ap_title`) as `action_plans`,goal_pinned 
-  FROM goal LEFT JOIN `action plan` ON `action plan`.`goal_id`=goal.goal_id WHERE mentee_id=35 GROUP BY goal_id";
+  FROM goal LEFT JOIN `action plan` ON `action plan`.`goal_id`=goal.goal_id WHERE mentee_id=$user->user_id GROUP BY goal_id";
   $res = mysqli_query($conn, $queryGoals);
   $goals = $res -> fetch_all(MYSQLI_ASSOC); 
   $goalsArr = array();
