@@ -45,6 +45,7 @@
                   $goalR = mysqli_fetch_assoc($goalRes);
                     
                   mysqli_free_result($goalRes);
+                  $apIDRes;
 
                   $mentorID = $goalR['mentor_id'];
                   $getNameRes = null;
@@ -283,6 +284,7 @@
 
         });
     });
+
       
       // function to update goal progress (by outcome) into the table and database, '#updateOutcome' is the id of the form
       $(document).on('submit', '#updateOutcome', function(e) {
@@ -394,6 +396,26 @@
 
         }
 
+      });
+
+      
+    // function of view activity button, 
+    $(document).on('click', '#viewActivity', function(event) {
+      event.preventDefault();
+      console.log("View activity button is clicked");
+      var id = <?php echo json_encode($id); ?>;
+      if(<?php echo json_encode(isset($apIDRes)); ?>){
+        var apIDRes = <?php echo json_encode($apIDRes); ?>;
+        var urlActivity = "activity.html?ap_name=" + apIDRes["ap_title"] + "&ap_id=" + apIDRes["ap_id"];
+        console.log(urlActivity);
+        var linkActivity = document.querySelector("#viewActivity");
+        location.href = urlActivity;
+        console.log(location.href);
+      }
+      else{
+        alert("No Activity Found. Please add activity to the respective action plans");
+      }
+       
       });
 
       // function of Update Goal Progress button, show the modal form
@@ -576,8 +598,8 @@
               Go complete the activities scheduled and update the activities as completed to update your goal progress.
             </p>
             <div class="text-end">
-            <button type="button" id="syncActivity" class="btn btn-warning">Sync Activity Progress</button>
-              <button type="button" class="btn btn-primary">View Activity</button>
+              <button type="button" id="syncActivity" class="btn btn-warning">Sync Activity Progress</button>
+              <a id="viewActivity" href="" class="btn btn-primary">View Activity</a>
             </div>
           </div>
           <div class="modal-footer">
