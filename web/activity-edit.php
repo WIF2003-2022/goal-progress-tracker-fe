@@ -86,11 +86,11 @@ $conn -> close();
             <label for="activity-start-date" class="form-label"
               >Start Date
             </label>
-            <input disabled type="date" class="form-control" id="activity-start-date" name="a_start_date" <?php echo "value=$start"?> <?php echo "min=$startConstraint" ?>>
+            <input type="date" class="form-control" id="activity-start-date" name="a_start_date" <?php echo "value=$start"?> <?php echo "min=$startConstraint" ?>>
           </div>
           <div class="mb-5">
             <label for="activity-due-date" class="form-label"> Due Date </label>
-            <input disabled type="date" class="form-control" id="activity-due-date" name="a_due_date" <?php echo "value=$due" ?> <?php echo "max=$dueConstraint" ?>>
+            <input type="date" class="form-control" id="activity-due-date" name="a_due_date" <?php echo "value=$due" ?> <?php echo "max=$dueConstraint" ?>>
           </div>
           <div class="mb-5">
             <label for="activity-frequency" class="form-label">
@@ -99,7 +99,6 @@ $conn -> close();
             <div class="row">
               <div class="col-3">
                 <input
-                  disabled
                   type="number"
                   class="form-control activity-frequency"
                   id="activity-frequency-number"
@@ -111,7 +110,6 @@ $conn -> close();
               <div class="col-2"></div>
               <div class="col-3">
                 <input
-                  disabled
                   type="number"
                   class="form-control activity-frequency"
                   id="activity-frequency-day"

@@ -112,11 +112,10 @@ ajax.onreadystatechange = function () {
     //delete funtion
     var elem = document.querySelectorAll(".deleteAP");
     var key = document.querySelector(".deleteButton");
-    console.log({ elemLen: elem.length });
     for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
-        const id = e.target.name;
+        let id = elem[i]["name"];
         key.addEventListener("click", function () {
           location.href = "action-main-delete.php?ap_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
