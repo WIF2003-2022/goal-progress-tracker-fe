@@ -13,7 +13,7 @@ require @realpath(dirname(__FILE__) . "/config/databaseConn.php");
   <title>Profile</title>
   <link rel="stylesheet" href="./styles/profile.css" />
   <link rel="stylesheet" href="./styles/index.css" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> -->
   <!--social media icons-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
