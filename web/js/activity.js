@@ -173,7 +173,6 @@ ajax.onreadystatechange = function () {
 
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
-    console.log(elem);
     var key = document.querySelector(".deleteButton");
     for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
