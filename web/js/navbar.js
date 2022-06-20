@@ -157,14 +157,16 @@ class NavBar extends HTMLElement {
       document.querySelector("#profilePic").src =
         getPhoto.response ?? "images/default-user.png";
     };
-    document.querySelector(".noti-dropdown").addEventListener("hidden.bs.dropdown", () => {
-      const updateNotification = new XMLHttpRequest();
-      updateNotification.open("POST", "./src/handleNotifications.php");
-      updateNotification.send();
-      updateNotification.onload = () => {
-        this.fetchNotification();
-      };
-    });
+    document
+      .querySelector(".noti-dropdown")
+      .addEventListener("hidden.bs.dropdown", () => {
+        const updateNotification = new XMLHttpRequest();
+        updateNotification.open("POST", "./src/handleNotifications.php");
+        updateNotification.send();
+        updateNotification.onload = () => {
+          this.fetchNotification();
+        };
+      });
     this.fetchNotification();
   }
 
@@ -184,7 +186,9 @@ class NavBar extends HTMLElement {
           unread++;
         }
         listItem.innerHTML = `
-        <a href="#" class="dropdown-item">
+        <a href="./social-goal.php?userID=${
+          notification.mentee_id
+        }&role=Mentor&sort=date&orderD=ASC&orderP=ASC&valueD=Earliest_Due&valueP=Least_Progress" class="dropdown-item">
           <div class="d-flex w-100 align-items-center">
             <span class="bg-info rounded-circle notification-icon">
               <i class="bi bi-info-circle"></i>
