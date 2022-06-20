@@ -288,15 +288,15 @@ class NavBar extends HTMLElement {
         break;
       case "social-goal.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Goal";
+        pageTitleElem.textContent = "Goals";
         break;
       case "social-actionplan.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Action Plan";
+        pageTitleElem.textContent = "Action Plans";
         break;
       case "social-activity.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Activity";
+        pageTitleElem.textContent = "Activities";
         break;
       case "profile.php":
         pageTitleElem.textContent = "Profile";
