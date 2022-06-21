@@ -384,7 +384,6 @@
                 var json = JSON.parse(data);
                 var status = json.status;
                 if (status == 'true') {
-                  $('#updateOutcomeModal').modal('hide');
                   window.location.reload();
                 } else {
                   alert('failed');
@@ -392,7 +391,7 @@
               }
             });
           } else {
-            alert('Fill all the required fields');
+            alert('No Progress In Activity Yet. Go Complete the Activities');
           }
 
         }

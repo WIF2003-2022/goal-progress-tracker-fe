@@ -84,4 +84,4 @@ var urlAp =
 console.log(urlAp);
 var linkAp = document.querySelector("#apLink");
 linkAp.href = urlAp;
-console.log(location.href);
+console.log(linkAp.href);
