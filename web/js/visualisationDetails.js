@@ -1,17 +1,17 @@
 $(document).ready(() => {
-  const generateActivity = ({ a_title, a_progress = "0" }) =>
+  const generateActivity = ({ a_title, a_complete = "0" }) =>
     `<li>
     ${a_title}
     <div class="progress">
       <div
         class="progress-bar progress-bar-striped progress-bar-animated"
         role="progressbar"
-        style="width: ${a_progress}%"
-        aria-valuenow="${a_progress}"
+        style="width: ${a_complete}%"
+        aria-valuenow="${a_complete}"
         aria-valuemin="0"
         aria-valuemax="100"
       >
-        ${a_progress}%
+        ${a_complete}%
       </div>
     </div>
   </li>`;
