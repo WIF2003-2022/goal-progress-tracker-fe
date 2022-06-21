@@ -45,5 +45,5 @@
 
   $stmt -> close();
   $conn -> close();
-  header("Location: activity.html?ap_name=$ap_name&ap_id=$ap_id");
+  header("Location: activity.php?ap_name=$ap_name&ap_id=$ap_id");
 ?>

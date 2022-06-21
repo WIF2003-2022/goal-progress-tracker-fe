@@ -407,7 +407,7 @@
       var id = <?php echo json_encode($id); ?>;
       if(<?php echo json_encode(isset($apIDRes)); ?>){
         var apIDRes = <?php echo json_encode($apIDRes); ?>;
-        var urlActivity = "activity.html?ap_name=" + apIDRes["ap_title"] + "&ap_id=" + apIDRes["ap_id"];
+        var urlActivity = "activity.php?ap_name=" + apIDRes["ap_title"] + "&ap_id=" + apIDRes["ap_id"];
         console.log(urlActivity);
         var linkActivity = document.querySelector("#viewActivity");
         location.href = urlActivity;

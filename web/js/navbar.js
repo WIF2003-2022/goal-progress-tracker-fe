@@ -86,7 +86,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="./visualisation.html"
+          href="./visualisation.php"
           data-bs-toggle="tooltip"
           title="Report"
         >
@@ -246,11 +246,11 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goal Details";
         break;
-      case "action-main.html":
+      case "action-main.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Action Plans";
         break;
-      case "activity.html":
+      case "activity.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Activities";
         break;
@@ -270,11 +270,11 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Edit Activities";
         break;
-      case "visualisation.html":
+      case "visualisation.php":
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Report";
         break;
-      case "visualisation-details.html":
+      case "visualisation-details.php":
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Details";
         break;

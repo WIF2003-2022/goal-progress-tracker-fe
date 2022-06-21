@@ -88,7 +88,7 @@ ajax.onreadystatechange = function () {
                     />
                     <div class="card-body" style="line-height: 1em;">
                       <a
-                        href="activity.html?ap_name=${data[i].ap_title}&ap_id=${data[i].ap_id}" 
+                        href="activity.php?ap_name=${data[i].ap_title}&ap_id=${data[i].ap_id}" 
                         style="text-decoration: none; font-size: 1.5vw;"
                         class="card-text"
                         >` +

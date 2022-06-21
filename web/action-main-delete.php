@@ -16,5 +16,5 @@
   $result = $conn -> query($sql);
   $row = $result -> fetch_assoc();
   $goal_name = $row["goal_title"];
-  header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");
+  header("Location: action-main.php?goal_name=$goal_name&goal_id=$goal_id");
 ?>
