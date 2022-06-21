@@ -72,7 +72,7 @@
 
             if (isset($_POST['aID']) && isset($_POST['activity'.$_POST['aID']])){
               date_default_timezone_set('Asia/Kuala_Lumpur');
-              $date = strval(date('y-m-d h:i:s'));
+              $date = strval(date('y-m-d H:i:s'));
 
               // update database
               $aID = $_POST['aID'];
