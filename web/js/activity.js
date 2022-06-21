@@ -70,7 +70,7 @@ newAjax.onreadystatechange = function () {
                         <div class="col-6">
                           <div class="progress">
                             <div
-                              class="progress-bar bg-danger progress-bar-striped progress-bar-animated due"
+                              class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
                               role="progressbar"
                               aria-valuenow="` +
         calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
@@ -290,20 +290,20 @@ ajax.onreadystatechange = function () {
 
     //complete function
     var elem = document.querySelectorAll(".tick");
+    var progress = document.querySelectorAll(".complete");
     var fail = document.querySelectorAll(".due");
     var pass = document.querySelectorAll(".finish");
 
     for (let i = 0; i < elem.length; i++) {
       if (fail[i].ariaValueNow <= 0) {
-        elem[i].closest("li").querySelector(".complete").innerHTML =
+        progress[i].innerHTML =
           "<strong style='color:gold'>TO BE STARTED</strong>";
-        continue;
       }
       if (fail[i].ariaValueNow >= 100) {
-        elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong style='color:red'>FAILED</strong>";
-      } else if (pass[i].ariaValueNow == 100) {
-        elem[i].closest("li").querySelector(".complete").innerHTML =
+        progress[i].innerHTML = "<strong style='color:red'>FAILED</strong>";
+      }
+      if (pass[i].ariaValueNow == 100) {
+        progress[i].innerHTML =
           "<strong style='color:green'>COMPLETED</strong>";
       }
       if (
