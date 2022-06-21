@@ -67,7 +67,7 @@
                       <div class="goalContent">
                         <div class="goalDescription">Description : </div>
                         <div class="goalCategory">Category : </div>
-                        <div class="goalTracking">Mehtod Used to Track Goals : </div>
+                        <div class="goalTracking">Method Used to Track Goals : </div>
                         <div class="goalMentor">Mentor : </div>
                       </div>
                     </div>
