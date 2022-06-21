@@ -40,6 +40,7 @@ template.innerHTML = `
           <img
             class="avatar"
             id="profilePic"
+            src="images/default-user.png"
           />
         </button>
         <ul class="dropdown-menu dropdown-menu-end" style="width:200px">
@@ -154,11 +155,10 @@ class NavBar extends HTMLElement {
     getPhoto.open("GET", "./src/getPhoto.php");
     getPhoto.send();
     getPhoto.onload = function () {
-      let photo = "./images/default-user.png";
-      if (getPhoto.response.photo && getPhoto.response.photo.length !== 0) {
-        photo = getPhoto.response.photo;
+      const photo = getPhoto.response.photo;
+      if (!!photo && photo.length !== 0) {
+        document.querySelector("#profilePic").src = photo;
       }
-      document.querySelector("#profilePic").src = photo;
     };
     document
       .querySelector(".noti-dropdown")
