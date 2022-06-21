@@ -1,5 +1,6 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
   $userID = json_decode($_SESSION['auth'],true)['user_id'];
   $goal_name = $_POST["goal_name"];
   $goal_id = $_POST["goal_id"];
