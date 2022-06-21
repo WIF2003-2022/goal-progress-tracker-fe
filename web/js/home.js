@@ -212,11 +212,11 @@ function fetchReminders() {
   })
     .done((reminders) => {
       let count = 0;
+      const today = new Date(new Date().setHours(0, 0, 0, 0));
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
       processActivities(reminders).forEach((reminder) => {
         const startDate = new Date(reminder.start);
-        const today = new Date();
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
         if (today <= startDate) {
           const listItem = document.createElement("div");
           listItem.classList.add(
@@ -335,7 +335,7 @@ function renderCalendar(activities) {
       right: "next",
     },
     footerToolbar: {
-      right: "dayGridMonth,timeGridDay,listWeek",
+      right: "dayGridMonth,dayGridWeek,listWeek",
     },
     initialView: "dayGridMonth",
     events: activities,
