@@ -1,6 +1,5 @@
 <?php
   include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
-  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
   $userID = json_decode($_SESSION['auth'],true)['user_id'];
   $goal_name = $_POST["goal_name"];
   $goal_id = $_POST["goal_id"];
@@ -22,7 +21,7 @@
     $allowed_exs = array("jpg", "jpeg", "png");  
     if(in_array($img_ex_lc, $allowed_exs)) {
       $new_img_name = uniqid("IMG-", true).".".$img_ex_lc;
-      $img_upload_path = "uploads/".$new_img_name;
+      $img_upload_path = "src/uploads/".$new_img_name;
       move_uploaded_file($tmp_name, $img_upload_path);
       $image_base64 = base64_encode(file_get_contents($img_upload_path));
       $en_image = "data:image/".$img_ex_lc.";base64,".$image_base64;
@@ -52,5 +51,5 @@
 
   $stmt -> close();
   $conn -> close();
-  header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");
+  header("Location: action-main.php?goal_name=$goal_name&goal_id=$goal_id");
 ?>

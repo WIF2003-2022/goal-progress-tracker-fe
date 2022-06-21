@@ -52,10 +52,10 @@ tracking[0].textContent += goalR["tracking_method"];
 var mentor = document.getElementsByClassName("goalMentor");
 if (goalR["mentor_id"] == null) {
   mentor[0].textContent += "no mentor";
-}
-else{
+} else {
   // mentor[0].textContent += goalR["mentor_id"];
-  mentor[0].textContent += getNameRes["name"] + " (" + getNameRes["email"] + ")";
+  mentor[0].textContent +=
+    getNameRes["name"] + " (" + getNameRes["email"] + ")";
 }
 
 var percentSymbol = "%";
@@ -76,8 +76,12 @@ startDate.textContent += goalR["goal_start_date"];
 var endDate = document.getElementById("endDate");
 endDate.textContent += goalR["goal_due_date"];
 
-var url = "action-main.html?goal_name=" + goalR["goal_title"] + "&goal_id=" + goalR["goal_id"];
-console.log(url);
-var link = document.querySelector("#apLink");
-link.href = url;
-console.log(link.href);
+var urlAp =
+  "action-main.php?goal_name=" +
+  goalR["goal_title"] +
+  "&goal_id=" +
+  goalR["goal_id"];
+console.log(urlAp);
+var linkAp = document.querySelector("#apLink");
+linkAp.href = urlAp;
+console.log(location.href);

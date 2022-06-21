@@ -1,7 +1,12 @@
 <?php
 require_once @realpath(dirname(__FILE__) .'/services/findUser.php');
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!isset($_POST['_token']) || $_POST['_token'] !== $_SESSION['_token']) {
+    http_response_code(403);
+    die("Invalid CSRF token");
+  }
   if (!isset($_POST['id']) || !isset($_POST['password']) || $_POST['id'] == '' || $_POST['password'] == '') {
     http_response_code(400);
     die("Email or username and password could not be empty");
@@ -14,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = findUserByEmailOrUsername($conn, $id);
   
     if ($user && password_verify($password, $user['password_hash']) && $user['verified']) {
-      session_start();
       $_SESSION['auth'] = json_encode($user);
       echo json_encode($user);
     } else {

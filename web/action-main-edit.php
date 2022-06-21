@@ -1,5 +1,7 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+
 $goal_name = $_GET["goal_name"];
 $goal_id = $_GET["goal_id"];
 $ap_id = $_GET["ap_id"];
@@ -68,8 +70,8 @@ $conn -> close();
               class="form-control"
               id="action-plan-title"
               name="ap_title"
-              <?php echo "value=$title" ?>
-            />
+              value="<?php echo $title?>"
+            >
           </div>
           <div class="mb-3">
             <label for="action-plan-start-date" class="form-label" name>

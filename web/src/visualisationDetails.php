@@ -42,7 +42,7 @@ foreach ($result as $goal) {
     $currActivity = array(
         "a_id" => $goal['a_id'],
         "a_title" => $goal['a_title'],
-        "a_progress" => $goal["a_complete"],
+        "a_complete" => $goal["a_complete"],
     );
     array_push($goals[$goal['goal_id']]['action_plans'][$goal['ap_id']]['activities'], $currActivity);
 }

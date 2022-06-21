@@ -86,7 +86,7 @@ template.innerHTML = `
         </a>
         <a
           class="nav-link"
-          href="./visualisation.html"
+          href="./visualisation.php"
           data-bs-toggle="tooltip"
           title="Report"
         >
@@ -157,14 +157,16 @@ class NavBar extends HTMLElement {
       document.querySelector("#profilePic").src =
         getPhoto.response ?? "images/default-user.png";
     };
-    document.querySelector(".noti-dropdown").addEventListener("hidden.bs.dropdown", () => {
-      const updateNotification = new XMLHttpRequest();
-      updateNotification.open("POST", "./src/handleNotifications.php");
-      updateNotification.send();
-      updateNotification.onload = () => {
-        this.fetchNotification();
-      };
-    });
+    document
+      .querySelector(".noti-dropdown")
+      .addEventListener("hidden.bs.dropdown", () => {
+        const updateNotification = new XMLHttpRequest();
+        updateNotification.open("POST", "./src/handleNotifications.php");
+        updateNotification.send();
+        updateNotification.onload = () => {
+          this.fetchNotification();
+        };
+      });
     this.fetchNotification();
   }
 
@@ -184,7 +186,9 @@ class NavBar extends HTMLElement {
           unread++;
         }
         listItem.innerHTML = `
-        <a href="#" class="dropdown-item">
+        <a href="./social-goal.php?userID=${
+          notification.mentee_id
+        }&role=Mentor&sort=date&orderD=ASC&orderP=ASC&valueD=Earliest_Due&valueP=Least_Progress" class="dropdown-item">
           <div class="d-flex w-100 align-items-center">
             <span class="bg-info rounded-circle notification-icon">
               <i class="bi bi-info-circle"></i>
@@ -234,31 +238,27 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goals";
         break;
-      case "goal-add.html":
+      case "goal-add-main.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Add New Goals";
-        break;
-      case "goal-edit.html":
-        this.setActiveTab("Goals");
-        pageTitleElem.textContent = "Edit Goal";
         break;
       case "goal-details.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goal Details";
         break;
-      case "action-main.html":
+      case "action-main.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Action Plans";
         break;
-      case "activity.html":
+      case "activity.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Activities";
         break;
-      case "action-main-add.html":
+      case "action-main-add.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Add Action Plans";
         break;
-      case "action-main-edit.html":
+      case "action-main-edit.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Edit Action Plans";
         break;
@@ -270,11 +270,11 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Edit Activities";
         break;
-      case "visualisation.html":
+      case "visualisation.php":
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Report";
         break;
-      case "visualisation-details.html":
+      case "visualisation-details.php":
         this.setActiveTab("Report");
         pageTitleElem.textContent = "Details";
         break;
@@ -284,15 +284,15 @@ class NavBar extends HTMLElement {
         break;
       case "social-goal.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Goal";
+        pageTitleElem.textContent = "Goals";
         break;
       case "social-actionplan.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Action Plan";
+        pageTitleElem.textContent = "Action Plans";
         break;
       case "social-activity.php":
         this.setActiveTab("Social");
-        pageTitleElem.textContent = "Activity";
+        pageTitleElem.textContent = "Activities";
         break;
       case "profile.php":
         pageTitleElem.textContent = "Profile";

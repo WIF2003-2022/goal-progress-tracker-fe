@@ -1,5 +1,7 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+
 $ap_name = $_GET["ap_name"];
 $ap_id = $_GET["ap_id"];
 $sql = "SELECT * FROM `action plan` WHERE ap_id = $ap_id";

@@ -1,4 +1,9 @@
+<?php 
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+?>
+
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,7 +34,7 @@
           <!-- main -->
           <div class="main">
             <div id="details">
-              <a href="visualisation-details.html" class="button"
+              <a href="visualisation-details.php" class="button"
                 >View details</a
               >
             </div>

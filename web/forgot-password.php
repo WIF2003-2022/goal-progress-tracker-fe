@@ -1,3 +1,13 @@
+<?php 
+  session_start();
+  if (isset($_SESSION['auth'])) {
+    header("Location: ./index.php");
+    die();
+  }
+  $_SESSION['_token'] = bin2hex(random_bytes(16));
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,6 +58,7 @@
             id="forgot-password-form"
             novalidate
           >
+            <input type="hidden" name="_token" value="<?php echo $_SESSION['_token'];?>">
             <div class="row align-items-center mb-3">
               <div class="col-11">
                 <input

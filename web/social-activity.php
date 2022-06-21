@@ -29,16 +29,7 @@
           require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");          
           require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
           
-          //back button
-           
-          // $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
-
-          // if($pageWasRefreshed ) {
-          //   echo "refreshed";
-          // } else {
-          //   echo "no refresh";
-          // }
-        
+          //display back button
           $stmt = $conn->prepare(
             "SELECT goal_id from `action plan` WHERE ap_id = ?"
           );
@@ -93,10 +84,10 @@
               );
               $stmt3->bind_param("isis", $aID, $cText, $cID, $time);
               $stmt3->execute();
-              $lastId = mysqli_insert_id($conn);
-              $stmt4 = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`) VALUES ('comment','$userID','$lastId')";
+
+              $stmt4 = "INSERT INTO `recent` (`r_type`, `user_id`, `updated_id`) VALUES ('comment','$userID','$aID')";
               mysqli_query($conn,$stmt4);
-              header('Location: '.$_SERVER['REQUEST_URL']);
+              header('Location: '.$_SERVER['REQUEST_URI']);
               die();
             }     
             // unset($_POST['aID']);
@@ -121,17 +112,14 @@
 
               //find due progress
               date_default_timezone_set('Asia/Kuala_Lumpur');
-              $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
-              $sDate = date_create($row['a_start_date']); 
-              $dDate = date_create($row['a_due_date']); 
+              $currentDate = time(); 
+              $sDate = strtotime($row['a_start_date']); 
+              $dDate = strtotime(($row['a_due_date'])); 
 
-              $difference1 = date_diff($sDate, $dDate); 
-              $difference2 = date_diff($sDate, $currentDate); 
+              $passedDay = $currentDate - $sDate;
+              $totalDay = $dDate - $sDate;
 
-              $totalDay = $difference1->d;
-              $passedDay = $difference2->d;
-
-              $duePercentage = $passedDay * 100 / $totalDay;
+              $duePercentage = floor($passedDay * 100 / $totalDay);
               
               //prevent percentage over 100
               if($duePercentage > 100){
@@ -177,8 +165,8 @@
                   <div class="col-6">
                     <div class="progress">
                       <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                        75%
+                        aria-valuenow="'.$row['a_complete'].'" aria-valuemin="0" aria-valuemax="100" style="width: '.$row['a_complete'].'%">
+                        '.$row['a_complete'].'%
                       </div>
                     </div>
                   </div>
@@ -214,7 +202,7 @@
 
                 //display comment period
                 date_default_timezone_set('Asia/Kuala_Lumpur');
-                $currentDate = date_create(strval(date('y-m-d h:i:s'))); 
+                $currentDate = date_create(strval(date('y-m-d H:i:s'))); 
                 $commentDate = date_create($row1['timestamp']);
                 $difference = date_diff($currentDate, $commentDate); 
                 $year = strval($difference->y);

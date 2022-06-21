@@ -1,3 +1,7 @@
+<?php
+  require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,6 +54,7 @@
               ></a>
             </div>
           </div>
+          <div class="row align-items-center ap"></div>
           <div class="row starting"></div>
           <div>
             <script src="./js/activity.js"></script>

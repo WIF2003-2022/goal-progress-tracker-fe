@@ -6,7 +6,12 @@ require_once @realpath(dirname(__FILE__) .'/services/generateEmailVerificationLi
 require "../../loadEnvVar.php";
 require @realpath(dirname(__FILE__) . "/services/checkIsSetAndNotEmpty.php");
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if (!isset($_POST['_token']) || $_POST['_token'] !== $_SESSION['_token']) {
+    http_response_code(403);
+    die("Invalid CSRF token");
+  }
   if (!checkIsSetAndNotEmpty($_POST, ['username', 'email', 'password'])) {
     http_response_code(400);
     die("Some of the fields are not provided.");

@@ -211,6 +211,7 @@ function fetchReminders() {
     data: { data: "reminders" },
   })
     .done((reminders) => {
+      let count = 0;
       processActivities(reminders).forEach((reminder) => {
         const startDate = new Date(reminder.start);
         const today = new Date();
@@ -226,7 +227,7 @@ function fetchReminders() {
             "align-items-center"
           );
           listItem.innerHTML = `
-            <a class="flex-grow-1" href="./activity.html?ap_id=${reminder.ap_id}">
+            <a class="flex-grow-1" href="./activity.php?ap_id=${reminder.ap_id}">
               <div class="d-flex flex-column">
                 <h5 class="mb-1">${reminder.title}</h5>
                 <p class="mb-1">${reminder.description}</p>
@@ -250,7 +251,8 @@ function fetchReminders() {
             document
               .querySelector("#tomorrow > .list-group")
               .appendChild(listItem);
-          } else {
+          } else if (count < 5) {
+            count++;
             document
               .querySelector("#upcoming > .list-group")
               .appendChild(listItem);
@@ -289,7 +291,7 @@ function fetchActivities() {
     });
 }
 
-function processActivities(activities){
+function processActivities(activities) {
   const data = [];
   activities.forEach((activity) => {
     let duration = parseInt(activity.a_days) / parseInt(activity.a_times);
@@ -313,7 +315,7 @@ function processActivities(activities){
           title: activity.a_title,
           start: start.toISOString().split("T")[0],
           end: end.toISOString().split("T")[0],
-          description: activity.a_description
+          description: activity.a_description,
         });
         start = new Date(end.getTime());
       }

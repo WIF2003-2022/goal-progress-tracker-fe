@@ -40,6 +40,99 @@ var modalHTML = `
           </div>
 `;
 
+var newAjax = new XMLHttpRequest();
+var newURL = "activity-action-main-data.php?ap_id=" + queryID;
+newAjax.open(method, newURL, asyn);
+newAjax.send();
+newAjax.onreadystatechange = function () {
+  if (this.readyState == 4 && this.status == 200) {
+    var data = JSON.parse(this.responseText);
+    console.log(data);
+    var elem = document.querySelector(".ap");
+    for (i = 0; i < data.length; i++) {
+      elem.innerHTML +=
+        `<ul><li class="card text-center mb-2 style="width:auto;"">
+                    <div class="card-header text-start">Start Date: ${data[i].ap_start_date}<span class="float-end text-danger">Due Date: ${data[i].ap_due_date}</span></div>
+                    <div class="card-body">
+                      <h5 class="card-title">` +
+        data[i].ap_title +
+        `</h5>
+                    <div class="card-footer">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="text-start">Due</div>
+                        </div>
+                        <div class="col-6">
+                          <div class="text-start">Complete</div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="progress">
+                            <div
+                              class="progress-bar bg-danger progress-bar-striped progress-bar-animated due"
+                              role="progressbar"
+                              aria-valuenow="` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: ` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `%"
+                            >
+                            ` +
+        calculateDue(data[i].ap_start_date, data[i].ap_due_date) +
+        `%
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="progress">
+                            <div
+                              class="progress-bar bg-success progress-bar-striped progress-bar-animated avgPercentage"
+                              role="progressbar"
+                              aria-valuenow="` +
+        totalPercentage(data[i].count, data[i].avg) +
+        `"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: ` +
+        totalPercentage(data[i].count, data[i].avg) +
+        `%"
+                            >
+                            ` +
+        totalPercentage(data[i].count, data[i].avg) +
+        `%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  </ul>
+      `;
+    }
+
+    function totalPercentage(count, avg) {
+      if (count > 0) {
+        return Math.floor(avg * 100) / 100;
+      } else return 0;
+    }
+  }
+  function calculateDue(start_date, due_date) {
+    var diff = Math.floor(
+      ((new Date().valueOf() - new Date(start_date).valueOf()) /
+        (new Date(due_date).valueOf() - new Date(start_date).valueOf())) *
+        100
+    );
+    if (diff < 0) {
+      return 0;
+    } else if (diff > 100) return 100;
+    else return diff;
+  }
+};
+
 ajax.open(method, url, asyn);
 ajax.send();
 ajax.onreadystatechange = function () {
@@ -52,10 +145,12 @@ ajax.onreadystatechange = function () {
     urlPath.parentNode.href =
       "activity-add.php?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
-    html.innerHTML += "<ul>";
+    //var totalPercentage = 0;
     for (i = 0; i < data.length; i++) {
+      //totalPercentage += parseFloat(data[i].a_complete);
       html.innerHTML +=
         `
+      <ul>
       <li class="card text-center mb-2">
                     <div class="card-header text-start">Start Date: ${data[i].a_start_date}<span class="float-end text-danger">Due Date: ${data[i].a_due_date}</span></div>
                     <div class="card-body">
@@ -70,17 +165,7 @@ ajax.onreadystatechange = function () {
         ` time(s) per ` +
         data[i].a_days +
         ` day(s)</p>
-                      <div class="mb-3">
-                        <script>
-                          for (j = 0; j < ` +
-        data[i].a_priority +
-        `; j++) {
-                            document.write(
-                              "<i class='bi-star-fill' style='color: red; font-size: 2vw'></i>"
-                            );
-                          }
-                        </script>
-                      </div>
+                      <div class="mb-3 star"></div>
                       <a href="activity-edit.php?ap_name=${queryName}&ap_id=${queryID}&a_id=${data[i].a_id}" style="text-decoration: none">
                         <button style="border: none; background: none">
                           <i class="bi-pencil" style="font-size: 2vw"></i>
@@ -151,9 +236,10 @@ ajax.onreadystatechange = function () {
                       </div>
                     </div>
                   </li>
+                </ul>
       `;
     }
-    html.innerHTML += "</ul>";
+
     html.innerHTML += modalHTML;
     modal = bootstrap.Modal.getOrCreateInstance(
       document.querySelector("#deleteModal")
@@ -171,17 +257,31 @@ ajax.onreadystatechange = function () {
       else return diff;
     }
 
+    //AP progress
+    // var avgPercentage = Math.floor((totalPercentage / data.length) * 100) / 100;
+    // var elem = document.querySelector(".avgPercentage");
+    // console.log(elem);
+    // elem.ariaValueNow = avgPercentage;
+    // elem.style.width = String(avgPercentage) + "%";
+    // elem.innerText = String(avgPercentage) + "%";
+
+    //star function
+    var elem = document.querySelectorAll(".star");
+    for (let i = 0; i < elem.length; i++) {
+      for (let j = 0; j < data[i].a_priority; j++) {
+        elem[i].innerHTML +=
+          "<i class='bi-star-fill' style='color: red; font-size: 2vw'></i>";
+      }
+    }
+
     //delete funtion
     var elem = document.querySelectorAll(".deleteAct");
-    console.log(elem);
     var key = document.querySelector(".deleteButton");
     for (let i = 0; i < elem.length; i++) {
       elem[i].addEventListener("click", function (e) {
         showModal();
         let id = elem[i]["name"];
-        //var x = this.closest("li");
         key.addEventListener("click", function () {
-          //x.remove();
           location.href = "activity-delete.php?a_id=" + id;
           this.closest("div").querySelector(".cancelButton").click();
         });
@@ -196,15 +296,15 @@ ajax.onreadystatechange = function () {
     for (let i = 0; i < elem.length; i++) {
       if (fail[i].ariaValueNow <= 0) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>TO BE STARTED</strong>";
+          "<strong style='color:gold'>TO BE STARTED</strong>";
         continue;
       }
       if (fail[i].ariaValueNow >= 100) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>FAILED</strong>";
+          "<strong style='color:red'>FAILED</strong>";
       } else if (pass[i].ariaValueNow == 100) {
         elem[i].closest("li").querySelector(".complete").innerHTML =
-          "<strong>COMPLETED</strong>";
+          "<strong style='color:green'>COMPLETED</strong>";
       }
       if (
         data[i].a_click <
@@ -230,7 +330,7 @@ ajax.onreadystatechange = function () {
           var x = this.closest("li").querySelector(".finish");
           a = parseFloat(x.ariaValueNow);
           b = parseFloat((1 / data[i].a_max_click) * 100);
-          c = Math.floor(a + b, 2);
+          c = parseFloat(Math.floor((a + b) * 100) / 100);
           x.ariaValueNow = c;
           x.style.width = c + "%";
           x.innerText = c + "%";
@@ -253,8 +353,7 @@ ajax.onreadystatechange = function () {
       });
     }
   }
+  function showModal() {
+    modal.show();
+  }
 };
-
-function showModal() {
-  modal.show();
-}
