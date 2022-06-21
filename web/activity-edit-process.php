@@ -34,6 +34,9 @@
   $daysDiff = $difference -> days;
   $maxClick = ceil(($daysDiff)/$day)*$time;
   $complete = round(1/$maxClick*$click*100*100)/100;
+  if($complete > 100) {
+    $complete = 100;
+  }
   
   $sql = "UPDATE activity SET a_start_date=?, a_due_date=?, a_title=?, a_description=?, a_times=?, a_days=?, a_priority=?, a_reminder=?, a_complete=?, a_max_click=? WHERE a_id=?";
   $stmt = $conn -> prepare($sql);
