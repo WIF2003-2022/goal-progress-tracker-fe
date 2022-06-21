@@ -238,13 +238,9 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Goals";
         break;
-      case "goal-add.html":
+      case "goal-add-main.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Add New Goals";
-        break;
-      case "goal-edit.html":
-        this.setActiveTab("Goals");
-        pageTitleElem.textContent = "Edit Goal";
         break;
       case "goal-details.php":
         this.setActiveTab("Goals");
@@ -258,11 +254,11 @@ class NavBar extends HTMLElement {
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Activities";
         break;
-      case "action-main-add.html":
+      case "action-main-add.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Add Action Plans";
         break;
-      case "action-main-edit.html":
+      case "action-main-edit.php":
         this.setActiveTab("Goals");
         pageTitleElem.textContent = "Edit Action Plans";
         break;
