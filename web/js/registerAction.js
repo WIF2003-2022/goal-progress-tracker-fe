@@ -1,6 +1,6 @@
 import { showError } from "./authValidateUtils.js";
 
-const destinationPage = "email-verification.html";
+const destinationPage = "email-verification.php";
 
 const form = document.getElementById("register-form");
 
