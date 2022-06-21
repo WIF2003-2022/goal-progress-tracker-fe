@@ -154,8 +154,11 @@ class NavBar extends HTMLElement {
     getPhoto.open("GET", "./src/getPhoto.php");
     getPhoto.send();
     getPhoto.onload = function () {
-      document.querySelector("#profilePic").src =
-        getPhoto.response ?? "images/default-user.png";
+      let photo = "./images/default-user.png";
+      if (getPhoto.response.photo && getPhoto.response.photo.length !== 0) {
+        photo = getPhoto.response.photo;
+      }
+      document.querySelector("#profilePic").src = photo;
     };
     document
       .querySelector(".noti-dropdown")
