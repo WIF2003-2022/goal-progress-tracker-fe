@@ -92,7 +92,7 @@
                                   </div>
                                   <div class="percentage">
                                     <svg>
-                                      <circle cx="38" cy="38" r="36"></circle>
+                                      <circle cx="38" cy="38" r="36" style="stroke-dasharray: 226; stroke-dashoffset: '.(226 *(1-$row['goal_progress']/100)).';"></circle>
                                     </svg>
                                     <div class="number">
                                       <p>'.$row['goal_progress'].'%</p>
