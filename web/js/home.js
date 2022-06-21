@@ -335,7 +335,7 @@ function renderCalendar(activities) {
       right: "next",
     },
     footerToolbar: {
-      right: "dayGridMonth,timeGridDay,listWeek",
+      right: "dayGridMonth,dayGridWeek,listWeek",
     },
     initialView: "dayGridMonth",
     events: activities,
