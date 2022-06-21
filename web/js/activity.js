@@ -93,16 +93,16 @@ newAjax.onreadystatechange = function () {
                               class="progress-bar bg-success progress-bar-striped progress-bar-animated avgPercentage"
                               role="progressbar"
                               aria-valuenow="` +
-        0 +
+        totalPercentage(data[i].count, data[i].avg) +
         `"
                               aria-valuemin="0"
                               aria-valuemax="100"
                               style="width: ` +
-        0 +
+        totalPercentage(data[i].count, data[i].avg) +
         `%"
                             >
                             ` +
-        0 +
+        totalPercentage(data[i].count, data[i].avg) +
         `%
                             </div>
                           </div>
@@ -112,6 +112,12 @@ newAjax.onreadystatechange = function () {
                   </li>
                   </ul>
       `;
+    }
+
+    function totalPercentage(count, avg) {
+      if (count > 0) {
+        return Math.floor(avg * 100) / 100;
+      } else return 0;
     }
   }
   function calculateDue(start_date, due_date) {
@@ -139,9 +145,9 @@ ajax.onreadystatechange = function () {
     urlPath.parentNode.href =
       "activity-add.php?ap_name=" + queryName + "&ap_id=" + queryID;
     var html = document.querySelector(".starting");
-    var totalPercentage = 0;
+    //var totalPercentage = 0;
     for (i = 0; i < data.length; i++) {
-      totalPercentage += parseFloat(data[i].a_complete);
+      //totalPercentage += parseFloat(data[i].a_complete);
       html.innerHTML +=
         `
       <ul>
@@ -252,12 +258,12 @@ ajax.onreadystatechange = function () {
     }
 
     //AP progress
-    var avgPercentage = Math.floor((totalPercentage / data.length) * 100) / 100;
-    var elem = document.querySelector(".avgPercentage");
-    console.log(elem);
-    elem.ariaValueNow = avgPercentage;
-    elem.style.width = String(avgPercentage) + "%";
-    elem.innerText = String(avgPercentage) + "%";
+    // var avgPercentage = Math.floor((totalPercentage / data.length) * 100) / 100;
+    // var elem = document.querySelector(".avgPercentage");
+    // console.log(elem);
+    // elem.ariaValueNow = avgPercentage;
+    // elem.style.width = String(avgPercentage) + "%";
+    // elem.innerText = String(avgPercentage) + "%";
 
     //star function
     var elem = document.querySelectorAll(".star");
