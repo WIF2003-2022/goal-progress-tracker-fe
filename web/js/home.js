@@ -227,7 +227,7 @@ function fetchReminders() {
             "align-items-center"
           );
           listItem.innerHTML = `
-            <a class="flex-grow-1" href="./activity.html?ap_id=${reminder.ap_id}">
+            <a class="flex-grow-1" href="./activity.php?ap_id=${reminder.ap_id}">
               <div class="d-flex flex-column">
                 <h5 class="mb-1">${reminder.title}</h5>
                 <p class="mb-1">${reminder.description}</p>

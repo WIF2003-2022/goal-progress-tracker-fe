@@ -29,6 +29,7 @@
     <?php 
     //require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");  
     require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+    require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
     // current user data already saved in session
     // so you can just retrieve them from the session
     session_start();
@@ -303,7 +304,7 @@
               </script>
 
               <!-- <div class="filterDiv active health goal1">
-                <a href="action-main.html?id=1" class="remove-hyperlink">
+                <a href="action-main.php?id=1" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -329,7 +330,7 @@
               <!--End of Goal No.1-->
 
               <!-- <div class="filterDiv active personal goal2">
-                <a href="action-main.html?id=2" class="remove-hyperlink">
+                <a href="action-main.php?id=2" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -354,7 +355,7 @@
               </div> -->
               <!--End of Goal No.2-->
               <!-- <div class="filterDiv accomplished health goal3">
-                <a href="action-main.html?id=3" class="remove-hyperlink">
+                <a href="action-main.php?id=3" class="remove-hyperlink">
                   <div class="card">
                     <span
                       class="material-icons-sharp"
@@ -383,7 +384,7 @@
               </div> -->
               <!--End of Goal No.3-->
               <!-- <div class="filterDiv failed personal goal4">
-                <a href="action-main.html?id=4" class="remove-hyperlink">
+                <a href="action-main.php?id=4" class="remove-hyperlink">
                   <div class="card">
                     <span
                       class="material-icons-sharp"
@@ -414,7 +415,7 @@
               <!--End of Goal No.4-->
 
               <!-- <div class="filterDiv active school goal5">
-                <a href="action-main.html?id=5" class="remove-hyperlink">
+                <a href="action-main.php?id=5" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">
@@ -491,7 +492,7 @@
             <!--  
             <div class="col-md-4">
               <div class="filterDiv failed personal goal4">
-                <a href="action-main.html?id=4" class="remove-hyperlink">
+                <a href="action-main.php?id=4" class="remove-hyperlink">
                   <div class="card">
                     <span
                       class="material-icons-sharp"
@@ -522,7 +523,7 @@
             <!--End of Goal No.4-->
             <!--
               <div class="filterDiv active school goal5">
-                <a href="action-main.html?id=5" class="remove-hyperlink">
+                <a href="action-main.php?id=5" class="remove-hyperlink">
                   <div class="card">
                     <span class="material-icons-sharp">outlined_flag</span>
                     <div class="middle">

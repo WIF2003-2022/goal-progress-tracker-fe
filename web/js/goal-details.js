@@ -77,7 +77,7 @@ var endDate = document.getElementById("endDate");
 endDate.textContent += goalR["goal_due_date"];
 
 var urlAp =
-  "action-main.html?goal_name=" +
+  "action-main.php?goal_name=" +
   goalR["goal_title"] +
   "&goal_id=" +
   goalR["goal_id"];

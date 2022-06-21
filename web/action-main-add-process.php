@@ -54,5 +54,5 @@
 
   $stmt -> close();
   $conn -> close();
-  header("Location: action-main.html?goal_name=$goal_name&goal_id=$goal_id");
+  header("Location: action-main.php?goal_name=$goal_name&goal_id=$goal_id");
 ?>

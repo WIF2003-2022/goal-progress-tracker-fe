@@ -11,5 +11,5 @@
   $result = $conn -> query($sql);
   $row = $result -> fetch_assoc();
   $ap_name = $row["ap_title"];
-  header("Location: activity.html?ap_name=$ap_name&ap_id=$ap_id");
+  header("Location: activity.php?ap_name=$ap_name&ap_id=$ap_id");
 ?>

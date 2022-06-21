@@ -1,5 +1,6 @@
 <?php
 include_once @realpath(dirname(__FILE__) . "/../web/config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
 $ap_name = $_GET["ap_name"];
 $a_id = $_GET["a_id"];
 $ap_id = $_GET["ap_id"];

@@ -1,3 +1,7 @@
+<?php
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
