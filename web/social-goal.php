@@ -37,9 +37,9 @@
           <div class="col-6 pe-4">
             <form class="float-end">
               <span class="fs-5">Sort by:</span>
-              <input type="button" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3 sort-progress" value="'.str_replace('_', ' ', $_GET['valueP']).'">
+              <input type="button" class="ms-3 mb-3 btn no-pressed shadow-sm rounded-3 sort-progress" value="'.str_replace('_', ' ', $_GET['valueP']).'">
               </input>
-              <input type="button" class="ms-3 mb-3 btn theme-yellow shadow-sm rounded-3 sort-date" value="'.str_replace('_', ' ', $_GET['valueD']).'">
+              <input type="button" class="ms-3 mb-3 btn no-pressed shadow-sm rounded-3 sort-date" value="'.str_replace('_', ' ', $_GET['valueD']).'">
               </input>
               <input type="hidden" class="progressSort" name="progress" value='.$_GET['orderP'].'>
               <input type="hidden" class="dateSort" name="date" value='.$_GET['orderD'].'>

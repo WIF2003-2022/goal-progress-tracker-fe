@@ -321,9 +321,13 @@
   background-color: #f9e90f;
 }
 
-.date-pressed {
+.no-pressed {
   background-color: gray;
 }
+
+.date-pressed {
+  background-color: #f9e90f;
+}
 .progress-pressed {
-  background-color: gray;
+  background-color: #f9e90f;
 }
