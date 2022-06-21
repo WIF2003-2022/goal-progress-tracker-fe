@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if (isset($_SESSION['auth'])) {
+    header("Location: ./index.php");
+    die();
+  }
+  $_SESSION['_token'] = bin2hex(random_bytes(16));
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
