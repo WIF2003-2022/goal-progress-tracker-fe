@@ -29,6 +29,7 @@
   <body>
     <?php
       require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+      require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
       // current user data already saved in session
       // so you can just retrieve them from the session
       session_start();

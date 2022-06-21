@@ -1,5 +1,6 @@
 <?php 
 require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
 $title = $_POST['title'];
 $target = $_POST['target'];
 $startDate = $_POST['startDate'];

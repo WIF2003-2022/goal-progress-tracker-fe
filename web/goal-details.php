@@ -30,6 +30,7 @@
   <?php 
     //require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");  
     require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+    require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
     ?>
     <div class="wrapper">
       <nav-bar></nav-bar>

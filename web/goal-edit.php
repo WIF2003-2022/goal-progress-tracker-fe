@@ -1,5 +1,6 @@
 <?php 
 require_once @realpath(dirname(__FILE__) . "/config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/src/services/checkAuthenticated.php");
 
 session_start();
 
