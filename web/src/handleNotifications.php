@@ -1,5 +1,5 @@
 <?php 
-require_once @realpath(dirname(__FILE__) . "../../config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/../config/databaseConn.php");
 session_start();
 $user = json_decode($_SESSION['auth']);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

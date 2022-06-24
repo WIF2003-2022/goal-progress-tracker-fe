@@ -1,5 +1,5 @@
 <?php
-require_once @realpath(dirname(__FILE__) . "../../config/databaseConn.php");
+require_once @realpath(dirname(__FILE__) . "/../config/databaseConn.php");
 session_start();
 $user = json_decode($_SESSION['auth']);
 $queryPhoto = "SELECT photo FROM user WHERE user_id=$user->user_id";
